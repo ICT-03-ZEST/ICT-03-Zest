@@ -1,0 +1,178 @@
+@charset "UTF-8";
+
+body {
+	width: 100%;
+}
+
+ul {
+	list-style: none;
+}
+
+section {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	padding: 0 50px;
+	margin: 0 auto;
+}
+
+/* 카테고리 메뉴*/
+/* 공연 카테고리 */
+.catgry_nav {
+	display: flex;
+	align-content: space-around;
+	justify-content: space-around;
+	width: 800px;
+	padding: 30px auto;
+	margin: 40px auto;
+	font-weight: bold;
+	display: flex;
+}
+
+.catgry_nav li {
+	margin: 0 35px;
+	color: orange;
+	font-size: 30px;
+}
+
+.catgry_nav li a, .festi_title {
+	text-decoration: none;
+	padding: 10px;
+	font-size: 30px;
+	font-weight: bold;
+	color: orange;
+}
+
+.catgry_nav li a:hover, .festi_title:hover {
+	background: orange;
+	padding: 5px;
+	border-radius: 4px;
+	color: #fff;
+	cursor: pointer;
+}
+
+/* 페스티벌 카테고리 */
+.festi_title {
+	color: orange;
+	font-weight: bold;
+	margin: auto;
+}
+
+.festi_menu {
+	margin: 30px 0;
+}
+
+/* 검색창 */
+.formBox {
+	width: 1400px;
+	display: flex;
+	justify-content: end;
+	margin: 0px auto;
+}
+
+.form_srch {
+	align-content: flex-end;
+}
+
+.formBox input::placeholder {
+	color: darksalmon;
+	font-size: 25px;
+}
+
+.formBox input {
+	border: none;
+	border: 1px solid #FF8C00;
+	color: black;
+	height: 45px;
+	padding: 5px;
+	font-size: 30px; 
+	
+}
+
+.formBox input:hover , .formBox input:focus {
+        border : 2px solid #FFEB46;
+	outline: none;
+}
+
+i {
+	position: relative;
+	left: -40px;
+	top: 2px;
+	color: #FF8C00;
+	font-size: 30px;
+}
+/* 검색창 끝 */
+.hr_line {
+	border: 2px solid orange;
+	width: 1400px;
+	margin-bottom: 0 auto 30px auto;
+}
+
+/* 공통 카테고리 - 포스터*/
+.photo_container {
+	margin: auto;
+	padding: 30px 0;
+}
+
+.photo_list {
+	display: flex;
+	align-content: space-around;
+	justify-content: space-around;
+	width: 1500px;
+	padding: 0px 30px;
+	margin: 0 auto;
+}
+
+.photo_box {
+	display: flex;
+	flex-direction: column;
+	background: #fff;
+	text-align: center;
+	margin: 20px 0;
+}
+
+.photo_box a {
+	text-decoration: none;
+}
+
+.photo img {
+	width: 300px;
+	height: 400px;
+	background-color: gray;
+	margin: 0 30px;
+}
+
+.photo:hover {
+	opacity: 30%;
+}
+
+/* 페이지버튼 */
+.btnNum {
+	width: 150px;
+	margin: 30px auto;
+	display: flex;
+}
+
+.btnNum button {
+	cursor: pointer;
+	background: orange;
+	border: 1px solid orange;
+	font-size: 15px;
+	padding: 5px 10px;
+	color: #fff;
+	margin: 1px;
+}
+
+.btnNum button:hover {
+	box-shadow: 0 0 5px black;
+}
+
+.btnNum button:nth-child(1) {
+	border-top-left-radius: 8px;
+	border-bottom-left-radius: 8px;
+}
+
+.btnNum button:nth-child(4) {
+	border-top-right-radius: 8px;
+	border-bottom-right-radius: 8px;
+}

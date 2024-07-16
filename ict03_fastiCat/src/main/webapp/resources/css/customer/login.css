@@ -1,0 +1,122 @@
+@charset "UTF-8";
+/* 공통 스타일 */
+
+/* 컨테이너와 콘텐츠의 기본 스타일 */
+#container {
+   width: 100%;
+   margin: 0 auto;
+}
+
+#contents {
+   max-width: 900px;
+   min-width: 900px;
+   width: 100%;
+   margin: 0 auto;
+}
+
+/* 공통적인 테이블 스타일 */
+.join th, .join td {
+    padding: 10px;
+    border-bottom: 1px solid #CCC;
+}
+
+/* 공통 입력 스타일 */
+.input {
+   width: 300px;
+   height: 40px; /* 로그인 페이지에 맞추어 통일 */
+   border: 1px solid gray;
+   box-sizing: border-box;
+   padding: 0 0 0 10px;
+}
+
+/* 공통 버튼 스타일 */
+.inputButton {
+   padding: 5px 10px;
+   font-size: 15px;
+   background: whitesmoke;
+   border-color: gray;
+}
+
+/* 반응형 웹 */
+@media (max-width: 600px) {
+    .input, .inputButton {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+/* 로그인 페이지 전용 스타일 */
+
+/* 상단 중앙 영역 */
+#section1 {
+   padding: 10px 20px 20px 0;
+   border-bottom: 5px solid #b1AEB7;
+}
+
+#section2 {
+   border-bottom: 5px solid #b1AEB7;
+}
+
+.s2_inner {
+   width: 100%;
+}
+
+/* 로그인 폼 스타일 */
+.join {
+   display: flex; /* 가로 배치 */
+   justify-content: center; /* 가운데 배치 */
+   align-items: center;
+   max-width: 900px;
+   margin: 40px 10px;
+   height: auto;
+}
+
+.join th {
+   font-size: 15px;
+   font-weight: bold;
+   width: 120px;
+   height: 60px;
+   text-align: center;
+   padding-right: 10px;
+   padding-left: 20px;
+   background: whitesmoke;
+   margin-right: 5px;
+}
+
+.join td {
+   padding: 10px 0 10px 10px;
+   border-bottom: 1px solid #CCC;
+}
+
+/* 로그인 버튼 스타일 */
+.join .inputButton {
+   padding: 5px 10px;
+   background: whitesmoke;
+   border-color: gray;
+}
+
+/* 아이디, 비밀번호 입력 스타일 */
+.input {
+   height: 40px; /* join.css 기준 */
+}
+
+/* 로그인 페이지 하단 스타일 */
+#searchfooter {
+   display: flex;
+   align-items: center;
+   height: 70px;
+}
+
+/* 검색 관련 스타일 */
+.searchSub {
+   height: 7px;
+}
+
+.row {
+   text-align: center;
+}
+
+/* 관리자의 링크 스타일 */
+a {
+   color: black;
+}

@@ -1,0 +1,121 @@
+@charset "UTF-8";
+.container_box {
+    display: flex;
+    justify-content: center; /* 가로 가운데 정렬 */
+    align-items: center; /* 세로 가운데 정렬 */
+    height: 100vh; /*높이를 100%로 설정*/
+}
+
+.board_list { /* 테이블 넓이 고정*/
+    width: 100%;
+    margin: 0 auto;
+}
+
+.board_list tr:nth-child(2),  .board_list tr:nth-child(3){
+    border: 1px solid rgb(110, 62, 62); 
+}
+
+.board_list th {
+    background: rgba(255, 166, 0, 0.603);
+    color: rgb(110, 62, 62);
+    font-weight: bold;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.board_list td {
+    font-size: 20px;
+    text-align: center;
+    padding: 10px;
+}
+
+.title label:hover {
+    cursor: pointer;
+}
+
+/* 체크박스 */
+
+.board_list th {
+    background: rgba(255, 166, 0, 0.603);
+    color: rgb(110, 62, 62);
+    font-weight: bold;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.board_list td {
+    font-size: 20px;
+    text-align: center;
+    padding: 10px;
+}
+
+.title label:hover {
+    cursor: pointer;
+}
+
+/* 글쓰기 태그 */
+.td_writing {
+    position: relative;
+    left: 40%;
+    padding-bottom: 10px;  
+}
+
+.write {
+    margin-left: 20px;
+    padding: 5px;
+    border: 3px solid rgb(110, 62, 62);
+    border-radius: 5px;
+    background: white;
+    font-size: 15px;
+    color: rgb(110, 62, 62);
+    font-weight: bold; 
+}
+.write:hover  {
+    box-shadow: 0 0 6px gray;
+    background: rgb(110, 62, 62);
+    color: white;
+    cursor: pointer;
+}
+
+.delete {
+    margin-left: 10px;
+    padding: 5px;
+    border: 3px solid grey;
+    border-radius: 5px;
+    background: white;
+    font-size: 15px;
+    color: grey;
+    font-weight: bold; 
+}
+
+.delete:hover  {
+    box-shadow: 0 0 6px gray;
+    background: grey;
+    color: white;
+    cursor: pointer;
+}
+
+ /* 마이페이지 돌아가기 버튼 */ 
+.td_backMyPage {
+    position: relative;
+    left: 45%;
+}
+.td_backMyPage div {
+    padding-top: 30px;
+}
+
+.btn_backmypage {
+    background: rgba(255, 166, 0, 0.603);
+    font-size: 15px;
+    border: none;
+    border-radius: 4px;
+    padding: 8PX;
+    color: white;
+    font-weight: bold; 
+    width: 100px;
+}
+
+.btn_backmypage:hover {
+    box-shadow: 0 0 6px goldenrod;
+    cursor: pointer;
+}

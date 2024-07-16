@@ -1,0 +1,84 @@
+@charset "UTF-8";
+
+body {
+    margin: 0;
+    padding: 20px;
+}
+
+.comment_section {
+    width: 550px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+.comment_list {
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+
+.comment {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.comment_form {
+    margin-top: 15px;
+}
+
+.comment_text {
+    margin: 0 0 5px 0;
+    margin-top: 15px;
+}
+
+.comment_date {
+    font-size: 0.9em;
+    color: #999;
+}
+
+/* 댓글 */
+h2 {
+    margin-top: 0;
+}
+
+/* 댓글입력란, 작성버튼 */
+.comment_form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    width: 600px;
+}
+
+.comment_form textarea {
+    width: 500px;
+    height: 100px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    font-size: 15px;
+}
+
+.comment_form textarea::placeholder {
+    font-size: 15px;
+}
+
+.comment_form button {
+    align-self: self-end;
+    margin-right: 80px;
+    padding: 10px 20px;
+    background-color: #FF8172;
+    border: none;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+
+}
+
+.comment_form button:hover {
+    background-color: #E65A47;
+}
+
