@@ -1,0 +1,86 @@
+@charset "UTF-8";
+body {
+    font-family: Arial, sans-serif;
+    
+}
+.t_container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    padding: 0 auto;
+}
+table {
+    width: 1200px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    margin: 50px 0;
+    border-bottom: 3px solid orange;
+}
+.t_head {
+    border-top:  3px solid orange;
+    background: white; 
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    height: 30px;
+}
+
+.t_body tr:hover {
+    background: #f1f1f1;
+} 
+
+.link_notice_content {
+    text-decoration: none;
+}
+
+.t_body tr td:nth-of-type(1) {
+    width: 40px;
+}
+
+.t_body tr td:nth-of-type(3) {
+    width: 100px;
+}
+
+.t_body tr td:nth-of-type(4) {
+    width: 50px;
+}
+
+
+
+
+
+
+/* 페이지버튼 */
+.btnNum {
+    width: 150px;
+    margin: 50px auto;
+    display: flex;
+    justify-content: center;
+}
+
+.btnNum button {
+    cursor: pointer;
+    background:  orange;
+    border: 1px solid orange;
+    font-size: 15px;
+    padding: 5px 10px;
+    color: black;
+    margin: 1px;
+}
+
+.btnNum button:hover {
+    box-shadow: 0 0  5px black;
+    
+}  
+
+.btnNum button:nth-child(1) {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.btnNum button:nth-child(4) {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}

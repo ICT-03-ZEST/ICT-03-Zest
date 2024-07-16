@@ -1,0 +1,37 @@
+@charset "UTF-8";
+
+.footer_info {
+	position: relative;
+	bottom: 0;
+	width: 100%;
+	height: auto;
+    background: linear-gradient( white 75%, orange 25%);   
+	opacity: 0.88;
+	align-items: flex-end;
+	margin-top: 100px;
+	padding: 10px 0px 20px 20px;
+}
+
+.footer_link li {
+	display: inline-block;
+	list-style: none;
+	padding: 0px 10px 0px 10px;
+	margin-left:  45px;
+	margin-right: 50px;
+	
+}
+
+.footer_link li a {
+	text-decoration: none;
+	color: white;
+}
+
+.footer_info_customer {
+	background-color: white;
+	opacity: 0.88;
+	color: black;
+	}
+
+.footer_info_company {
+	color: black;
+	}

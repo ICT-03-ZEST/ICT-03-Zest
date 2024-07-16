@@ -1,0 +1,93 @@
+@charset "UTF-8";
+
+/* border: 1px solid black; */
+
+h3 {
+    margin-bottom: 50px;
+}
+.inner {
+    border: 1px solid orange;
+    width: 1000px;
+    margin: 0 auto;
+}
+.title {
+    font-size: 25px;
+    padding-left: 30px; 
+    margin: 30px 0;
+    padding-bottom: 25px;
+    border-bottom: 1px solid orange;   
+}
+
+.content {
+    width: 800px;
+    padding-left: 30px; 
+    margin: 0 auto;
+    padding: auto;
+    line-height: 30px;
+}
+
+.author{
+	width: 1000px;
+	padding-left: 20px;
+	margin: 0 auto;
+	padding: auto;
+	text-align: right;
+}
+
+.inputButton{
+	border: 2px solid orange;
+	background-color: white;
+	width: 100px;
+	height: 50px;
+	font-size: 12px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 페이지버튼 */
+.btnNum {
+    width: 150px;
+    margin: 30px auto;
+    display: flex;
+}
+
+.btnNum button {
+    cursor: pointer;
+    background:  orange;
+    border: 1px solid orange;
+    font-size: 15px;
+    padding: 5px 10px;
+    color: #fff;
+    margin: 1px;
+}  
+
+.btnNum button:hover {
+    box-shadow: 0 0  5px black;
+    
+}  
+
+.btnNum button:nth-child(1) {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.btnNum button:nth-child(4) {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}

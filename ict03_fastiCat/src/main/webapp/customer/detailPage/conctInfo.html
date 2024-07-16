@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concert Information</title>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/category_board.css/category_Info.css">
+    <script src="https://kit.fontawesome.com/e3f7bcf3d6.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        
+        let num = 1;
+        function page_move(direct) { //이전/다음 공연 상세페이지
+            let line = document.getElementsByClassName("info").length;
+           
+          if(direct)  {
+            if(num >= line) return;
+            document.getElementById("detail"+num).style.display = 'none';
+            num++;
+            document.getElementById("detail"+num).style.display = 'block';
+          }
+          else {
+            if(num == 1) return;
+            document.getElementById("detail"+num).style.display = 'none';
+            num--;
+            document.getElementById("detail"+num).style.display = 'block';
+          }
+        }
+   
+        function page_back() { //목록 => 현재페이지의 이전페이지로 이동
+            history.back();
+        }
+
+
+
+    </script>
+</head>
+<body>
+   
+    <h3>공연정보</h3>
+    <div class="info" id="detail1">
+    <!--상세페이지1 시작-->
+    <h4>더 보이즈 콘서트</h4>
+    <hr>
+        <div class="info_box" >  
+                <!--포스터&예매버튼-->
+            <ul>
+                <li><div class="photo"><img src="../../resources/img/더보이즈.jpg"></div></li>
+                <li><div class="buy_ticket"><a href="http://ticket.yes24.com/New/Genre/GenreMain.aspx?genre=15456&Gcode=009_202_001" target="_blank">예매하기</a></div></li>
+            </ul>   
+                    
+            <!--상세 정보-->  
+            <table class="descript">
+                <tr>
+                    <th>관람연령 :</th>
+                    <td>만 7세 이상 (미취학아동입장불가)</td>
+                </tr>
+
+                <tr>
+                    <th>장소  :</th>
+                    <td>KSPO DOME(올림픽체조경기장)</td>
+                </tr>
+
+                <tr>
+                    <th>공연시간 :</th>
+                    <td>--</td>
+                </tr>
+
+                <tr>
+                    <th>관람시간 :</th>
+                    <td>--</td>
+                </tr>
+
+                <tr>
+                    <th>가격 :</th>
+                    <td>지정석 154,000원<br>
+                        FLOOR 154,000원
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>예매사이트 :</th>
+                    <td>예스24</td>
+                </tr>
+
+                <tr>
+                    <th>배송정보 :</th>
+                    <td>스마트티켓 티켓앤(ticketN)</td>
+                </tr>
+            </table>
+        </div>
+    <hr>
+    </div> <!--상세페이지1 끝-->
+
+     <!--상세페이지2 시작-->
+     <div  class="info" id="detail2">
+     <h4>데이식스 콘서트</h4>
+     <hr>
+        <div class="info_box" > 
+
+            <!--포스터&예매버튼-->
+            <ul>
+                <li><div class="photo"><img src="../../resources/img/데이식스.jpg"></div></li>
+                <li><div class="buy_ticket"><a href="http://ticket.yes24.com/New/Genre/GenreMain.aspx?genre=15456&Gcode=009_202_001" target="_blank">예매하기</a></div></li>
+            </ul>   
+
+             <!--상세 정보-->  
+            <table class="descript">
+                <tr>
+                    <th>관람연령 :</th>
+                    <td>만 7세 이상 (미취학아동입장불가)</td>
+                </tr>
+
+                <tr>
+                    <th>장소  :</th>
+                    <td>KSPO DOME(올림픽체조경기장)</td>
+                </tr>
+
+                <tr>
+                    <th>공연시간 :</th>
+                    <td>2024년 6월 21일(금) 오후 7시 <br>
+                        2024년 6월 22일(토) 오후 5시<br>
+                        2024년 6월 23일(일) 오후 4시
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>관람시간 :</th>
+                    <td>--</td>
+                </tr>
+
+                <tr>
+                    <th rowspan="2">가격 :</th>
+                    <td>지정석 110,000원</td>
+                </tr>
+                    
+                <tr>
+                    
+                </tr>
+
+                <tr>
+                    <th>예매사이트 :</th>
+                    <td>예스24</td>
+                </tr>
+
+                <tr>
+                    <th>배송정보 :</th>
+                    <td>모바일 티켓</td>
+                </tr>
+            </table>
+        </div>
+     <hr>
+    </div> <!--상세페이지2 끝-->
+
+      <!--상세페이지3 시작-->
+      <div  class="info" id="detail3">
+      <h4>에스파 콘서트</h4>
+      <hr>
+        <div class="info_box"> 
+            
+            <!--포스터&예매버튼-->
+            <ul>
+                <li><div class="photo"><img src="../../resources/img/에스파2.jpg"></div></li>
+                <li><div class="buy_ticket"><a href="http://ticket.yes24.com/New/Genre/GenreMain.aspx?genre=15456&Gcode=009_202_001" target="_blank">예매하기</a></div></li>
+            </ul>   
+
+            <table class="descript">
+                <tr>
+                    <th>관람연령 :</th>
+                    <td>만 7세 이상 (미취학아동입장불가)</td>
+                </tr>
+
+                <tr>
+                    <th>장소  :</th>
+                    <td>KSPO DOME(올림픽체조경기장)</td>
+                </tr>
+
+                <tr>
+                    <th>공연시간 :</th>
+                    <td>2024년 8월 16일(금) 오후 7시 <br>
+                        2024년 8월 17일(토) 오후 5시<br>
+                        2024년 8월 18일(일) 오후 4시
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>관람시간 : 4h</th>
+                    <td>--</td>
+                </tr>
+
+                <tr>
+                    <th rowspan="2">가격 :</th>
+                    <td> FLOOR 15,000원<br>
+                        지정석 160,000원<br>
+                            VIP석 180,000원
+                    </td>
+                </tr>
+                    
+                <tr>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <th>예매사이트 :</th>
+                    <td>예스24</td>
+                </tr>
+
+                <tr>
+                    <th>배송정보 :</th>
+                    <td>스마트티켓 티켓앤(ticketN)</td>
+                </tr>
+            </table>
+        </div>
+      <hr>
+    </div> <!--상세페이지3 끝-->
+
+    <!-- 목록 이동 -->
+    <div class="btnAll">
+        <ul>
+            <li class="listMove">
+                <table class="pre_next">
+                    <tr>
+                        <th><button class="detailBtn" id="pre" onclick="page_move(0)"><i class="fa-solid fa-angles-left"></i></button></th>
+                        <td><label for="pre">공연제목</label></td>
+                    </tr>
+
+                    <tr>
+                        <th><button class="detailBtn" id="next" onclick="page_move(1)"><i class="fa-solid fa-angles-right"></i></button></th>
+                        <td><label for="next">공연제목</label></td>
+                    </tr>
+                </table> 
+            </li> <!-- 목록 이동 끝-->
+
+            <!-- 목록으로 돌아가기 -->
+            <li class="btn_back_box">
+                <button class="btn_back" onclick="page_back()">목록</button>   
+            </li>
+        </ul>
+    </div>
+    
+
+
+
+</body>
+</html>
