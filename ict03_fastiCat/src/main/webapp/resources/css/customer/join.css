@@ -1,0 +1,78 @@
+@charset "UTF-8";
+/* login.css (join.css 복사해서 수정) */
+
+#container {
+   width: 100%;
+   margin: 0 auto;
+}
+
+#contents {
+   max-width: 900px;
+   min-width: 900px;
+   width: 100%;
+   margin: 0 auto;
+}
+
+#section1, #section2 {
+	padding: 10px 20px 20px 0;
+	border-bottom: 5px solid #b1AEB7;
+	
+}
+
+#s2_inner {
+	width: 100%;
+}
+
+.join {
+	display: flex;		/* 가로 배치 */
+	justify-content: center;	/* 가운데 배치(요소 여러개일때) */
+	align-items: center;
+	max-width: 900px;
+	margin: 20px 10px;
+}
+
+/* 1차 테스트 : 가운데 위치 테스트 */
+
+
+.join th {
+	font-size: 15px;
+	font-weight: bold;
+	width: 120px;
+	height: 30px;
+	text-align: center;
+	padding-right: 10px;
+	padding-left: 20px;
+	border-bottom: 1px solid #FFF;
+	background: whitesmoke;
+	margin-right: 5px;
+}
+
+
+.join td {
+
+	padding: 10px 0 10px 10px;
+	border-bottom: 1px solid #CCC;
+}
+
+.joinInput {
+	width: 300px;
+	height: 50px;
+	border: 1px solid gray;
+	box-sizing: border-box;
+	padding: 0 0 0 10px;
+}
+
+.joinInput2{
+	height:40px;	
+}
+.inputButton {
+	padding: 5px 10px 5px 10px;
+	font-size: 15px;
+	background: whitesmoke;
+	border-color: gray;	
+}
+
+#hpChk {
+	text-align: center;	/* 가운데 배치(요소 여러개일때) */
+	width:50px;
+}
