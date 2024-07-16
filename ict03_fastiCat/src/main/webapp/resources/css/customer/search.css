@@ -1,0 +1,86 @@
+@charset "UTF-8";
+/* join.css (main.css 복사해서 수정) */
+/* 컨테이너와 콘텐츠의 기본 스타일 */
+#container {
+   width: 100%;
+   margin: 0 auto;
+}
+
+#contents {
+   max-width: 1000px;
+   min-width: 1000px;
+   width: 100%;
+   margin: 0 auto;
+}
+#section1 {
+   padding: 10px 20px 20px 0;
+}
+
+#searchTable {
+	margin: 10px 130px;
+
+	}
+.table_div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0 auto;
+	left: 50%;
+}
+
+th {
+	font-size: 15px;
+	font-weight: bold;
+	width: 100px;
+	height: 60px;
+	text-align: center;
+	padding-right: 10px;
+	padding-left: 15px;
+	border-bottom: 1px solid #FFF;
+	background: whitesmoke;
+	margin-right: 2px;
+}
+
+td {
+	padding: 10px 0 10px 10px;
+	border-bottom: 1px solid #CCC;
+}
+
+#section2 {
+	border-bottom: 5px solid #b1AEB7;
+	display: flex;
+	justify-content: center;
+}
+
+#s2_inner {
+	width: 100%;
+}
+
+.searchSub {
+	height: 7px;
+}
+
+.row {
+	text-align: center;
+}
+
+.input {
+	width: 300px;
+	height: 70px;
+	box-sizing: border-box;
+	padding: 0 0 0 10px;
+}
+
+.inputButton {
+	padding: 5px 10px 5px 10px;
+	font-size: 15px;
+	background: white;
+	border-bottom: 1px solid gray;
+}
+
+#searchfooter {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 70px;
+}

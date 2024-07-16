@@ -1,0 +1,321 @@
+@charset "UTF-8";
+
+section {
+    display: flex;
+    justify-content: center; /*가로 가운데 정렬*/
+    margin-top: 100px;
+}
+li {
+    list-style: none;
+}
+
+.review_box {
+    width: 800px;
+    padding-top: 30px;
+    margin-bottom: 0;
+}
+
+.head {
+    display: flex;
+    flex-direction: row;
+    border-radius: 4px;
+    margin-bottom: 50px;
+    background: #fac8c87a;
+}
+
+.head ul {
+    display: flex;
+    flex-direction: row;
+}
+
+.category {
+    position: relative;
+    top: 50px;
+    left: 40%;
+    font-size: 25px;
+}
+
+.icon {
+    font-size: 70px;
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+.writer {   
+    width: 250px;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 25px;
+}
+
+.writer span {
+    margin-left: -10px;
+}
+
+.writer ul {
+    width: 500px;
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    margin-left: -30px;
+    padding: 0 10px 10px 10px;
+}
+
+.writer ul li {
+    margin: 10px;
+    font-size: 15px;
+    color: darkgrey;
+    padding-top: 10px;
+}
+
+#board_heart {
+	margin-right: 5px;
+}
+
+/* 이미지 & 텍스트 */
+.content_box {
+    margin: 0 auto;
+    width: 800px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    display: flex;
+    justify-content: center;
+}
+
+.content_box ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.content_box ul li {
+    width: 1000px;
+    text-align: center;
+    margin: 0 auto;
+}
+.content_text {
+    width: 1000px;
+}
+
+.content_box img {
+    width: 330px;
+    height: 250px;
+}
+
+/* 목록버튼 시작 */
+/* 버튼그룹  */
+.btnAll {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.btnAll ul {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+/* 목록이동버튼 */
+.listMove {
+    width: 160px;
+    height: 50px;
+    margin-right: 300px;
+}
+.pre_next td {
+    text-align: left;
+    font-size: 20px;
+    border: none;
+}
+
+.fa-solid {
+    border: none;
+    background: none;
+    color: darksalmon;
+}
+
+.fa-solid :hover{
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* 목록버튼 */
+.btn_back_box {
+    width: 60px;
+    height: 30px;
+}
+
+.btn_back {
+    width: 60px;
+    border: 1px solid orange;
+    border-radius: 4px;
+    background: none;
+    font-size: 22px;
+    color: orange;
+}
+
+.btn_back:hover {
+    box-shadow: 0 0 5px gray;
+    cursor: pointer;
+}
+/* 컨텐츠 바로 위버튼 3개 */
+.top_btn {
+    display: flex;
+    width: 800px;
+    justify-content: space-between;
+    margin: 20px auto;
+}
+
+/* 좋아요 버튼 */
+.top_btn input {
+ display: none; 
+}
+#heart {
+    color: orange;
+    font-size: 25px;
+    position: relative;
+    left: 20px;
+    top: 10px;
+    cursor: pointer;
+}
+
+#heart:hover {
+    font-weight: bold;
+}
+
+#heart.filled {
+    font-weight: bold;
+}
+
+/* 수정/삭제 */
+.btn_center {
+    display: flex;
+    /* width: 800px; */
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.btn_center button {
+    border: 1px solid orange;
+    border-radius: 4px;
+    background: none;
+    color: orange;
+    font-size: 20px;
+    margin-right: 20px;
+}
+
+.btn_center button:hover {
+    box-shadow: 0 0 5px gray;
+    background: orange;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#btn_mod, #btn_del {
+	display: none;
+}
+
+/* -------------게시글 수정페이지-----------------  */
+
+.mod_container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+table.mod_table {
+    margin: auto;
+    width: 700px;
+}
+
+
+.mod_table {
+	border-collapse: collapse;
+}
+th, td {
+	border-top: 1px solid grey;
+	border-right: 1px solid grey;
+	border-left: 1px solid grey;
+}
+
+.td_bottom{
+	border: none;
+	border-top: 1px solid grey;
+	padding-top: 30px;
+}
+
+.mod_table th {
+	font-size: 22px;
+}
+.board_title {
+    font-size: 30px;
+    border: none;
+    background-color: beige;
+    padding: 10px;
+    width: 580px;
+}
+
+/* 이미지 */
+.th_img {
+	padding: 10px;
+}
+.oldImg {
+    width: 150px;
+}
+
+textarea#board_content {
+    width: 830px;
+    background-color: seashell;
+    border: none;
+    padding: 30px;
+    font-size: 25px;
+}
+.td_oldImg, .td_newImg{
+	width: 100px;
+}
+
+/* 파일버튼 */
+.btn_choice {
+    padding: 5px;
+    border: 3px solid gray;
+    border-radius: 5px;
+    background: white;
+    font-size: 18px;
+    color: gray;
+    font-weight: bold
+}
+.btn_choice:hover {
+	background: gray;
+	color: white;
+	cursor: pointer;
+}
+
+.input_file {
+	display: none;	
+}
+
+.file_name {
+	margin-top: 10px;
+}
+
+.td_newImg div {
+	margin: 15px;
+}
+
+/* 수정확인버튼 */
+.mod_input {
+    border: 2x solid orange;
+    border-radius: 4px;
+    background: none;
+    color: orange;
+    font-size: 25px;
+    margin-right: 20px;
+}
+
+.mod_input:hover {
+	 background: orange;
+	  color: white;
+	  cursor: pointer;
+}
+
