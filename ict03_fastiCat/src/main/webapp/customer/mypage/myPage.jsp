@@ -115,7 +115,7 @@
    }
 </script>
 <body> <!-- 수정 6/28  9:35 -->
-	<!-- git 수정 확인 07/17 -->
+	<!-- git 수정 확인 07/17 test2 -->
 	
    	<!-- header 시작-->
 	<%@ include file="/common/header.jsp"%>
