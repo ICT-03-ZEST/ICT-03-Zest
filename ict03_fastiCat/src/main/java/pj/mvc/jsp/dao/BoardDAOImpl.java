@@ -38,7 +38,7 @@ public class BoardDAOImpl implements BoardDAO {
 	private BoardDAOImpl() {
 		try {
 			Context context = new InitialContext();
-			dataSource = (DataSource)context.lookup("java:comp/env/jdbc/jsp_pj_ict03");//java:comp/env/Resource name명 
+			dataSource = (DataSource)context.lookup("java:comp/env/jdbc/ict03_zest");//java:comp/env/Resource name명 
 		
 		} catch(NamingException e) {
 			e.printStackTrace();
