@@ -17,9 +17,9 @@ $(function() {
 		
 		$('#writing').click(function() {
 			
-			if(${sessionID.equals("sessionID_1")}) {//로그인 안했을때 글쓰기 선택 
-				if(confirm("로그인 하시겠습니까?")) { // 로그인.do 로 이동하도록 경로 바꾸기
-					location.href='${path}/common/main.jsp';
+			if(${sessionID == null}) {//로그인 안했을때 글쓰기 선택 
+				if(confirm("로그인 하시겠습니까?")) {
+					location.href='${path}/login.do';
 				}
 			}
 			else {
@@ -77,21 +77,17 @@ $(function() {
         <div>
         	<!-- 이전 버튼 활성화 -->
 			<c:if test="${paging.startPage > 3}"> <!-- 시작페이지가 4부터 시작할때 이전버튼이 보임-->
-				<a href="${path}/board.bc?pageNum=${paging.prev}&board_category=자유"> << </a>
+				<a href="${path}/board.bc?pageNum=${paging.prev}&board_category=자유" class="prev"> << </a>
 			</c:if>
-        </div>
         
-        <div>
         	<!-- 페이지 번호 처리 -->
 			<c:forEach var="num" begin="${paging.startPage}" end="${paging.endPage}">
 				<a href="${path}/board.bc?pageNum=${num}&board_category=자유">${num}</a>
 			</c:forEach>
-        </div>
         
-        <div>
         	<!-- 다음 버튼 활성화 -->	
 			<c:if test="${paging.endPage < paging.pageCount}"> <!-- 마지막페이지가 전체페이지수()보다 작을때 다음버튼이 보임-->
-				<a href="${path}/board.bc?pageNum=${paging.next}&board_category=자유"> >> </a>
+				<a href="${path}/board.bc?pageNum=${paging.next}&board_category=자유"  class="next"> >> </a>
 			</c:if>
         </div>
     </div>

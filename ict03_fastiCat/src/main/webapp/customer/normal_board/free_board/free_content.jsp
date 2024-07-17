@@ -177,7 +177,7 @@ function newLoad() { //새로고침
 	<%@ include file="/common/header.jsp"%>
 	<!-- header 끝-->
 	
-    <h4>자유 게시판</h4>
+   <div class="nav_title" align="center"><h3 class="h3_free">자유게시판</h3></div>
     
     <section>
         <div class="review_box">

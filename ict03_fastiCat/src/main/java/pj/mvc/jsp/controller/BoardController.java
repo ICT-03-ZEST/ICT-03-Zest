@@ -16,11 +16,11 @@ import pj.mvc.jsp.util.BoardImageUploadHandler;
 
 //회원이 공연/페스티벌 후기 및 자유 게시판 및 댓글을 작성,수정,삭제,조회
 @WebServlet("*.bc")
-@MultipartConfig(location="D:\\dev\\workspace\\js_pj_fasticat\\src\\main\\webapp\\resources\\upload", 
+@MultipartConfig(location="D:\\git\\ict03_festiCat\\ict03_fastiCat\\src\\main\\webapp\\resources\\upload", 
 			fileSizeThreshold=1024*1024, maxFileSize=1024*1024*5, maxRequestSize=1024*1024*5*5)
 public class BoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String IMG_UPLOAD_DIR = "D:\\dev\\workspace\\js_pj_fasticat\\src\\main\\webapp\\resources\\upload";
+	private static final String IMG_UPLOAD_DIR = "D:\\git\\ict03_festiCat\\ict03_fastiCat\\src\\main\\webapp\\resources\\upload";
        
     public BoardController() {
         super();
@@ -155,7 +155,7 @@ public class BoardController extends HttpServlet {
 			
 			serv.boardUpdateAction(request, response);
 	
-			viewPage = "customer/mypage/boardUpdateAction.jsp";
+			viewPage = "customer/mypage/board_fn/boardUpdateAction.jsp";
 		}
 		
 		// 4.게시글 삭제 -  1. 게시판에서 본인게시글이면 삭제가능 2. 마이페이지에서 삭제가능

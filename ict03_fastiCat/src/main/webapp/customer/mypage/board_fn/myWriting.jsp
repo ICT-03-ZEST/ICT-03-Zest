@@ -36,7 +36,7 @@
     <!-- 드롭다운 => 카테고리 공연 ,페스티벌-->
     <div class="outline">
         <form id="myWritingForm" action="boardInsertAction.bc" method="post" enctype="multipart/form-data">
-        	<input type="hidden" name="hiddenThumnail" value="/js_pj_fasticat/resources/upload/default.jpg">
+        	<input type="hidden" name="hiddenThumnail" value="/ict03_fastiCat/resources/upload/default.jpg">
         	<input type="hidden" name="hiddenImage" value="">
         
                 <table class="container">

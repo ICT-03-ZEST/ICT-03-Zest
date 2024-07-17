@@ -12,7 +12,6 @@
 <script type="text/javascript">
 
 $(function() {
-	//alert("${pageNum}");
 	$('#cancel').click(function() { //댓글 수정 취소
 		location.href="${path}/content.bc?board_category=${bd_dto.board_category}&board_num=${bd_dto.board_num}&pageNum=${pageNum}";
 	});

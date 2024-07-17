@@ -15,7 +15,6 @@ $(function() {
 	
 	$('.btn_delCmt').each(function() {
 		$(this).click(function() {
-			//alert("${pageNum}");
 			   let board_num = $(this).data('board_num');
 	           let comment_num = $(this).data('comment_num');
 	           let board_category = "${dto.board_category}";
@@ -29,7 +28,7 @@ $(function() {
 	
 	$('.btn_modCmt').each(function() {
 		$(this).click(function() {
-			alert("${pageNum}");
+			
 		  let param = {
 				"pageNum":"${pageNum}",
 				"comment_num":$(this).data('comment_num'),

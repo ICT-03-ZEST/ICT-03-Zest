@@ -64,7 +64,7 @@ public class BoardDAOImpl implements BoardDAO {
 						+ "     FROM ( "
 						+ "        SELECT A.* "
 						+ "             , ROWNUM AS rn "
-						+ 			   ", NVL(board_thumnail, '/js_pj_fasticat/resources/upload/free.jfif') AS thumnail"	
+						+ 			   ", NVL(board_thumnail, '/ict03_fastiCat/resources/upload/free.jfif') AS thumnail"	
 						+ "          FROM "
 						+ "            (SELECT * FROM reviewBoard_tbl "
 						+ "              WHERE board_show = 'y' "
@@ -84,7 +84,7 @@ public class BoardDAOImpl implements BoardDAO {
 						+ "  FROM ( "
 						+ "        SELECT A.* "
 						+ "             , ROWNUM AS rn "
-						+ 			   ", NVL(board_thumnail, '/js_pj_fasticat/resources/upload/default.jpg') AS thumnail"	
+						+ 			   ", NVL(board_thumnail, '/ict03_fastiCat/resources/upload/default.jpg') AS thumnail"	
 						+ "          FROM "
 						+ "            (SELECT * FROM freeBoard_tbl "
 						+ "              WHERE board_show = 'y' " 
@@ -1012,9 +1012,6 @@ public class BoardDAOImpl implements BoardDAO {
 		}
 		return deleteCnt;
 	}
-	
-	
-	
 	
 
 }
