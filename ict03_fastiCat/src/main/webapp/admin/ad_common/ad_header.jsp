@@ -72,8 +72,8 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">게시판관리</h6>
-                        <a class="collapse-item" href="${path}/admin/ad_review/ad_reviewEdit.jsp">공연후기</a>
-                        <a class="collapse-item" href="${path}/admin/ad_freeboard/ad_freeboardEdit.jsp">자유게시판</a>
+                        <a class="collapse-item" href="${path}/board.adbc?board_category=공연후기">공연후기</a>
+                        <a class="collapse-item" href="${path}/board.adbc?board_category=자유">자유게시판</a>
                         <a class="collapse-item" href="${path}/ad_noticeEdit.not">공지사항</a>
                     </div>
                 </div>
