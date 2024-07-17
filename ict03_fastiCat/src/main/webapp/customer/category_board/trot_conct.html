@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>국내공연_trot</title> 
+    <link rel="stylesheet" type="text/css" href="../../resources/css/category_board.css/category.css">
+    <script src="https://kit.fontawesome.com/e3f7bcf3d6.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="../../resources/js/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript">
+
+        //선택된 메뉴 css
+        $(function() {
+            $(".catgry_nav a[href *= trot]").css({"background":"orange", "padding":"5px", "border-radius":"4px", "color":"#fff", "cursor":"pointer"});
+        });
+
+         // 상세페이지 이동
+         $(function() {
+            $('.link_conctInfo').each(function() {
+                if (!$(this).attr('href')) {
+                    $(this).attr('href', '../detailPage/conctInfo.html');
+                }
+            });
+        });
+
+         // 내부페이지 이동 
+        let num = 1;
+        function next(direct) {
+            let line = document.getElementsByClassName("catgry_tab").length;
+           
+          if(direct)  {
+            if(num >= line) return;
+            document.getElementById("t_page"+num).style.display = 'none';
+            num++;
+            document.getElementById("t_page"+num).style.display = 'block';
+          }
+          else {
+            if(num == 1) return;
+            document.getElementById("t_page"+num).style.display = 'none';
+            num--;
+            document.getElementById("t_page"+num).style.display = 'block';
+          }
+        }
+
+
+    </script>
+    
+</head>
+<body>
+    <!-- header 시작 -->
+    <header>
+        <h3>로고</h3>  <h6 align="right">로그인</h6>
+
+        메뉴바
+        <br>
+        <hr>
+        <br>
+    </header>
+    <!-- header 끝 -->
+    <a href="festival.html">festival</a>
+    <!-- 콘텐츠 시작 -->
+    <div align="center">
+        <ul class="catgry_nav">
+            <li><a href="k-pop_conct.html">K-pop</a></li>
+            <li> | </li>
+            <li><a id="onSelect" href="trot_conct.html">트로트</a></li>
+            <li> | </li>
+            <li><a href="indie_conct.html">인디음악</a></li>
+        </ul>
+    </div>
+
+     <!-- 검색창 -->
+     <div class="formBox">
+        <form class="form_srch" method="get">
+            <input type="search" name="search_text" id="search" size="15px" placeholder="search"><label for="search"><i class="fa-solid fa-magnifying-glass"></i></label>
+        </form>
+    </div>
+
+    <hr class="hr_line">
+    
+    <section> 
+        <div class="catgry_tab">
+               <div class="photo_container">
+                <ul class="photo_list">
+                    <li class="photo_box">
+                        <a class="link_conctInfo">
+                            <div class="photo"><img src="../../resources/img/나훈아.jpg" ></div>
+                            <div>나훈아 콘서트</div>
+                        </a>
+                    </li>
+                    <li class="photo_box">
+                        <a class="link_conctInfo">
+                            <div class="photo"><img src="../../resources/img/박혜신.jpg" ></div>
+                            <div>박혜신 콘서트</div>
+                        </a>
+                    </li>
+                    <li class="photo_box">
+                        <a class="link_conctInfo">
+                            <div class="photo"><img src="../../resources/img/임영웅.jfif"></div>
+                            <div>임영웅 콘서트</div>
+                        </a>
+                    </li>
+                    <li class="photo_box">
+                        <a class="link_conctInfo">
+                            <div class="photo"><img src="../../resources/img/미스터트롯2 진선미.gif"></div>
+                            <div>미스터트롯2 <br>진선미 콘서트</div>
+                        </a>
+                    </li>
+                </ul> 
+
+                <ul class="photo_list">
+                    <li class="photo_box">
+                        <a class="link_conctInfo">
+                            <div class="photo"><img src="../../resources/img/미스터트롯3 전국투어.gif" ></div>
+                            <div>미스터트롯3 <br>전국투어 콘서트</div>
+                        </a>
+                    </li>
+                    <li class="photo_box">
+                        <a class="link_conctInfo">
+                            <div class="photo"><img src="../../resources/img/송가인.jpg" ></div>
+                            <div>송가인 콘서트</div>
+                        </a>
+                    </li>
+                    <li class="photo_box">
+                        <a class="link_conctInfo">
+                            <div class="photo"><img src="../../resources/img/이찬원.jpg"></div>
+                            <div>이찬원 콘서트</div>
+                        </a>    
+                    </li>
+                    <li class="photo_box">
+                        <a class="link_conctInfo">
+                            <div class="photo"><img src="../../resources/img/주현미.jpg"></div>
+                            <div>주현미 콘서트</div>
+                        </a>
+                    </li>
+                </ul> 
+
+                <ul class="photo_list">
+                    <li class="photo_box">
+                        <a class="link_conctInfo">
+                            <div class="photo"><img src="../../resources/img/현역가왕.gif" ></div>
+                            <div>현역가왕 콘서트</div>
+                        </a>
+                    </li>
+                    <li class="photo_box">
+                        <a class="link_conctInfo">
+                            <div class="photo"><img src="../../resources/img/" ></div>
+                            <div>임영웅 콘서트</div>
+                        </a>
+                    </li>
+                    <li class="photo_box">
+                        <a class="link_conctInfo">
+                            <div class="photo"><img src=""></div>
+                            <div>케이시 콘서트</div>
+                        </a>
+                    </li>
+                    <li class="photo_box">
+                        <a class="link_conctInfo">
+                            <div class="photo"><img src=""></div>
+                            <div>워너비 콘서트</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>  
+        </div>        
+
+        <hr class="hr_line">
+
+        <div class="btnNum" align="center">
+            <button onclick="next(0)"><</button>
+            <button onclick="next(0)">1</button>
+            <button onclick="next(1)">2</button>
+            <button onclick="next(1)">></button>
+        </div>
+    </section>
+
+    <!-- 콘텐츠 끝 -->
+
+
+    <!-- footer 시작 -->
+    <br>
+    <footer style="background: gray;">
+        <hr>
+        <h4>festicat 정보</h4>
+        <br>
+        <hr>
+        <br>
+    </footer>
+    <!-- footer 끝 -->
+
+</body>
+</html>
