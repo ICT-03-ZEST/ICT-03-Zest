@@ -53,15 +53,13 @@ li {
 
 /* 상세정보 */
 .descript {
-    width: 500px;
+    line-height: 35px;
+    margin-top: 120px;
     height: 200px;
-    margin: 65px 0px;
-    line-height: 25px;
-    margin-top: 100px;
 }
 
 .descript th {
-    width: 100px;
+    width: 150px;
     padding-right: 15px;
     text-align: right;
   
@@ -89,35 +87,31 @@ li {
     height: 50px;
     margin-right: 300px;
 }
-.pre_next th {
-    text-align: center;
-} 
-
 .pre_next td {
     text-align: left;
+    font-size: 20px;
+    border: none;
 }
 
-.detailBtn {
+.fa-solid {
     border: none;
     background: none;
     color: darksalmon;
 }
 
-.pre_next tr :hover{
+.fa-solid :hover{
     font-weight: bold;
-    cursor: pointer;
-    
-}
-
-.pre_next th :hover{
-    font-size: 18px;
     cursor: pointer;
 }
 
 /* 목록버튼 */
+.div_back {
+	 width: 500px;
+	 margin: 10px auto;
+}
 .btn_back_box {
-    width: 60px;
-    height: 30px;
+    display: flex;
+    justify-content: center;
 }
 
 .btn_back {
@@ -127,12 +121,14 @@ li {
     background: none;
     font-size: 20px;
     color: #FF9900;
+    position: relative;
+    left: 130px;
+    top: 15px;
 }
 
 .btn_back:hover {
     box-shadow: 0 0 15px #FAC8C8;
     cursor: pointer;
-    
 }
 
 /* 페이지숨기기 */

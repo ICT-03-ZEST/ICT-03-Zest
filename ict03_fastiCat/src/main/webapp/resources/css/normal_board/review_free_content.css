@@ -20,12 +20,12 @@ li {
     flex-direction: row;
     border-radius: 4px;
     margin-bottom: 50px;
-    background: #fac8c87a;
+    justify-content: right;
 }
 
 .head ul {
-    display: flex;
-    flex-direction: row;
+   justify-content: right;
+   margin-right: 30px;
 }
 
 .category {
@@ -42,34 +42,34 @@ li {
 }
 
 .writer {   
-    width: 250px;
     font-weight: bold;
     margin-top: 10px;
-    font-size: 25px;
 }
 
 .writer span {
-    margin-left: -10px;
+    margin-left: 60%;
+    font-size: 30px;
 }
 
 .writer ul {
     width: 500px;
     display: flex;
-    flex-direction: row;
-    text-align: left;
-    margin-left: -30px;
     padding: 0 10px 10px 10px;
 }
 
 .writer ul li {
     margin: 10px;
-    font-size: 15px;
-    color: darkgrey;
+    font-size: 16px;
+    color: white;
     padding-top: 10px;
 }
 
 #board_heart {
 	margin-right: 5px;
+}
+/* 본문 */
+.content_text p {
+	font-size: 20px;
 }
 
 /* 이미지 & 텍스트 */
@@ -97,67 +97,41 @@ li {
 .content_text {
     width: 1000px;
 }
-
-.content_box img {
-    width: 330px;
-    height: 250px;
-}
-
-/* 목록버튼 시작 */
-/* 버튼그룹  */
-.btnAll {
-    width: 1000px;
-    margin: 0 auto;
-}
-
-.btnAll ul {
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-}
-
-/* 목록이동버튼 */
-.listMove {
-    width: 160px;
-    height: 50px;
-    margin-right: 300px;
-}
-.pre_next td {
-    text-align: left;
-    font-size: 20px;
-    border: none;
-}
-
-.fa-solid {
-    border: none;
-    background: none;
-    color: darksalmon;
-}
-
-.fa-solid :hover{
-    font-weight: bold;
-    cursor: pointer;
+        
+.boardImg {
+    max-width: 300px;
+    height: auto; /* 원본 비율 유지 */
+    display: block; /* 부모 요소의 가로 길이를 차지하도록 설정 */
+    margin: 10px auto;
 }
 
 /* 목록버튼 */
+.div_back {
+	 width: 500px;
+	 margin: 10px auto;
+}
 .btn_back_box {
-    width: 60px;
-    height: 30px;
+    display: flex;
+    justify-content: center;
 }
 
 .btn_back {
     width: 60px;
-    border: 1px solid orange;
+    border: 1px solid #FF9900;
     border-radius: 4px;
     background: none;
-    font-size: 22px;
-    color: orange;
+    font-size: 20px;
+    color: #FF9900;
+    position: relative;
+    left: 300px;
+    top: 15px;
 }
 
 .btn_back:hover {
-    box-shadow: 0 0 5px gray;
+    box-shadow: 0 0 15px #FAC8C8;
     cursor: pointer;
 }
+
 /* 컨텐츠 바로 위버튼 3개 */
 .top_btn {
     display: flex;
@@ -174,8 +148,8 @@ li {
     color: orange;
     font-size: 25px;
     position: relative;
-    left: 20px;
-    top: 10px;
+    left: 230px;
+    top: 20px;
     cursor: pointer;
 }
 
@@ -190,9 +164,7 @@ li {
 /* 수정/삭제 */
 .btn_center {
     display: flex;
-    /* width: 800px; */
-    justify-content: flex-end;
-    margin-bottom: 20px;
+    margin-top: 15px;
 }
 
 .btn_center button {
@@ -216,6 +188,10 @@ li {
 	display: none;
 }
 
+/* 제목 */
+.review_tit {
+    font-size: 35px;
+}
 /* -------------게시글 수정페이지-----------------  */
 
 .mod_container {
@@ -315,7 +291,51 @@ textarea#board_content {
 
 .mod_input:hover {
 	 background: orange;
-	  color: white;
-	  cursor: pointer;
+	 color: white;
+	 cursor: pointer;
 }
 
+/* 댓글입력란, 작성버튼 */
+.comment_section {
+    width: 550px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+.comment_list {
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+
+.div_cmtAdd {
+	margin-top: 20px;
+	
+}
+.content {
+	width: 500px;
+	font-size: 20px;
+}
+
+.div_btn {
+	margin-top: 10px;
+	width: 500px;
+}
+
+.btnCommentAdd {
+	border: none;
+    background: none;
+    color: coral;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.btnCommentAdd:hover {
+	border-bottom: 1px solid coral;
+	cursor: pointer;
+}
+
+/* 댓글 */
+p.comment_text {
+    margin-left: 20px;
+}

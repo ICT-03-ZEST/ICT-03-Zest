@@ -2,6 +2,7 @@ package pj.mvc.jsp.dto;
 
 public class HeartDTO {
 	
+	private int heart_num;
 	private int board_num;        //글번호
 	private String board_category;//카테고리
 	private String userID;     //작성자 fk (userid)
@@ -11,12 +12,21 @@ public class HeartDTO {
 		super();
 	}
 
-	public HeartDTO(int board_num, String board_category, String userID, int heart) {
+	public HeartDTO(int heart_num, int board_num, String board_category, String userID, int heart) {
 		super();
+		this.heart_num = heart_num;
 		this.board_num = board_num;
 		this.board_category = board_category;
 		this.userID = userID;
 		this.heart = heart;
+	}
+	
+	public int getHeart_num() {
+		return heart_num;
+	}
+
+	public void setHeart_num(int heart_num) {
+		this.heart_num = heart_num;
 	}
 
 	public int getBoard_num() {

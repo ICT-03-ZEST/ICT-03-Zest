@@ -29,4 +29,8 @@ public interface AdminConcertService {
 		// 공연삭제
 		public void concertDeleteAction(HttpServletRequest request, HttpServletResponse res)
 				throws ServletException, IOException;
+		
+		//메인 - 공연 목록 (페이징 처리 차이)
+		public void mainConcertList(HttpServletRequest request, HttpServletResponse res)
+				throws ServletException, IOException;
 }

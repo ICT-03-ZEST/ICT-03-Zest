@@ -16,9 +16,8 @@ section {
 	margin: 0 auto;
 }
 
-/* 카테고리 메뉴*/
-/* 공연 카테고리 */
-.catgry_nav {
+/* 카테고리 */
+.nav_title {
 	display: flex;
 	align-content: space-around;
 	justify-content: space-around;
@@ -29,26 +28,10 @@ section {
 	display: flex;
 }
 
-.catgry_nav li {
+.nav_title span {
 	margin: 0 35px;
 	color: orange;
 	font-size: 30px;
-}
-
-.catgry_nav li a, .festi_title {
-	text-decoration: none;
-	padding: 10px;
-	font-size: 30px;
-	font-weight: bold;
-	color: orange;
-}
-
-.catgry_nav li a:hover, .festi_title:hover {
-	background: orange;
-	padding: 5px;
-	border-radius: 4px;
-	color: #fff;
-	cursor: pointer;
 }
 
 /* 페스티벌 카테고리 */
@@ -94,7 +77,7 @@ section {
 	outline: none;
 }
 
-i {
+.form_srch i {
 	position: relative;
 	left: -40px;
 	top: 2px;
@@ -148,31 +131,38 @@ i {
 
 /* 페이지버튼 */
 .btnNum {
-	width: 150px;
-	margin: 30px auto;
-	display: flex;
+    width: 200px;
+    margin: 30px auto;
+    display: flex;
 }
 
-.btnNum button {
-	cursor: pointer;
-	background: orange;
-	border: 1px solid orange;
-	font-size: 15px;
-	padding: 5px 10px;
-	color: #fff;
-	margin: 1px;
+.btnNum div a {
+    cursor: pointer;
+    background:  orange;
+    border: 1px solid orange;
+    font-size: 15px;
+    padding: 5px 10px;
+    color: #fff;
+}  
+
+.btnNum div a:hover {
+    box-shadow: 0 0  5px black;
+}  
+
+.prev {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    margin-right: 5px;
 }
 
-.btnNum button:hover {
-	box-shadow: 0 0 5px black;
+.next {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    margin-left: 5px;
 }
 
-.btnNum button:nth-child(1) {
-	border-top-left-radius: 8px;
-	border-bottom-left-radius: 8px;
-}
 
-.btnNum button:nth-child(4) {
-	border-top-right-radius: 8px;
-	border-bottom-right-radius: 8px;
+/* 이미지가 없는 부분에 공간차지 */
+.no-data {
+	visibility: hidden;
 }

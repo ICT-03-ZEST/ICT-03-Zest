@@ -23,10 +23,6 @@ public interface BoardService {
 	public void heartDeleteAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException; 
 	
-	//좋아요 조회 -  건수 있으면 채워진 하트
-	public void boardHeartSelectAction(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException; 
-	
 	// 게시글 작성처리
 	public void boardInsertAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException;
@@ -45,6 +41,10 @@ public interface BoardService {
 	
 	// 댓글 목록처리
 	public void commentListAction(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException;
+	
+	//댓글 한건조회
+	public void commentMod(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException;
 	
 	// 댓글 수정처리

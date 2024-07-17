@@ -29,4 +29,8 @@ public interface AdminFestivalService {
 		// 페스티벌 삭제
 		public void festivalDeleteAction(HttpServletRequest request, HttpServletResponse res)
 				throws ServletException, IOException;
+		
+		// 메인 - 페스티벌 목록 (페이징 처리 방식 차이)
+		public void mainFestivalList(HttpServletRequest request, HttpServletResponse res)
+				throws ServletException, IOException;
 }
