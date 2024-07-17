@@ -34,7 +34,7 @@ public class SearchDAOImpl implements SearchDAO {
 	private SearchDAOImpl() {
 		try {
 			Context context = new InitialContext();
-			dataSource = (DataSource) context.lookup("java:comp/env/jdbc/FastiCat"); // java:comp/env/Resource명
+			dataSource = (DataSource) context.lookup("java:comp/env/jdbc/ict03_zest"); // java:comp/env/Resource명
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
