@@ -12,7 +12,7 @@ public class SearchDTO {
 	private Date regDate;          //   작성일        
 	private int comment_count;  	//   댓글갯수   
 	private String searchInput;		// 검색값
-
+    private String source; // 추가된 필드
 
 
 	
@@ -36,6 +36,14 @@ public class SearchDTO {
 
 	public String getSearchInput() {
 		return searchInput;
+	}
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
 	}
 
 	public void setSearchInput(String searchInput) {

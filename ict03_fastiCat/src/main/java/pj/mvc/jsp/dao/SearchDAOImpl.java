@@ -41,48 +41,72 @@ public class SearchDAOImpl implements SearchDAO {
 	}
 
 	// 게시글 목록
-    @Override
-    public List<SearchDTO> boardList(String query, int start, int end) {
-        List<SearchDTO> list = new ArrayList<>();
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
+	@Override
+	public List<SearchDTO> boardList(String query, int start, int end) {
+	    List<SearchDTO> list = new ArrayList<>();
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
 
-        try {
-            conn = dataSource.getConnection();
-            String sql = "SELECT * FROM (SELECT A.*, rownum AS rn FROM (SELECT * FROM mvc_board_tbl WHERE show = 'y' AND (title LIKE ? OR content LIKE ? OR writer LIKE ?) ORDER BY num DESC) A) WHERE rn BETWEEN ? AND ?";
-            pstmt = conn.prepareStatement(sql);
-            String searchQuery = "%" + query + "%";
-            pstmt.setString(1, searchQuery);
-            pstmt.setString(2, searchQuery);
-            pstmt.setString(3, searchQuery);
-            pstmt.setInt(4, start - 1); // MySQL은 0부터 시작하는 인덱스를 사용하지만, Oracle은 1부터 시작하는 인덱스를 사용합니다.
-            pstmt.setInt(5, end);
-            rs = pstmt.executeQuery();
-            
-            while (rs.next()) {
-                SearchDTO dto = new SearchDTO();
-                dto.setNum(rs.getInt("num"));
-                dto.setTitle(rs.getString("title"));
-                dto.setContent(rs.getString("content"));
-                dto.setWriter(rs.getString("writer"));
-                dto.setRegDate(rs.getDate("regDate"));
-                list.add(dto);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-			try {
-				if (pstmt != null)
-					pstmt.close();
-				if (conn != null)
-					conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-        return list;
-    }
+	    try {
+	        conn = dataSource.getConnection();
+	        String sql = "SELECT * FROM ("
+	                   + "SELECT A.*, rownum AS rn FROM ("
+	                   + "SELECT board_num AS num, board_title AS title, board_content AS content, board_writer AS writer, board_regDate AS regDate, 'reviewBoard' AS source "
+	                   + "FROM reviewBoard_tbl "
+	                   + "WHERE board_show = 'y' AND (board_title LIKE ? OR board_content LIKE ? OR board_writer LIKE ?) "
+	                   + "UNION ALL "
+	                   + "SELECT board_num AS num, board_title AS title, board_content AS content, board_writer AS writer, board_regDate AS regDate, 'freeBoard' AS source "
+	                   + "FROM freeBoard_tbl "
+	                   + "WHERE board_show = 'y' AND (board_title LIKE ? OR board_content LIKE ? OR board_writer LIKE ?) "
+	                   + "UNION ALL "
+	                   + "SELECT noticeNo AS num, noticeTitle AS title, noticeContent AS content, noticeWriter AS writer, noticeRegDate AS regDate, 'notice' AS source "
+	                   + "FROM mvc_ad_notice_tbl "
+	                   + "WHERE show = 'y' AND (noticeTitle LIKE ? OR noticeContent LIKE ? OR noticeWriter LIKE ?) "
+	                   + "ORDER BY regDate DESC "
+	                   + ") A "
+	                   + ") WHERE rn BETWEEN ? AND ?";
+
+	        pstmt = conn.prepareStatement(sql);
+	        String searchQuery = "%" + query + "%";
+	        pstmt.setString(1, searchQuery);
+	        pstmt.setString(2, searchQuery);
+	        pstmt.setString(3, searchQuery);
+	        pstmt.setString(4, searchQuery);
+	        pstmt.setString(5, searchQuery);
+	        pstmt.setString(6, searchQuery);
+	        pstmt.setString(7, searchQuery);
+	        pstmt.setString(8, searchQuery);
+	        pstmt.setString(9, searchQuery);
+	        pstmt.setInt(10, start);
+	        pstmt.setInt(11, end);
+
+	        rs = pstmt.executeQuery();
+
+	        System.out.println(sql);
+	        while (rs.next()) {
+	            SearchDTO dto = new SearchDTO();
+	            dto.setNum(rs.getInt("num"));
+	            dto.setTitle(rs.getString("title"));
+	            dto.setContent(rs.getString("content"));
+	            dto.setWriter(rs.getString("writer"));
+	            dto.setRegDate(rs.getDate("regDate"));
+	            dto.setSource(rs.getString("source"));
+	            list.add(dto);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (pstmt != null) pstmt.close();
+	            if (conn != null) conn.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    return list;
+	}
+
 
 	// 게시글 갯수 구하기
 	@Override
