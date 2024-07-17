@@ -33,6 +33,7 @@
     <!-- 로그인 시 게시글 작성가능 -->
     <!-- 컨텐츠 시작 -->
     <div class="nav_title" align="center"><h3>게시글 작성</h3></div>
+    
     <!-- 드롭다운 => 카테고리 공연 ,페스티벌-->
     <div class="outline">
         <form id="myWritingForm" action="boardInsertAction.bc" method="post" enctype="multipart/form-data">

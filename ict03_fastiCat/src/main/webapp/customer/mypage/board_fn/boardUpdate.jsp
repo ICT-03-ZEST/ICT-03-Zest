@@ -32,6 +32,7 @@ $(function() {
         	let fileName = $(this).val().split('\\').pop();
             $('#image_name').text(fileName);
         });
+        
 });
 	
 </script>
@@ -43,7 +44,7 @@ $(function() {
 	<%@ include file="/common/header.jsp"%>
 	<!-- header 끝-->
 	
-    <h4>후기게시판 - 게시글 수정</h4>
+    <div class="mod_title" align="center"><h3>게시글 수정</h3></div>
     
     <section>
         <div class="review_box">
@@ -52,23 +53,28 @@ $(function() {
 	        	<input type="hidden" name="hiddenThumnail" value="${dto.board_thumnail}">
 	        	<input type="hidden" name="hiddenImage" value="${dto.board_image}">
 	        	<input type="hidden" name="hiddenCategory" value="${dto.board_category}">
-        	
-	          <div class="head">
-	                <div class="icon"><i class="fa-regular fa-circle-user"></i></div>
-	                <ul>
-	                    <li class="writer"><span>${dto.board_writer}</span>
-	                        <ul>
-	                            <li>${dto.board_category}</li>
-	                            <li class="regDate">${dto.board_regDate}</li>
-	                            <li class="views">조회수 ${dto.board_views}</li>
-	                            <li><i id="board_heart" class="fa-regular fa-heart"></i>${dto.board_heart}</li>
-	                        </ul>
-	                    </li>
-	                </ul>
-	          </div> 
 	          
 	          <div class="mod_container">
 		          <table class="mod_table" cellspacing="0" cellpadding="0">
+		          	<tr>
+		          		<td colspan="4">
+		          			<div class="headMod">
+	                			<ul>
+	                    			<li class="writerMod"><span>${dto.board_writer}</span>
+	                        			<ul class="ul_list">
+				                            <li class="regDate">${dto.board_regDate}</li>
+				                            <li class="views">조회수 ${dto.board_views}</li>
+	                            			<li><i id="board_heart" class="fa-regular fa-heart"></i>${dto.board_heart}</li>
+	                        			</ul>
+	                        			<ul>
+	                        				<li class=li_category><span>${dto.board_category}</span></li>
+	                        			</ul>
+	                    			</li>
+	                			</ul>
+	          				</div> 
+		          		</td>
+		          	</tr>
+		          	
 		          	<tr>
 		          		<th>제목</th>
 		          		<td colspan="4"><input type="text" name="board_title"  class="board_title" value="${dto.board_title}"></td>

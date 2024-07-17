@@ -34,7 +34,7 @@ li {
     justify-content: right;
 }
 
-.head ul {
+.head ul{
    justify-content: right;
    margin-right: 30px;
 }
@@ -44,12 +44,6 @@ li {
     top: 50px;
     left: 40%;
     font-size: 25px;
-}
-
-.icon {
-    font-size: 70px;
-    margin-top: 30px;
-    margin-left: 30px;
 }
 
 .writer {   
@@ -205,6 +199,68 @@ li {
     font-size: 35px;
 }
 /* -------------게시글 수정페이지-----------------  */
+/* boardUpdate.jsp */
+.headMod {
+	background-color: seashell; 
+	height: 75px;
+}
+
+.mod_title h3 {
+   color: black;
+   font-size: 25px;
+   margin-top: 50px
+}
+
+/* .category {
+    position: relative;
+    top: 50px;
+    left: 40%;
+    font-size: 25px;
+}
+ */
+.li_category {
+    position: relative;
+    left: 50%;
+    font-size: 25px;
+}
+
+.li_category > span {
+    position: relative;
+    left: 50%;
+    top: 5px;
+    font-size: 25px;
+}
+
+.writerMod {   
+    font-weight: bold;
+    display: flex;
+}
+
+.writerMod > span {
+    margin-left: 20px;
+    font-size: 30px;
+    position: relative;
+    top: 20px;
+}
+
+.writerMod ul {
+    width: 300px;
+    display: flex;
+   
+}
+
+.writerMod > .ul_list {
+    position: relative;
+    left: 15px;
+    top: 15px;
+}
+
+.writerMod ul li {
+    margin: 10px;
+    font-size: 16px;
+    color: black;
+    padding-top: 10px;
+}
 
 .mod_container {
     width: 100%;
@@ -221,7 +277,7 @@ table.mod_table {
 .mod_table {
 	border-collapse: collapse;
 }
-th, td {
+.mod_table th, td {
 	border-top: 1px solid grey;
 	border-right: 1px solid grey;
 	border-left: 1px solid grey;
@@ -239,7 +295,7 @@ th, td {
 .board_title {
     font-size: 30px;
     border: none;
-    background-color: beige;
+    background-color: #140b081a;
     padding: 10px;
     width: 580px;
 }
@@ -253,7 +309,7 @@ th, td {
 }
 
 textarea#board_content {
-    width: 830px;
+    width: 100%;
     background-color: seashell;
     border: none;
     padding: 30px;
@@ -351,3 +407,6 @@ textarea#board_content {
 p.comment_text {
     margin-left: 20px;
 }
+
+
+
