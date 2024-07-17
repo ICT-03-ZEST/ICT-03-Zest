@@ -86,7 +86,7 @@
             </div>
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="${path}/admin/ad_member/ad_member.jsp">
+                <a class="nav-link" href="${path}/ad_member.admember">
                     <i class="fas fa-fw fa-table"></i>
                     <span>회원관리</span></a>
             </li>
