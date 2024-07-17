@@ -235,24 +235,31 @@ public class SearchDAOImpl implements SearchDAO {
 	        conn = dataSource.getConnection();
 	        
 	        // 검색 기준에 따라 SQL 쿼리 생성
-	        String sql = "SELECT * FROM (SELECT A.*, rownum AS rn FROM (SELECT * FROM mvc_board_tbl WHERE show = 'y' ";
+	        String sql = "SELECT * FROM ("
+	                   + "SELECT A.*, rownum AS rn FROM ("
+	                   + "SELECT board_num AS num, board_title AS title, board_content AS content, board_writer AS writer, board_regDate AS regDate, 'reviewBoard' AS source "
+	                   + "FROM reviewBoard_tbl "
+	                   + "WHERE board_show = 'y' AND " + searchItem + " LIKE ? "
+	                   + "UNION ALL "
+	                   + "SELECT board_num AS num, board_title AS title, board_content AS content, board_writer AS writer, board_regDate AS regDate, 'freeBoard' AS source "
+	                   + "FROM freeBoard_tbl "
+	                   + "WHERE board_show = 'y' AND " + searchItem + " LIKE ? "
+	                   + "UNION ALL "
+	                   + "SELECT noticeNo AS num, noticeTitle AS title, noticeContent AS content, noticeWriter AS writer, noticeRegDate AS regDate, 'notice' AS source "
+	                   + "FROM mvc_ad_notice_tbl "
+	                   + "WHERE show = 'y' AND " + searchItem + " LIKE ? "
+	                   + "ORDER BY regDate DESC "
+	                   + ") A "
+	                   + ") WHERE rn BETWEEN ? AND ?";
 
-	        if ("writer".equals(searchItem)) {
-	            sql += "AND writer LIKE ? ";
-	        } else if ("title".equals(searchItem)) {
-	            sql += "AND title LIKE ? ";
-	        } else if ("content".equals(searchItem)) {
-	            sql += "AND content LIKE ? ";
-	        }
-	        
-	        sql += "ORDER BY num DESC) A) WHERE rn BETWEEN ? AND ?";
-	        
 	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setString(1, "%" + searchInput + "%");
-	        pstmt.setInt(2, start - 1);
-	        pstmt.setInt(3, end);
-	        
-	        System.out.println(sql);
+	        String searchQuery = "%" + searchInput + "%";
+	        pstmt.setString(1, searchQuery);
+	        pstmt.setString(2, searchQuery);
+	        pstmt.setString(3, searchQuery);
+	        pstmt.setInt(4, start);
+	        pstmt.setInt(5, end);
+
 	        rs = pstmt.executeQuery();
 
 	        while (rs.next()) {
@@ -262,18 +269,16 @@ public class SearchDAOImpl implements SearchDAO {
 	            dto.setContent(rs.getString("content"));
 	            dto.setWriter(rs.getString("writer"));
 	            dto.setRegDate(rs.getDate("regDate"));
+	            dto.setSource(rs.getString("source"));
 	            list.add(dto);
 	        }
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    } finally {
 	        try {
-	            if (rs != null)
-	                rs.close();
-	            if (pstmt != null)
-	                pstmt.close();
-	            if (conn != null)
-	                conn.close();
+	            if (rs != null) rs.close();
+	            if (pstmt != null) pstmt.close();
+	            if (conn != null) conn.close();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
