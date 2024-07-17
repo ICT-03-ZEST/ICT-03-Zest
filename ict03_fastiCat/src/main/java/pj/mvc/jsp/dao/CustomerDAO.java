@@ -1,5 +1,8 @@
 package pj.mvc.jsp.dao;
 
+import java.util.List;
+
+import pj.mvc.jsp.dto.CustomerDTO;
 import pj.mvc.jsp.dto.ReservationDTO;
 
 public interface CustomerDAO {
@@ -21,5 +24,15 @@ public interface CustomerDAO {
 
 	// 회원정보 수정 처리
 	public int updateCustomer(ReservationDTO dto);
+	
+	
+	// 관리자 - 회원목록 조회
+	public List<CustomerDTO> memberList(int start, int end);
+	
+	// 관리자 - 회원 수
+	public int memberCnt();
+	
+	// 관리자 - 회원 삭제
+	public int deleteMember(String userid);
 
 }

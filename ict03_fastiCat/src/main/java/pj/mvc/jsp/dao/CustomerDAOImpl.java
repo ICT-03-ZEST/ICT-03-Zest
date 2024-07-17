@@ -4,12 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import pj.mvc.jsp.dto.CustomerDTO;
 import pj.mvc.jsp.dto.ReservationDTO;
 
 public class CustomerDAOImpl implements CustomerDAO{
@@ -283,6 +286,130 @@ public class CustomerDAOImpl implements CustomerDAO{
       return updateCnt;
    }
    
+   
+   
+    // 관리자 - 회원목록 조회
+	@Override
+	public List<CustomerDTO> memberList(int start, int end) {
+		System.out.println("DAO - memberList() ");
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		List<CustomerDTO> list = new ArrayList<CustomerDTO>();
+		
+		try {
+			conn = dataSource.getConnection();
+			
+			String sql = "SELECT * FROM mvc_customer_tbl "
+					 + "WHERE show = 'y' "
+					 + "ORDER BY userid";
+			
+			pstmt = conn.prepareStatement(sql);
+//			pstmt.setInt(1, start);
+//			pstmt.setInt(2, end);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				CustomerDTO dto = new CustomerDTO();
+				
+				dto.setUserid(rs.getString("userid"));
+				dto.setPassword(rs.getString("password"));
+				dto.setUsername(rs.getString("username"));
+				dto.setBirthday(rs.getDate("birthday"));
+				dto.setAddress(rs.getString("address"));
+				dto.setHp(rs.getString("hp"));
+				dto.setEmail(rs.getString("email"));
+				dto.setRegDate(rs.getTimestamp("regDate"));
+				
+				list.add(dto);
+				System.out.println("list" + list);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
+	}
+	
+	// 관리자 - 회원수
+	@Override
+	public int memberCnt() {
+		System.out.println("DAO - memberCnt");
+		
+		int total = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		
+		try {
+			conn = dataSource.getConnection();
+			String sql = "SELECT COUNT(*) as cnt FROM mvc_customer_tbl";
+			
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				total = rs.getInt("cnt");
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return total;
+	}
+
+
+	// 관리자 - 회원 삭제
+	@Override
+	public int deleteMember(String userid) {
+		System.out.println("DAO - deleteMember ");
+		
+		int deleteCnt = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = dataSource.getConnection();
+			String sql = "UPDATE mvc_customer_tbl "
+					+ "SET show='n' "
+					+ "WHERE userid=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userid);
+			
+			deleteCnt = pstmt.executeUpdate();
+			System.out.println("deleteCnt : " + deleteCnt);
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return deleteCnt;
+	}
    
 
 }
