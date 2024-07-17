@@ -90,3 +90,11 @@
 	.slide_section input[id="slide02"]:checked ~ .slidewrap .slide-pagelist > li:nth-child(2) > label {background:#999;}
 	.slide_section input[id="slide03"]:checked ~ .slidewrap .slide-pagelist > li:nth-child(3) > label {background:#999;}
 /* 배너 슬라이드 끝 */
+
+@media screen and (max-width: 768px) {
+.slide_section {
+    z-index: 0;
+    margin-top: 160px; /* 예시로 20px로 설정 */
+}
+	
+}

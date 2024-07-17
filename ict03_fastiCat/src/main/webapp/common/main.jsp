@@ -1,9 +1,11 @@
-<!-- 2024/06/25/9:40 -->
+<!-- 2024/07/17/11:04 -->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/common/setting.jsp" %>    
 <!DOCTYPE html>
+<html>
+<head>
 <!-- 반응형 웹 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="${path }/resources/css/common/header.css">
@@ -16,20 +18,6 @@
 <!-- defer : 모든 html 파일을 로딩할때까지 html이 브라우저에 표시가 안되는 것을 방지 -->
 
 <script src="/FastiCat/resources/js/customer/main.js" defer></script>
-<script>
-
-/* function handleSearch() {
-    var searchInput = document.getElementById('searchInput').value.trim();
-    
-    if (searchInput === '') {
-        return false; // 검색어가 비어 있으면 이벤트 취소
-    } else {
-        // 검색어가 있으면 search.html로 이동
-        window.location.href = '../../customer/search/search.html?q=' + encodeURIComponent(searchInput);
-        return false; // 이벤트 취소
-    }
-} */
-</script>
 <title>main</title>
 
 </head>
@@ -54,7 +42,7 @@
 				<a>
 					<div class="textbox">
 					</div>
-					<img src="${path }/resources/images/slide1.PNG"">
+					<img src="${path }/resources/images/slide1.PNG">
 				</a>
 			</li>
 			<li class="slideitem">
@@ -70,9 +58,9 @@
 					
 					<div class="textbox">
 					</div>
-					<img src="${path }/resources/images/slide3.PNG"">
+					<img src="${path }/resources/images/slide3.PNG">
 				</a>
-			</li class="slideitem">
+			</li>
 
 			<!-- 좌,우 슬라이드 버튼 -->
 			<div class="slide-control">
