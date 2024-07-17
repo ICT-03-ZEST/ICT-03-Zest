@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import pj.mvc.jsp.dao.AdminFestivalDAO;
 import pj.mvc.jsp.dao.AdminFestivalDAOImpl;
 import pj.mvc.jsp.dto.AdminFestivalDTO;
+import pj.mvc.jsp.page.ContentPaging;
 import pj.mvc.jsp.page.Paging;
 
 public class AdminFestivalServiceImpl implements AdminFestivalService{
@@ -19,7 +20,7 @@ public class AdminFestivalServiceImpl implements AdminFestivalService{
 	public void festivalAddAction(HttpServletRequest request, HttpServletResponse res)
 			throws ServletException, IOException {
 		
-		System.out.println("서비스 - concertAddAction()");
+		System.out.println("서비스 - festivalAddAction()");
 		
 		// 3단계. 화면에서 입력받은 값을 가져오기
 		// DTO 생성
@@ -175,7 +176,38 @@ public class AdminFestivalServiceImpl implements AdminFestivalService{
 		// 5단계. 게시글 삭제처리 후 컨트롤러에서 list로 이동
 		int deleteCnt = dao.festivalDelete(conNo);
 		request.setAttribute("deleteCnt", deleteCnt);
+	}
+	
+	// 메인 - 페스티벌 목록 (페이징 처리 방식 차이)
+	@Override
+	public void mainFestivalList(HttpServletRequest request, HttpServletResponse res)
+			throws ServletException, IOException {
+		System.out.println("서비스 - MainfestivalList()");
 		
+		// 3단계. 화면에서 입력받은 값을 가져오기
+		String pageNum = request.getParameter("pageNum");
+		System.out.println("pageNum : " + pageNum);
+		
+		///4단계. 싱글톤 방식으로 DAO 객체 생성, 다형성 적용
+		AdminFestivalDAO dao = AdminFestivalDAOImpl.getInstance();
+		
+		//5-1단계. 공연갯수
+		int total = dao.festivalCnt();
+		System.out.println("total : " + total);
+		
+		//5-2단계. 공연목록
+		ContentPaging contentPaging = new ContentPaging(pageNum);
+		contentPaging.setTotalCount(total);
+		
+		int start = contentPaging.getStartRow();
+		int end = contentPaging.getEndRow();
+		
+		List<AdminFestivalDTO> list = dao.festivalListMain(start, end);
+		//System.out.println("list : " + list);
+		
+		// 6단계. jsp로 처리결과 전달
+		request.setAttribute("list", list);
+		request.setAttribute("paging", contentPaging);
 		
 	}
 

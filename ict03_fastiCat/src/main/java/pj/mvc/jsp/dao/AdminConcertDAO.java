@@ -23,4 +23,7 @@ public interface AdminConcertDAO {
 	
 	// 공연삭제
 	public int concertDelete(int conNo);
+	
+	// 메인 - 공연 목록 내림차순 정렬 
+	public List<AdminConcertDTO> concertListMain(int start, int end);
 }

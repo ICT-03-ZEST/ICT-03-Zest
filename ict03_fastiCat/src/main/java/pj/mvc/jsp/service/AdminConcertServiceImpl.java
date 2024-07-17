@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import pj.mvc.jsp.dao.AdminConcertDAO;
 import pj.mvc.jsp.dao.AdminConcertDAOImpl;
 import pj.mvc.jsp.dto.AdminConcertDTO;
+import pj.mvc.jsp.page.ContentPaging;
 import pj.mvc.jsp.page.Paging;
 
 public class AdminConcertServiceImpl implements AdminConcertService{
@@ -78,9 +79,7 @@ public class AdminConcertServiceImpl implements AdminConcertService{
 		// 6단계. jsp로 처리결과 전달
 		request.setAttribute("list", list);
 		request.setAttribute("paging", paging);
-		
 	}
-	
 	
 	//공연 수정(상세페이지)
 	@Override
@@ -175,7 +174,38 @@ public class AdminConcertServiceImpl implements AdminConcertService{
 		// 5단계. 게시글 삭제처리 후 컨트롤러에서 list로 이동
 		int deleteCnt = dao.concertDelete(conNo);
 		request.setAttribute("deleteCnt", deleteCnt);
+	}
+	
+	//메인 - 공연 목록 (페이징 처리 차이)
+	@Override
+	public void mainConcertList(HttpServletRequest request, HttpServletResponse res)
+			throws ServletException, IOException {
+		System.out.println("서비스 - concertListAction()");
 		
+		// 3단계. 화면에서 입력받은 값을 가져오기
+		String pageNum = request.getParameter("pageNum");
+		System.out.println("pageNum : " + pageNum);
+		
+		///4단계. 싱글톤 방식으로 DAO 객체 생성, 다형성 적용
+		AdminConcertDAO dao = AdminConcertDAOImpl.getInstance();
+		
+		//5-1단계. 공연갯수
+		int total = dao.concertCnt();
+		System.out.println("total : " + total);
+		
+		//5-2단계. 공연목록
+		ContentPaging contentPaging = new ContentPaging(pageNum); // pageSize = 16, 페이지수 3
+		contentPaging.setTotalCount(total);
+		
+		int start = contentPaging.getStartRow();
+		int end = contentPaging.getEndRow();
+		//추가
+		List<AdminConcertDTO> list = dao.concertListMain(start, end);
+		//System.out.println("list : " + list);
+		
+		// 6단계. jsp로 처리결과 전달
+		request.setAttribute("list", list);
+		request.setAttribute("paging", contentPaging);
 	}
 
 }

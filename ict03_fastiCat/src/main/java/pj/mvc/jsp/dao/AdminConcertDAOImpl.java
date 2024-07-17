@@ -306,5 +306,70 @@ public class AdminConcertDAOImpl implements AdminConcertDAO{
 		
 		return deleteCnt;
 	}
+	
+	// 메인 - 공연 목록 내림차순 정렬 
+	@Override
+	public List<AdminConcertDTO> concertListMain(int start, int end) {
+		System.out.println("AdminConcertDAOImpl - concertList() ");
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		List<AdminConcertDTO> list = new ArrayList<AdminConcertDTO>();
+		
+		try {
+			conn = dataSource.getConnection();
+			
+			String sql = "SELECT * "
+					+ " FROM "
+					+ "    ( "
+					+ "     SELECT b.*, ROWNUM AS rn "
+					+ "      FROM ( "
+					+ "        SELECT * "
+					+ "          FROM mvc_ad_concert_tbl "
+					+ " 		WHERE show = 'y' "
+					+ "         ORDER BY conNo DESC "
+					+ "       ) b "
+					+ "    ) "
+					+ " WHERE rn BETWEEN ? AND ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				AdminConcertDTO dto = new AdminConcertDTO();
+				
+				dto.setConNo(rs.getInt("conNo"));
+				dto.setConCategory(rs.getString("conCategory"));
+				dto.setConName(rs.getString("conName"));
+				dto.setConGrade(rs.getString("conGrade"));
+				dto.setConTime(rs.getString("conTime"));
+				dto.setConPlace(rs.getString("conPlace"));
+				dto.setConImg(rs.getString("conImg"));
+				dto.setConBuy(rs.getString("conBuy"));
+				dto.setConPrice(rs.getInt("conPrice"));
+				dto.setConContent(rs.getString("conContent"));
+				dto.setConStatus(rs.getString("conStatus"));
+				dto.setConIndate(rs.getDate("conIndate"));
+				
+				list.add(dto);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
+	}
 
 }

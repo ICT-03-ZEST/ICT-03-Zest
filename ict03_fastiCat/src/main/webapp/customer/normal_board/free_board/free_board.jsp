@@ -14,21 +14,15 @@
 $(function() {
 	//alert("${sessionID}");
 	
-		//로그인 안했을때 글쓰기 선택 
+		
 		$('#writing').click(function() {
 			
-			if(${sessionID.equals("sessionID_1")}) {
-				let writing = confirm("로그인 하시겠습니까?");
-				
-				if(writing) { // 로그인.do 로 이동하도록 경로 바꾸기
+			if(${sessionID.equals("sessionID_1")}) {//로그인 안했을때 글쓰기 선택 
+				if(confirm("로그인 하시겠습니까?")) { // 로그인.do 로 이동하도록 경로 바꾸기
 					location.href='${path}/common/main.jsp';
-				}
-				else {
-					location.href= '#';
 				}
 			}
 			else {
-				alert("${dto.board_category}");
 				location.href='${path}/myWriting.bc?board_category=자유';
 			}
 			
@@ -42,18 +36,10 @@ $(function() {
 	<%@ include file="/common/header.jsp"%>
 	<!-- header 끝-->
    
-    <h3>자유게시판</h3>
-
-     <!-- 검색창 -->
-     <div class="formBox">
-        <form class="form_srch" action="free_searchAction.html" method="post">
-            <input type="search" name="search_text" id="search" size="10px" placeholder="search"><label for="search"><i class="fa-solid fa-magnifying-glass"></i></label>
-        </form>
-    </div>
-    
+	<div class="nav_title" align="center"><h3>자유게시판</h3></div>
        <!-- 컨텐츠 시작 -->
     <div class="board_list">
-        <ul class="outline">
+        <ul class="outline"style="display: none">
             <li class="serialNum">번호</li>
             <li class="title">제목</li>
             <li class="writer">작성자</li>
@@ -67,7 +53,7 @@ $(function() {
 	            <div><img src="${dto.board_thumnail}"></div> <!-- 사진 사이즈 조절 -->
 	            <li class="serialNum">${dto.board_num}</li>
 	            <li class="title">
-	            	<a id="detail" href="${path}/content.bc?board_num=${dto.board_num}&board_category=${dto.board_category}&pageNum=${paging.pageNum}">
+	            	<a id="detail" href="${path}/content.bc?board_num=${dto.board_num}&board_category=${dto.board_category}&pageNum=${paging.pageNum}&views=1">
 	            		${dto.board_title}
 	            	</a>
 	                <ul>
@@ -83,7 +69,7 @@ $(function() {
     <!-- 컨텐츠 끝 -->
     
    <!--  글쓰기 -->
-    <input type="button" class="write" id="writing" value="글쓰기">
+    <div class="btn_write"><input type="button" class="write" id="writing" value="글쓰기"></div>
 
 
     <!-- 페이징 처리 -->	

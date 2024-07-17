@@ -302,5 +302,72 @@ public class AdminFestivalDAOImpl implements AdminFestivalDAO {
 		
 		return deleteCnt;
 	}
+	
+	// 메인 - 페스티벌 목록 내림차순 정렬
+	@Override
+	public List<AdminFestivalDTO> festivalListMain(int start, int end) {
+		System.out.println("AdminFestivalDAOImpl - festivalListMain() ");
+		System.out.println("start: " + start);
+		System.out.println("end: " + end);
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		List<AdminFestivalDTO> list = new ArrayList<AdminFestivalDTO>();
+		
+		try {
+			conn = dataSource.getConnection();
+			
+			String sql = "SELECT * "
+						+ " FROM "
+						+ "    ( "
+						+ "     SELECT b.*, ROWNUM AS rn "
+						+ "      FROM ( "
+						+ "        SELECT * "
+						+ "          FROM mvc_ad_festival_tbl "
+						+ " 		WHERE show = 'y' "
+						+ "         ORDER BY fesNo DESC "
+						+ "       ) b "
+						+ "    ) "
+						+ " WHERE rn BETWEEN ? AND ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				AdminFestivalDTO dto = new AdminFestivalDTO();
+				
+				dto.setFesNo(rs.getInt("fesNo"));
+				dto.setFesName(rs.getString("fesName"));
+				dto.setFesGrade(rs.getString("fesGrade"));
+				dto.setFesTime(rs.getString("fesTime"));
+				dto.setFesPlace(rs.getString("fesPlace"));
+				dto.setFesImg(rs.getString("fesImg"));
+				dto.setFesBuy(rs.getString("fesBuy"));
+				dto.setFesPrice(rs.getInt("fesPrice"));
+				dto.setFesContent(rs.getString("fesContent"));
+				dto.setFesStatus(rs.getString("fesStatus"));
+				dto.setFesIndate(rs.getDate("fesIndate"));
+				
+				list.add(dto);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
+	}
+
 
 }

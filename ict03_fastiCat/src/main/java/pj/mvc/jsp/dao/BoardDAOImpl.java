@@ -1,6 +1,8 @@
 package pj.mvc.jsp.dao;
 
-import java.sql.Connection;
+import java.sql.Connection; 
+
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,6 +15,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import pj.mvc.jsp.dto.BoardDTO;
+import pj.mvc.jsp.dto.CommentDTO;
 import pj.mvc.jsp.dto.HeartDTO;
 
 public class BoardDAOImpl implements BoardDAO {
@@ -35,7 +38,7 @@ public class BoardDAOImpl implements BoardDAO {
 	private BoardDAOImpl() {
 		try {
 			Context context = new InitialContext();
-			dataSource = (DataSource)context.lookup("java:comp/env/jdbc/ict03_zest");//java:comp/env/Resource name명 
+			dataSource = (DataSource)context.lookup("java:comp/env/jdbc/jsp_pj_ict03");//java:comp/env/Resource name명 
 		
 		} catch(NamingException e) {
 			e.printStackTrace();
@@ -49,7 +52,6 @@ public class BoardDAOImpl implements BoardDAO {
 		 Connection conn = null; 
 		 PreparedStatement pstmt = null; 
 		 ResultSet rs = null;
-		 // int cnt = 0;
 		 
 		//1. list 생성
 			List<BoardDTO> list = new ArrayList<>();
@@ -62,7 +64,7 @@ public class BoardDAOImpl implements BoardDAO {
 						+ "     FROM ( "
 						+ "        SELECT A.* "
 						+ "             , ROWNUM AS rn "
-						+ 			   ", NVL(board_thumnail, '/js_pj_fasticat/resources/upload/default.jpg') AS thumnail"	
+						+ 			   ", NVL(board_thumnail, '/js_pj_fasticat/resources/upload/free.jfif') AS thumnail"	
 						+ "          FROM "
 						+ "            (SELECT * FROM reviewBoard_tbl "
 						+ "              WHERE board_show = 'y' "
@@ -184,7 +186,7 @@ public class BoardDAOImpl implements BoardDAO {
 		return total;
 	}
 	//회원 게시글 이력조회
-	public int selectOfwriter(String category, String writer, int num) {
+	public int selectOfwriter(BoardDTO dto) {
 		System.out.println("dao - selectOfwriter");
 		
 		Connection conn = null;
@@ -194,7 +196,7 @@ public class BoardDAOImpl implements BoardDAO {
 		
 		try {
 			conn = dataSource.getConnection();
-			if(category.equals("공연후기")) {
+			if(dto.getBoard_category().equals("공연후기")) {
 				
 				String sql = "SELECT COUNT(*) AS cnt "
 						+    "  FROM  reviewBoard_tbl "
@@ -202,26 +204,26 @@ public class BoardDAOImpl implements BoardDAO {
 						+    "   AND board_num = ?";
 				
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1 , writer);
-				pstmt.setInt(2, num);
+				pstmt.setString(1 , dto.getBoard_writer());
+				pstmt.setInt(2, dto.getBoard_num());
 				
 				rs = pstmt.executeQuery();
-				if(rs.next()) {
-					selWriter = 1;
-				}
+				rs.next();
+				selWriter = rs.getInt("cnt");
+				
 			}
 			else { //자유게시판
 				String sql = "SELECT COUNT(*) AS cnt "
-						+ 	   "FROM  freeBoard_tbl "
-						+ 	  "WHERE board_show = 'y'";
-				
+						+    "  FROM  freeBoard_tbl "
+						+    " WHERE board_writer = ? "
+						+    "   AND board_num = ?";
 				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1 , dto.getBoard_writer());
+				pstmt.setInt(2, dto.getBoard_num());
 				
 				rs = pstmt.executeQuery();
-				
-				if(rs.next()) {
-					selWriter = 1;
-				}
+				rs.next();
+				selWriter = rs.getInt("cnt");
 			}
 			
 		}catch (SQLException e) {
@@ -316,7 +318,7 @@ public class BoardDAOImpl implements BoardDAO {
 				rs = pstmt.executeQuery();
 			}
 			
-			while(rs.next()) {
+			if(rs.next()) {
 				
 				//3. dto에 한건의 rs 게시글 정보 담기
 				dto.setBoard_num(rs.getInt("board_num"));
@@ -404,8 +406,8 @@ public class BoardDAOImpl implements BoardDAO {
 			conn = dataSource.getConnection();
 			if(dto.getBoard_category().equals("공연후기")) {
 				
-				String sql = "INSERT INTO heart_reviewBoard_tbl(board_num, userID) "
-						   + "VALUES (?, ?)";
+				String sql = "INSERT INTO heart_reviewBoard_tbl(heart_num, board_num, userID) "
+						   + "VALUES ((SELECT NVL(MAX(heart_num)+1, 1) FROM heart_reviewBoard_tbl), ?, ?)";
 				
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, dto.getBoard_num());
@@ -414,8 +416,8 @@ public class BoardDAOImpl implements BoardDAO {
 				insertCnt = pstmt.executeUpdate();
 			}
 			else {
-				String sql = "INSERT INTO heart_reviewBoard_tbl(board_num, userID) "
-						   + "VALUES (?, ?)";
+				String sql = "INSERT INTO heart_freeBoard_tbl(heart_num, board_num, userID) "
+						   + "VALUES ((SELECT NVL(MAX(heart_num)+1, 1) FROM heart_freeBoard_tbl), ?, ?)";
 							
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, dto.getBoard_num());
@@ -500,7 +502,7 @@ public class BoardDAOImpl implements BoardDAO {
 			conn = dataSource.getConnection();
 			if(dto.getBoard_category().equals("공연후기")) {
 				
-				String sql = "SELECT COUNT(*) FROM heart_reviewBoard_tbl "
+				String sql = "SELECT COUNT(*) AS cnt FROM heart_reviewBoard_tbl "
 						+ 	 " WHERE userID = ? "
 						+ 	   " AND board_num = ?";
 				
@@ -510,11 +512,11 @@ public class BoardDAOImpl implements BoardDAO {
 				
 				rs = pstmt.executeQuery();
 				if(rs.next()) {
-					selectCnt = 1;
+					selectCnt = rs.getInt("cnt");
 				}
 			}
 			else {
-				String sql = "SELECT COUNT(*) FROM heart_freeBoard_tbl "
+				String sql = "SELECT COUNT(*) AS cnt FROM heart_freeBoard_tbl "
 						+ 	 " WHERE userID = ? "
 						+ 	   " AND board_num = ?";
 				
@@ -524,7 +526,7 @@ public class BoardDAOImpl implements BoardDAO {
 				
 				rs = pstmt.executeQuery();
 				if(rs.next()) {
-					selectCnt = 1;
+					selectCnt = rs.getInt("cnt");
 				}
 				
 			}
@@ -691,6 +693,324 @@ public class BoardDAOImpl implements BoardDAO {
 			}
 		}
 		return updateCnt;
+	}
+
+	// 게시글 한건 조회 - join 댓글번호
+	public BoardDTO boardSelect(int num, String category) {
+		System.out.println("BoardDAOImpl - boardSelect");
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		BoardDTO dto = new BoardDTO();
+		try {
+			conn = dataSource.getConnection();
+			if(category.equals("공연후기")) {
+				
+				String sql = "SELECT b.* "
+						+ "  FROM reviewBoard_tbl b "
+						+ "  JOIN reviewComment_tbl c "
+						+ "    ON b.board_num = c.board_num "
+						+ " WHERE c.comment_num = ?";
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, num);
+				
+				rs = pstmt.executeQuery();
+			}
+			else {
+				String sql = "SELECT b.* "
+						+ "  FROM freeBoard_tbl b "
+						+ "  JOIN freeComment_tbl c "
+						+ "    ON b.board_num = c.board_num "
+						+ " WHERE c.comment_num = ?";
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, num);
+				
+				rs = pstmt.executeQuery();
+			}
+			
+			if(rs.next()) {
+				dto.setBoard_num(rs.getInt("board_num"));
+				dto.setBoard_category(rs.getString("board_category"));
+				dto.setBoard_writer(rs.getString("board_writer"));
+			}
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+				
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return dto;
+		
+	}
+		
+	// 댓글 목록조회
+	@Override
+	public List<CommentDTO> cmtList(int num, String category) {
+		
+		System.out.println("dao - cmtList");
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<CommentDTO> list = new ArrayList<>();
+		
+		try {
+			conn = dataSource.getConnection();
+			if(category.equals("공연후기")) {
+				
+				String sql = "SELECT * FROM reviewComment_tbl "
+						+ 	 " WHERE board_num = ? "
+						+ 	 " ORDER BY comment_num DESC";
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, num);
+				
+				rs = pstmt.executeQuery();
+			}
+			else {
+				String sql = "SELECT * FROM freeComment_tbl "
+						+ 	 " WHERE board_num = ? "
+						+ 	 " ORDER BY comment_num DESC";
+			
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, num);
+				
+				rs = pstmt.executeQuery();
+			}
+			while(rs.next()) {
+				CommentDTO dto = new CommentDTO();
+				
+				//3. dto에 한건의 rs 게시글 정보 담기
+				dto.setComment_num(rs.getInt("comment_num"));
+		        dto.setBoard_num(rs.getInt("board_num"));
+		        dto.setBoard_category(rs.getString("board_category"));
+				dto.setUserID(rs.getString("userID"));
+				dto.setContent(rs.getString("content"));
+				dto.setRegDate(rs.getDate("regDate"));
+				
+				list.add(dto);
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+				
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+		
+	
+	// 댓글 작성처리
+	@Override
+	public int cmtInsert(CommentDTO dto) {
+		System.out.println("BoardDAOImpl - cmtInsert");
+		System.out.println("dto.getBoard_category() :" + dto.getBoard_category());
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int insertCnt = 0;
+		
+		try {
+			conn = dataSource.getConnection();
+			if(dto.getBoard_category().equals("공연후기")) {
+				
+				String sql = "INSERT INTO reviewComment_tbl (comment_num, board_num, userID, content) "
+						+ 	 "VALUES ((SELECT NVL(MAX(comment_num)+1, 1) FROM reviewComment_tbl), ?, ?, ?)";
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, dto.getBoard_num());
+				pstmt.setString(2, dto.getUserID());
+				pstmt.setString(3, dto.getContent());
+				
+				insertCnt = pstmt.executeUpdate();
+			}
+			else {
+				String sql = "INSERT INTO freeComment_tbl (comment_num, board_num, userID, content) "
+						+ 	 "VALUES ((SELECT NVL(MAX(comment_num)+1, 1) FROM freeComment_tbl), ?, ?, ?)";
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, dto.getBoard_num());
+				pstmt.setString(2, dto.getUserID());
+				pstmt.setString(3, dto.getContent());
+				
+				insertCnt = pstmt.executeUpdate();
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+				
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return insertCnt;
+	}
+	// 댓글 한건 조회 - 댓글번호
+	public CommentDTO cmtSelect(int num, String category) {
+		System.out.println("BoardDAOImpl - cmtSelect");
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		CommentDTO dto = new CommentDTO();
+		try {
+			conn = dataSource.getConnection();
+			if(category.equals("공연후기")) {
+				
+				String sql = "SELECT * "
+						   + "  FROM reviewComment_tbl "
+						   + " WHERE comment_num = ?";
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, num);
+				
+				rs = pstmt.executeQuery();
+			}
+			else {
+				String sql = "SELECT * "
+						   + "  FROM freeComment_tbl "
+						   + " WHERE comment_num = ?";
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, num);
+				
+				rs = pstmt.executeQuery();
+			}
+			
+			if(rs.next()) {
+				dto.setComment_num(rs.getInt("comment_num"));
+				dto.setBoard_num(rs.getInt("board_num"));
+				dto.setBoard_category(rs.getString("board_category"));
+				dto.setUserID(rs.getString("userID"));
+				dto.setContent(rs.getString("content"));
+				dto.setRegDate(rs.getDate("regDate"));
+			}
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+				
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return dto;
+		
+	}
+	// 댓글 수정처리
+	@Override
+	public int cmtUpdate(int num, CommentDTO dto) {
+		
+		System.out.println("dao - cmtUpdate");
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int updateCnt = 0;
+		
+		try {
+			conn = dataSource.getConnection();
+			if(dto.getBoard_category().equals("공연후기")) {
+				String sql = "UPDATE reviewComment_tbl "
+							+   "SET content = ? "
+							+ "WHERE comment_num = ?";
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, dto.getContent());
+				pstmt.setInt(2, num);
+				
+				updateCnt = pstmt.executeUpdate();
+			}
+			else {//자유 게시판 댓글
+				String sql = "UPDATE freeComment_tbl "
+						+   "SET content = ? "
+						+ "WHERE comment_num = ?";
+			
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, dto.getContent());
+				pstmt.setInt(2, num);
+				
+				updateCnt = pstmt.executeUpdate();
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+				
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return updateCnt;
+	}
+	
+	// 댓글 삭제처리
+	@Override
+	public int cmtDelete(int num, String category) {
+		System.out.println("dao - delHeart");
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int deleteCnt = 0;
+		
+		try {
+			conn = dataSource.getConnection();
+			if(category.equals("공연후기")) {
+				String sql = "DELETE FROM reviewComment_tbl "
+							+ "WHERE comment_num = ?";
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, num);
+				
+				deleteCnt = pstmt.executeUpdate();
+			}
+			else {//자유 게시판 댓글
+				String sql = "DELETE FROM freeComment_tbl "
+							+ "WHERE comment_num = ?";
+			
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, num);
+				
+				deleteCnt = pstmt.executeUpdate();
+			}
+			System.out.println("delHeart-deleteCnt:" + deleteCnt);
+		}catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+				
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return deleteCnt;
 	}
 	
 	

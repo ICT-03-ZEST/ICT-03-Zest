@@ -23,6 +23,9 @@ public interface AdminFestivalDAO {
 	
 	// 페스티벌 삭제
 	public int festivalDelete(int fesNo);
+	
+	// 메인 - 페스티벌 목록 내림차순 정렬
+	public List<AdminFestivalDTO> festivalListMain(int start, int end);
 		
 	
 }
