@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>리뷰게시판 상세페이지</title>
+<title>공연후기 상세페이지</title>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/normal_board/review_free_content.css"> 
 <script src="https://kit.fontawesome.com/e3f7bcf3d6.js" crossorigin="anonymous"></script>
 <script src="${path}/resources/js/request.js"></script>
@@ -174,7 +174,7 @@ function newLoad() { //새로고침
 	<%@ include file="/common/header.jsp"%>
 	<!-- header 끝-->
 	
-    <h4>공연/페스티벌 후기</h4>
+    <div class="nav_title" align="center"><h3 class="h3_review">공연/페스티벌 후기 게시판</h3></div>
     
     <section>
         <div class="review_box">

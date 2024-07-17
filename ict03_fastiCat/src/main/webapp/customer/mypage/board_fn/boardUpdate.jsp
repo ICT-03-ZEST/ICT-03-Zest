@@ -13,8 +13,6 @@
 <script type="text/javascript">
 $(function() {
 
-		//alert("${selWriter}");
-	  	
 		$('#mod_input').click(function() {
 			document.updateForm.action="${path}/boardUpdateAction.bc";
 			document.updateForm.submit();
@@ -22,7 +20,6 @@ $(function() {
 
 		//목록으로 돌아가기(새로고침)
 		$('#btn_back').click(function() {
-			//alert("${dto.board_category}");
 			location.href='${path}/board.bc?board_category=${dto.board_category}';
 		});		
 		

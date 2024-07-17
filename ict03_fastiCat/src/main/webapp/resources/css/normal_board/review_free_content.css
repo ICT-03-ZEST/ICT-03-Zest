@@ -3,16 +3,27 @@
 section {
     display: flex;
     justify-content: center; /*가로 가운데 정렬*/
-    margin-top: 100px;
 }
 li {
     list-style: none;
 }
+/* 카테고리 */
+.nav_title {
+    width: 800;
+    margin: 0 auto;
+}    
+.h3_review {
+   color: #f0b9c8;
+   font-size: 25px;
+   margin-top: 100px;
+   text-align: left;
+}
 
-.review_box {
-    width: 800px;
-    padding-top: 30px;
-    margin-bottom: 0;
+.h3_free {
+   color: #adccfb;
+   font-size: 25px;
+   margin-top: 100px;
+   text-align: left;
 }
 
 .head {
@@ -138,6 +149,7 @@ li {
     width: 800px;
     justify-content: space-between;
     margin: 20px auto;
+    position: relative;
 }
 
 /* 좋아요 버튼 */
@@ -147,9 +159,9 @@ li {
 #heart {
     color: orange;
     font-size: 25px;
-    position: relative;
-    left: 230px;
+    position: absolute;
     top: 20px;
+    right: 180px;
     cursor: pointer;
 }
 

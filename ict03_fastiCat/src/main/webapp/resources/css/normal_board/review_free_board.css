@@ -85,7 +85,7 @@ img:hover {
 /* 페이지버튼 */
 .btnNum {
     width: 200px;
-    margin: 0 auto;
+    margin: 20px auto;
     display: flex;
 }
 

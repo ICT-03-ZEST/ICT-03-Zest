@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import pj.mvc.jsp.service.AdminFestivalServiceImpl;
 import pj.mvc.jsp.util.ImageUploadHandler;
 
-// @WebServlet("*.fes")
+@WebServlet("*.fes")
 @MultipartConfig(location="D:\\dev\\workspace\\js_pj_fasticat\\src\\main\\webapp\\resources\\upload",
 fileSizeThreshold=1024*1024, maxFileSize=1024*1024*5, maxRequestSize=1024*1024*5*5)
 public class AdminFestivalController extends HttpServlet {

@@ -37,14 +37,14 @@ public class ImageNameChange {
 				this.thumnail = request.getParameter("hiddenThumnail");
 			}
 			else if(map.get("board_thumnail") != null) {
-				this.thumnail = "/js_pj_fasticat/resources/upload/" + map.get("board_thumnail");
+				this.thumnail = "/ict03_fastiCat/resources/upload/" + map.get("board_thumnail");
 			}
 		
 			if(map.get("board_image") == null) {
 				this.image = request.getParameter("hiddenImage");
 			}
 			else if(map.get("board_image") != null) {
-				this.image = "/js_pj_fasticat/resources/upload/" + map.get("board_image");
+				this.image = "/ict03_fastiCat/resources/upload/" + map.get("board_image");
 			}
 			
 			
