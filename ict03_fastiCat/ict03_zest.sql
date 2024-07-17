@@ -5,36 +5,36 @@ grant create session to ict03_zest;
 
 alter user ict03_zest account unlock;
 
--- ±Ç¹®¼º -------------------------------------------------------------------------------
--- °Ô½ÃÆÇ  Å×ÀÌºí
+-- ê¶Œë¬¸ì„± -------------------------------------------------------------------------------
+-- ê²Œì‹œíŒ  í…Œì´ë¸”
 DROP TABLE mvc_Notice_TBL  CASCADE CONSTRAINTS;
 CREATE TABLE mvc_Notice_TBL(  
-  N_Board_Num   NUMBER(7)  PRIMARY KEY,      -- ±Û¹øÈ£
-   N_Title       VARCHAR2(50)  NOT NULL,      -- ±ÛÁ¦¸ñ
-   N_Content     CLOB  NOT NULL,              -- ±Û³»¿ë
-   N_Writer      VARCHAR2(30)  NOT NULL,       -- ÀÛ¼ºÀÚ
-   N_readCnt     NUMBER(6)   DEFAULT 0,      -- Á¶È¸¼ö
-   N_WriteDate     DATE  DEFAULT sysdate,       -- ÀÛ¼ºÀÏ
+  N_Board_Num   NUMBER(7)  PRIMARY KEY,      -- ê¸€ë²ˆí˜¸
+   N_Title       VARCHAR2(50)  NOT NULL,      -- ê¸€ì œëª©
+   N_Content     CLOB  NOT NULL,              -- ê¸€ë‚´ìš©
+   N_Writer      VARCHAR2(30)  NOT NULL,       -- ì‘ì„±ì
+   N_readCnt     NUMBER(6)   DEFAULT 0,      -- ì¡°íšŒìˆ˜
+   N_WriteDate     DATE  DEFAULT sysdate,       -- ì‘ì„±ì¼
    show         VARCHAR2(10) DEFAULT 'y'
 );
 
---°øÁö»çÇ× ÀÔ·Â
+--ê³µì§€ì‚¬í•­ ì…ë ¥
 INSERT INTO mvc_Notice_TBL(N_Board_Num, N_Title, N_Content, N_Writer, N_WriteDate)
- VALUES((SELECT NVL(MAX(N_Board_Num)+1,1) FROM mvc_Notice_TBL), '¼­¹öÁ¡°Ë¾È³»' , '2024³â 07¿ù 15ÀÏ Àú³á½Ã°£ 22½Ã~24½Ã±îÁö ¼­¹ö Á¡°ËÀÌ ÀÌ·ç¾îÁú ¿¹Á¤ÀÔ´Ï´Ù', '¸Å´ÏÀú23', sysdate);
---°øÁö»çÇ× »ó¼¼ÆäÀÌÁö
+ VALUES((SELECT NVL(MAX(N_Board_Num)+1,1) FROM mvc_Notice_TBL), 'ì„œë²„ì ê²€ì•ˆë‚´' , '2024ë…„ 07ì›” 15ì¼ ì €ë…ì‹œê°„ 22ì‹œ~24ì‹œê¹Œì§€ ì„œë²„ ì ê²€ì´ ì´ë£¨ì–´ì§ˆ ì˜ˆì •ì…ë‹ˆë‹¤', 'ë§¤ë‹ˆì €23', sysdate);
+--ê³µì§€ì‚¬í•­ ìƒì„¸í˜ì´ì§€
 SELECT * FROM mvc_Notice_TBL
  WHERE N_Board_Num=1;
---°øÁö»çÇ× ¼öÁ¤
+--ê³µì§€ì‚¬í•­ ìˆ˜ì •
 UPDATE mvc_Notice_TBL
-   SET N_Title = '¿¹¸Å °ü·ÃÇÏ¿© °øÁö ¿Ã·Áµå¸³´Ï´Ù.'
-      ,N_Content ='ÀúÈñ´Â ¿¹¸ÅÀÏÁ¤À» ¾Ë·Áµå¸®´Â »çÀÌÆ®ÀÔ´Ï´Ù. ÇØ´ç °ø¿¬ÀÇ ¿¹¸Å´Â ¿¹¸Å»çÀÌÆ®·Î Á¢¼ÓÇÏ¼Å¼­ ¿¹¸ÅÇÏ¼Å¾ßÇÕ´Ï´Ù.'
+   SET N_Title = 'ì˜ˆë§¤ ê´€ë ¨í•˜ì—¬ ê³µì§€ ì˜¬ë ¤ë“œë¦½ë‹ˆë‹¤.'
+      ,N_Content ='ì €í¬ëŠ” ì˜ˆë§¤ì¼ì •ì„ ì•Œë ¤ë“œë¦¬ëŠ” ì‚¬ì´íŠ¸ì…ë‹ˆë‹¤. í•´ë‹¹ ê³µì—°ì˜ ì˜ˆë§¤ëŠ” ì˜ˆë§¤ì‚¬ì´íŠ¸ë¡œ ì ‘ì†í•˜ì…”ì„œ ì˜ˆë§¤í•˜ì…”ì•¼í•©ë‹ˆë‹¤.'
   WHERE N_Board_Num= 2;
---°øÁö»çÇ× »èÁ¦ 
+--ê³µì§€ì‚¬í•­ ì‚­ì œ 
 UPDATE mvc_Notice_TBL
    SET show ='n'
  WHERE N_Board_Num = 3;
  
---°øÁö»çÇ× ¸ñ·ÏÁ¶È¸
+--ê³µì§€ì‚¬í•­ ëª©ë¡ì¡°íšŒ
 SELECT * 
   FROM(
       SELECT A.*,
@@ -48,49 +48,49 @@ SELECT *
       ) 
  WHERE rn BETWEEN 1 AND 10;
  
- --°øÁö»çÇ× Á¶È¸¼ö Áõ°¡
+ --ê³µì§€ì‚¬í•­ ì¡°íšŒìˆ˜ ì¦ê°€
  UPDATE mvc_Notice_TBL
     SET N_readCnt = N_readCnt+1
   WHERE N_Board_Num= 2;  
   
- --°øÁö»çÇ× °¹¼ö ±¸ÇÏ±â
+ --ê³µì§€ì‚¬í•­ ê°¯ìˆ˜ êµ¬í•˜ê¸°
  SELECT COUNT(*) AS cnt
  FROM mvc_Notice_TBL;
 
--- ±è°¡¿¬ -------------------------------------------------------------------------------
--- jsp_pj_ict03À¸·Î Á¢¼Ó
-----------  °ø¿¬Å×ÀÌºí mvc_ad_concert_tbl »ı¼º ----------------------------------------------------
+-- ê¹€ê°€ì—° -------------------------------------------------------------------------------
+-- jsp_pj_ict03ìœ¼ë¡œ ì ‘ì†
+----------  ê³µì—°í…Œì´ë¸” mvc_ad_concert_tbl ìƒì„± ----------------------------------------------------
 DROP TABLE mvc_ad_concert_tbl CASCADE CONSTRAINTS;
  CREATE TABLE mvc_ad_concert_tbl(
-    conNo        NUMBER(7)  PRIMARY KEY,            -- °ø¿¬¹øÈ£
-    conCategory  VARCHAR2(50) NOT NULL,             -- °ø¿¬Ä«Å×°í¸®
-    conName      VARCHAR2(50)  NOT NULL UNIQUE,     -- °ø¿¬¸í
-    conGrade     VARCHAR2(50) NOT NULL,             -- °ü¶÷µî±Ş
-    conTime      VARCHAR2(100) NOT NULL,            -- °ø¿¬³¯Â¥/½Ã°£
-    conPlace     VARCHAR2(50) NOT NULL,             -- °ø¿¬Àå¼Ò
-    conImg       VARCHAR2(100) NOT NULL,            -- °ø¿¬ÀÌ¹ÌÁö
-    conBuy       VARCHAR2(200) NOT NULL,            -- °ø¿¬¿¹¸ÅÃ³
-    conPrice     NUMBER(9) NOT NULL,                -- °ø¿¬°¡°İ
-    conContent   CLOB,                              -- °ø¿¬¼³¸í
-    conStatus    VARCHAR2(20) NOT NULL,             -- °ø¿¬»óÅÂÄÚµå
-    conIndate    DATE  DEFAULT sysdate              -- °ø¿¬µî·ÏÀÏ
+    conNo        NUMBER(7)  PRIMARY KEY,            -- ê³µì—°ë²ˆí˜¸
+    conCategory  VARCHAR2(50) NOT NULL,             -- ê³µì—°ì¹´í…Œê³ ë¦¬
+    conName      VARCHAR2(50)  NOT NULL UNIQUE,     -- ê³µì—°ëª…
+    conGrade     VARCHAR2(50) NOT NULL,             -- ê´€ëŒë“±ê¸‰
+    conTime      VARCHAR2(100) NOT NULL,            -- ê³µì—°ë‚ ì§œ/ì‹œê°„
+    conPlace     VARCHAR2(50) NOT NULL,             -- ê³µì—°ì¥ì†Œ
+    conImg       VARCHAR2(100) NOT NULL,            -- ê³µì—°ì´ë¯¸ì§€
+    conBuy       VARCHAR2(200) NOT NULL,            -- ê³µì—°ì˜ˆë§¤ì²˜
+    conPrice     NUMBER(9) NOT NULL,                -- ê³µì—°ê°€ê²©
+    conContent   CLOB,                              -- ê³µì—°ì„¤ëª…
+    conStatus    VARCHAR2(20) NOT NULL,             -- ê³µì—°ìƒíƒœì½”ë“œ
+    conIndate    DATE  DEFAULT sysdate              -- ê³µì—°ë“±ë¡ì¼
  );
  
--- °ø¿¬  ¸ñ·Ï Á¶È¸
+-- ê³µì—°  ëª©ë¡ ì¡°íšŒ
 SELECT * FROM mvc_ad_concert_tbl
 ORDER BY conNo;
 
--- °ø¿¬ °¹¼ö
+-- ê³µì—° ê°¯ìˆ˜
 SELECT COUNT(*) as cnt FROM mvc_ad_concert_tbl;
 
--- °ø¿¬ (»èÁ¦ show Ä®·³ Ãß°¡)
+-- ê³µì—° (ì‚­ì œ show ì¹¼ëŸ¼ ì¶”ê°€)
  ALTER TABLE mvc_ad_concert_tbl
    ADD show CHAR(1) DEFAULT 'y';
 
  SELECT *
    FROM (
          SELECT A.*, 
-               rownum AS rn  -- ÀÏ·Ãº¯È£ °¡Á®¿À±â
+               rownum AS rn  -- ì¼ë ¨ë³€í˜¸ ê°€ì ¸ì˜¤ê¸°
           FROM 
             (
               SELECT *                
@@ -101,72 +101,72 @@ SELECT COUNT(*) as cnt FROM mvc_ad_concert_tbl;
         )   
  WHERE rn BETWEEN 1 AND 10; 
 
----- °ø¿¬ ¸ñ·Ï Á¶È¸ -----
+---- ê³µì—° ëª©ë¡ ì¡°íšŒ -----
 SELECT * FROM mvc_ad_concert_tbl 
  WHERE show = 'y'
  ORDER BY conNo;
    
--- Ä®·³ ¼öÁ¤
+-- ì¹¼ëŸ¼ ìˆ˜ì •
 ALTER TABLE mvc_ad_concert_tbl 
 MODIFY conTime VARCHAR2(200);
   
    
--- °ø¿¬µî·Ï
+-- ê³µì—°ë“±ë¡
 INSERT INTO mvc_ad_concert_tbl(conNo, conCategory, conName, conGrade, conTime, conPlace, conImg, conBuy, conPrice, conContent, conStatus, conIndate)
- VALUES((SELECT NVL(MAX(conNo)+1, 1) FROM mvc_ad_concert_tbl), 'Æ®·ÎÆ®', 'ÄÜ¼­Æ®ÀÌ¸§1', '¸¸7¼¼ÀÌ»ó', '2024/07/07', 'Ã¼Á¶°æ±âÀå', '/js_pj_fasticat/resources/images/°í¾çÀÌµŞ¸ğ½À.jpg', '¿¹¸ÅÃ³', 115000, '°ø¿¬¼³¸í', 'ÆÇ¸ÅÁß', sysdate); 
+ VALUES((SELECT NVL(MAX(conNo)+1, 1) FROM mvc_ad_concert_tbl), 'íŠ¸ë¡œíŠ¸', 'ì½˜ì„œíŠ¸ì´ë¦„1', 'ë§Œ7ì„¸ì´ìƒ', '2024/07/07', 'ì²´ì¡°ê²½ê¸°ì¥', '/js_pj_fasticat/resources/images/ê³ ì–‘ì´ë’·ëª¨ìŠµ.jpg', 'ì˜ˆë§¤ì²˜', 115000, 'ê³µì—°ì„¤ëª…', 'íŒë§¤ì¤‘', sysdate); 
 
 COMMIT;
 
--- °ø¿¬ »èÁ¦(update n)
+-- ê³µì—° ì‚­ì œ(update n)
 UPDATE mvc_ad_concert_tbl
 SET show = 'n'
 WHERE conNo = 1;
 
--- °ø¿¬ ¼öÁ¤
+-- ê³µì—° ìˆ˜ì •
 UPDATE mvc_ad_concert_tbl
-SET conCategory = 'ÄÉÀÌÆË'
+SET conCategory = 'ì¼€ì´íŒ'
 WHERE conNo = 4;
 
-------------------  Æä½ºÆ¼¹ú Å×ÀÌºí ----------------------------------------------------------------------------
--- Æä½ºÆ¼¹úÅ×ÀÌºí mvc_ad_festival_tbl »ı¼º
+------------------  í˜ìŠ¤í‹°ë²Œ í…Œì´ë¸” ----------------------------------------------------------------------------
+-- í˜ìŠ¤í‹°ë²Œí…Œì´ë¸” mvc_ad_festival_tbl ìƒì„±
 DROP TABLE mvc_ad_festival_tbl CASCADE CONSTRAINTS;
  CREATE TABLE mvc_ad_festival_tbl(
-    fesNo        NUMBER(7)  PRIMARY KEY,            -- Æä½ºÆ¼¹ú ¹øÈ£
-    fesName      VARCHAR2(50)  NOT NULL UNIQUE,     -- Æä½ºÆ¼¹ú¸í
-    fesGrade     VARCHAR2(50) NOT NULL,             -- °ü¶÷µî±Ş
-    fesTime      VARCHAR2(200) NOT NULL,            -- Æä½ºÆ¼¹ú ³¯Â¥/½Ã°£
-    fesPlace     VARCHAR2(50) NOT NULL,             -- Æä½ºÆ¼¹ú Àå¼Ò
-    fesImg       VARCHAR2(100) NOT NULL,            -- Æä½ºÆ¼¹ú ÀÌ¹ÌÁö
-    fesBuy       VARCHAR2(200) NOT NULL,            -- ¿¹¸ÅÃ³
-    fesPrice     NUMBER(9) NOT NULL,                -- Æä½ºÆ¼¹ú °¡°İ
-    fesContent   CLOB,                              -- Æä½ºÆ¼¹ú ¼³¸í
-    fesStatus    VARCHAR2(20) NOT NULL,             -- Æä½ºÆ¼¹ú »óÅÂÄÚµå
-    fesIndate    DATE  DEFAULT sysdate,             -- Æä½ºÆ¼¹ú µî·ÏÀÏ
+    fesNo        NUMBER(7)  PRIMARY KEY,            -- í˜ìŠ¤í‹°ë²Œ ë²ˆí˜¸
+    fesName      VARCHAR2(50)  NOT NULL UNIQUE,     -- í˜ìŠ¤í‹°ë²Œëª…
+    fesGrade     VARCHAR2(50) NOT NULL,             -- ê´€ëŒë“±ê¸‰
+    fesTime      VARCHAR2(200) NOT NULL,            -- í˜ìŠ¤í‹°ë²Œ ë‚ ì§œ/ì‹œê°„
+    fesPlace     VARCHAR2(50) NOT NULL,             -- í˜ìŠ¤í‹°ë²Œ ì¥ì†Œ
+    fesImg       VARCHAR2(100) NOT NULL,            -- í˜ìŠ¤í‹°ë²Œ ì´ë¯¸ì§€
+    fesBuy       VARCHAR2(200) NOT NULL,            -- ì˜ˆë§¤ì²˜
+    fesPrice     NUMBER(9) NOT NULL,                -- í˜ìŠ¤í‹°ë²Œ ê°€ê²©
+    fesContent   CLOB,                              -- í˜ìŠ¤í‹°ë²Œ ì„¤ëª…
+    fesStatus    VARCHAR2(20) NOT NULL,             -- í˜ìŠ¤í‹°ë²Œ ìƒíƒœì½”ë“œ
+    fesIndate    DATE  DEFAULT sysdate,             -- í˜ìŠ¤í‹°ë²Œ ë“±ë¡ì¼
     show         CHAR(1) DEFAULT 'y'     
  );
  
--- Æä½ºÆ¼¹ú ¸ñ·Ï Á¶È¸
+-- í˜ìŠ¤í‹°ë²Œ ëª©ë¡ ì¡°íšŒ
 SELECT * FROM mvc_ad_festival_tbl
 WHERE show = 'y'
 ORDER BY fesNo;
 
 INSERT INTO mvc_ad_festival_tbl(fesNo, fesName, fesGrade, fesTime, fesPlace, fesImg, fesBuy, fesPrice, fesContent, fesStatus, fesIndate)
- VALUES((SELECT NVL(MAX(fesNo)+1, 1) FROM mvc_ad_festival_tbl), '¼­¿ïÀçÁîÆä½ºÆ¼¹ú', 'ÀüÃ¼°ü¶÷°¡', '2024/07/07', '¿Ã¸²ÇÈ°ø¿ø', '/js_pj_fasticat/resources/images/°í¾çÀÌµŞ¸ğ½À.jpg', 'ÀÎÅÍÆÄÅ©', 189000, '°ø¿¬¼³¸í', 'ÆÇ¸ÅÁß', sysdate); 
+ VALUES((SELECT NVL(MAX(fesNo)+1, 1) FROM mvc_ad_festival_tbl), 'ì„œìš¸ì¬ì¦ˆí˜ìŠ¤í‹°ë²Œ', 'ì „ì²´ê´€ëŒê°€', '2024/07/07', 'ì˜¬ë¦¼í”½ê³µì›', '/js_pj_fasticat/resources/images/ê³ ì–‘ì´ë’·ëª¨ìŠµ.jpg', 'ì¸í„°íŒŒí¬', 189000, 'ê³µì—°ì„¤ëª…', 'íŒë§¤ì¤‘', sysdate); 
 COMMIT;
 
 
--- Æä½ºÆ¼¹ú °¹¼ö
+-- í˜ìŠ¤í‹°ë²Œ ê°¯ìˆ˜
 SELECT COUNT(*) as cnt FROM mvc_ad_festival_tbl;
 
 
--- Æä½ºÆ¼¹ú (»èÁ¦ show Ä®·³ Ãß°¡)
+-- í˜ìŠ¤í‹°ë²Œ (ì‚­ì œ show ì¹¼ëŸ¼ ì¶”ê°€)
  ALTER TABLE mvc_ad_festival_tbl
    ADD show CHAR(1) DEFAULT 'y';
 
  SELECT *
    FROM (
          SELECT A.*, 
-               rownum AS rn  -- ÀÏ·Ãº¯È£ °¡Á®¿À±â
+               rownum AS rn  -- ì¼ë ¨ë³€í˜¸ ê°€ì ¸ì˜¤ê¸°
           FROM 
             (
               SELECT *                
@@ -178,16 +178,16 @@ SELECT COUNT(*) as cnt FROM mvc_ad_festival_tbl;
  WHERE rn BETWEEN 1 AND 10; 
 
 
--- Æä½ºÆ¼¹ú µ¥ÀÌÅÍ »èÁ¦
+-- í˜ìŠ¤í‹°ë²Œ ë°ì´í„° ì‚­ì œ
 DELETE mvc_ad_festival_tbl
 WHERE fesNo = 9;
 
--- Æä½ºÆ¼¹ú ¼öÁ¤
+-- í˜ìŠ¤í‹°ë²Œ ìˆ˜ì •
 UPDATE mvc_ad_festival_tbl
 SET fesNo=1, fesName='', fesGrade='', fesTime='', fesPlace='', fesImg='', fesBuy='', fesPrice='', fesContent='', fesStatus='', fesIndate=''
 WHERE fesNo=1;
 
--- Æä½ºÆ¼¹ú »èÁ¦(update n)
+-- í˜ìŠ¤í‹°ë²Œ ì‚­ì œ(update n)
 UPDATE mvc_ad_festival_tbl
 SET show = 'n'
 WHERE fesNo = 7;
@@ -196,100 +196,100 @@ COMMIT;
 
 
 
------------ ¹è³ÊÅ×ÀÌºí ----------------------------------------------------------
+----------- ë°°ë„ˆí…Œì´ë¸” ----------------------------------------------------------
 DROP TABLE mvc_ad_banner_tbl CASCADE CONSTRAINTS;
  CREATE TABLE mvc_ad_banner_tbl(
-    bannerNo        NUMBER(7)  PRIMARY KEY,            -- ¹è³Ê¹øÈ£
-    bannerArea      VARCHAR2(50)  NOT NULL UNIQUE,     -- ¹è³Ê¿µ¿ª(¸ŞÀÎ1,2,3)
-    bannerImg       VARCHAR2(100) NOT NULL,            -- ¹è³Ê ÀÌ¹ÌÁö
-    bannerStatus    VARCHAR2(20) NOT NULL,             -- ¹è³Ê »óÅÂÄÚµå(»ç¿ëÇÔ,¾ÈÇÔ)
-    bannerIndate    DATE  DEFAULT sysdate,              -- µî·ÏÀÏ
+    bannerNo        NUMBER(7)  PRIMARY KEY,            -- ë°°ë„ˆë²ˆí˜¸
+    bannerArea      VARCHAR2(50)  NOT NULL UNIQUE,     -- ë°°ë„ˆì˜ì—­(ë©”ì¸1,2,3)
+    bannerImg       VARCHAR2(100) NOT NULL,            -- ë°°ë„ˆ ì´ë¯¸ì§€
+    bannerStatus    VARCHAR2(20) NOT NULL,             -- ë°°ë„ˆ ìƒíƒœì½”ë“œ(ì‚¬ìš©í•¨,ì•ˆí•¨)
+    bannerIndate    DATE  DEFAULT sysdate,              -- ë“±ë¡ì¼
     show              CHAR(1) DEFAULT 'y'     
  );
  
--- ¹è³Ê ¸ñ·Ï Á¶È¸
+-- ë°°ë„ˆ ëª©ë¡ ì¡°íšŒ
 SELECT * FROM mvc_ad_banner_tbl
 ORDER BY bannerNo;
 
--- ¹è³Ê µî·Ï
+-- ë°°ë„ˆ ë“±ë¡
 INSERT INTO mvc_ad_banner_tbl(bannerNo, bannerArea, bannerImg, bannerStatus, bannerIndate)
- VALUES((SELECT NVL(MAX(bannerNo)+1, 1) FROM mvc_ad_banner_tbl), '¸ŞÀÎ¹è³Ê1', '/js_pj_fasticat/resources/images/°í¾çÀÌµŞ¸ğ½À.jpg', '»ç¿ëÇÔ', sysdate); 
+ VALUES((SELECT NVL(MAX(bannerNo)+1, 1) FROM mvc_ad_banner_tbl), 'ë©”ì¸ë°°ë„ˆ1', '/js_pj_fasticat/resources/images/ê³ ì–‘ì´ë’·ëª¨ìŠµ.jpg', 'ì‚¬ìš©í•¨', sysdate); 
 COMMIT;
 
 SELECT * FROM mvc_ad_banner_tbl
  WHERE show = 'y'
  ORDER BY bannerNo;
 
--- ¹è³Ê »èÁ¦
+-- ë°°ë„ˆ ì‚­ì œ
 DELETE mvc_ad_banner_tbl
 WHERE bannerNo = 3;
 COMMIT;
 
--- ¹è³Ê ¼öÁ¤
+-- ë°°ë„ˆ ìˆ˜ì •
 UPDATE mvc_ad_banner_tbl
-SET bannerArea='¸ŞÀÎ¹è³Ê1', bannerImg='/js_pj_fasticat/resources/images/°í¾çÀÌµŞ¸ğ½À.jpg', bannerStatus='»ç¿ëÇÔ', bannerIndate=sysdate
+SET bannerArea='ë©”ì¸ë°°ë„ˆ1', bannerImg='/js_pj_fasticat/resources/images/ê³ ì–‘ì´ë’·ëª¨ìŠµ.jpg', bannerStatus='ì‚¬ìš©í•¨', bannerIndate=sysdate
 WHERE bannerNo=1;
 
--- ¹è³Ê »èÁ¦(update n)
+-- ë°°ë„ˆ ì‚­ì œ(update n)
 UPDATE mvc_ad_banner_tbl
 SET show = 'y'
 WHERE bannerNo = 2;
 
 
------- °øÁö»çÇ× --------------------------------------------------------------------
--- °øÁö»çÇ×  Å×ÀÌºí
+------ ê³µì§€ì‚¬í•­ --------------------------------------------------------------------
+-- ê³µì§€ì‚¬í•­  í…Œì´ë¸”
 DROP TABLE mvc_ad_notice_tbl  CASCADE CONSTRAINTS;
 CREATE TABLE mvc_ad_notice_tbl(  
-   noticeNo          NUMBER(7)  PRIMARY KEY,      -- °øÁö»çÇ× ¹øÈ£
-   noticeTitle       VARCHAR2(50)  NOT NULL,      -- °øÁö»çÇ× Á¦¸ñ
-   noticeContent     CLOB  NOT NULL,              -- °øÁö»çÇ× ³»¿ë
-   noticeImg         VARCHAR2(100) NOT NULL,      -- Ã·ºÎÀÌ¹ÌÁö
-   noticeWriter      VARCHAR2(30)  NOT NULL,      -- ÀÛ¼ºÀÚ(°ü¸®ÀÚ)
-   noticeReadCnt     NUMBER(6)   DEFAULT 0,       -- Á¶È¸¼ö
-   noticeRegDate     DATE  DEFAULT sysdate,       -- ÀÛ¼ºÀÏ
+   noticeNo          NUMBER(7)  PRIMARY KEY,      -- ê³µì§€ì‚¬í•­ ë²ˆí˜¸
+   noticeTitle       VARCHAR2(50)  NOT NULL,      -- ê³µì§€ì‚¬í•­ ì œëª©
+   noticeContent     CLOB  NOT NULL,              -- ê³µì§€ì‚¬í•­ ë‚´ìš©
+   noticeImg         VARCHAR2(100) NOT NULL,      -- ì²¨ë¶€ì´ë¯¸ì§€
+   noticeWriter      VARCHAR2(30)  NOT NULL,      -- ì‘ì„±ì(ê´€ë¦¬ì)
+   noticeReadCnt     NUMBER(6)   DEFAULT 0,       -- ì¡°íšŒìˆ˜
+   noticeRegDate     DATE  DEFAULT sysdate,       -- ì‘ì„±ì¼
    show              CHAR(1) DEFAULT 'y'          
 );
 
--- °øÁö»çÇ× ¸ñ·Ï Á¶È¸
+-- ê³µì§€ì‚¬í•­ ëª©ë¡ ì¡°íšŒ
 SELECT * FROM mvc_ad_notice_tbl
 ORDER BY noticeNo;
 
--- °øÁö»çÇ× µî·Ï
+-- ê³µì§€ì‚¬í•­ ë“±ë¡
 INSERT INTO mvc_ad_notice_tbl(noticeNo, noticeTitle, noticeContent, noticeImg, noticeWriter, noticeReadCnt, noticeRegDate)
- VALUES((SELECT NVL(MAX(noticeNo)+1, 1) FROM mvc_ad_notice_tbl), 'Á¦¸ñ1', '³»¿ë', '/js_pj_fasticat/resources/images/°í¾çÀÌµŞ¸ğ½À.jpg', '°ü¸®ÀÚ1', 0, sysdate); 
+ VALUES((SELECT NVL(MAX(noticeNo)+1, 1) FROM mvc_ad_notice_tbl), 'ì œëª©1', 'ë‚´ìš©', '/js_pj_fasticat/resources/images/ê³ ì–‘ì´ë’·ëª¨ìŠµ.jpg', 'ê´€ë¦¬ì1', 0, sysdate); 
 COMMIT;
 
--- °øÁö»çÇ× (»èÁ¦ show Ä®·³ Ãß°¡)
+-- ê³µì§€ì‚¬í•­ (ì‚­ì œ show ì¹¼ëŸ¼ ì¶”ê°€)
  ALTER TABLE mvc_ad_notice_tbl
    ADD show CHAR(1) DEFAULT 'y';
    
--- °øÁö»çÇ× ¼öÁ¤
+-- ê³µì§€ì‚¬í•­ ìˆ˜ì •
 UPDATE mvc_ad_notice_tbl
-SET noticeTitle='¸ŞÀÎ¹è³Ê1', noticeContent='³»¿ë' , noticeImg='/js_pj_fasticat/resources/images/°í¾çÀÌµŞ¸ğ½À.jpg', noticeWriter='ÀÛ¼ºÀÚ', noticeReadCnt='0', noticeRegDate=sysdate
+SET noticeTitle='ë©”ì¸ë°°ë„ˆ1', noticeContent='ë‚´ìš©' , noticeImg='/js_pj_fasticat/resources/images/ê³ ì–‘ì´ë’·ëª¨ìŠµ.jpg', noticeWriter='ì‘ì„±ì', noticeReadCnt='0', noticeRegDate=sysdate
 WHERE noticeNo=1;
 
--- °øÁö»çÇ× »èÁ¦
+-- ê³µì§€ì‚¬í•­ ì‚­ì œ
 UPDATE mvc_ad_notice_tbl
 SET show='n'
 WHERE noticeNo=1;
 
--- ±è¼ºÅÂ -------------------------------------------------------------------------------
---2. °Ô½ÃÆÇ °ø¿¬, Æä½ºÆ¼¹ú ÈÄ±â °Ô½ÃÆÇ/  
+-- ê¹€ì„±íƒœ -------------------------------------------------------------------------------
+--2. ê²Œì‹œíŒ ê³µì—°, í˜ìŠ¤í‹°ë²Œ í›„ê¸° ê²Œì‹œíŒ/  
 DROP TABLE reviewBoard_tbl;
 CREATE TABLE reviewBoard_tbl(  
-     board_num         NUMBER(7),                  -- ±Û¹øÈ£
-     board_category    VARCHAR2(30) DEFAULT '°ø¿¬ÈÄ±â',                --Ä«Å×°í¸® 
-     board_title       VARCHAR2(50)  NOT NULL,      -- ±ÛÁ¦¸ñ
-     board_content     CLOB  NOT NULL,              -- ±Û³»¿ë
-     board_image       VARCHAR2(1000),                -- ÀÌ¹ÌÁöÆÄÀÏ
-     board_writer      VARCHAR2(30)  NOT NULL,      -- ÀÛ¼ºÀÚ fk (userid)
-     board_regDate     DATE  DEFAULT sysdate,       -- ÀÛ¼ºÀÏ
-     board_views       NUMBER(6)   DEFAULT 0,       -- Á¶È¸¼ö
-     board_likes       NUMBER(6)   DEFAULT 0,      -- ÁÁ¾Æ¿ä 
+     board_num         NUMBER(7),                  -- ê¸€ë²ˆí˜¸
+     board_category    VARCHAR2(30) DEFAULT 'ê³µì—°í›„ê¸°',                --ì¹´í…Œê³ ë¦¬ 
+     board_title       VARCHAR2(50)  NOT NULL,      -- ê¸€ì œëª©
+     board_content     CLOB  NOT NULL,              -- ê¸€ë‚´ìš©
+     board_image       VARCHAR2(1000),                -- ì´ë¯¸ì§€íŒŒì¼
+     board_writer      VARCHAR2(30)  NOT NULL,      -- ì‘ì„±ì fk (userid)
+     board_regDate     DATE  DEFAULT sysdate,       -- ì‘ì„±ì¼
+     board_views       NUMBER(6)   DEFAULT 0,       -- ì¡°íšŒìˆ˜
+     board_likes       NUMBER(6)   DEFAULT 0,      -- ì¢‹ì•„ìš” 
      board_show        CHAR(1) DEFAULT 'y'
 );
 
--- ÈÄ±â °Ô½ÃÆÇ ³»¸²Â÷¼ø, y Á¤·Ä
+-- í›„ê¸° ê²Œì‹œíŒ ë‚´ë¦¼ì°¨ìˆœ, y ì •ë ¬
 DROP TABLE reviewBoard_list;
 CREATE TABLE reviewBoard_list
 AS
@@ -303,23 +303,23 @@ AS
 SELECT * FROM reviewBoard_list;
 
 
---ÀÚÀ¯ °Ô½ÃÆÇ 
+--ììœ  ê²Œì‹œíŒ 
 DROP TABLE freeBoard_tbl;
 CREATE TABLE freeBoard_tbl(  
-     board_num         NUMBER(7),                  -- ±Û¹øÈ£
-     board_category    VARCHAR2(30) DEFAULT 'ÀÚÀ¯',                --Ä«Å×°í¸® 
-     board_title       VARCHAR2(50)  NOT NULL,      -- ±ÛÁ¦¸ñ
-     board_content     CLOB  NOT NULL,              -- ±Û³»¿ë
-     board_image       VARCHAR2(1000),                -- ÀÌ¹ÌÁöÆÄÀÏ µğÆúÆ® ÀÌ¹ÌÁö ÁÖ±â (ÀÌ¹ÌÁö¾øÀ½)
-     board_writer      VARCHAR2(30)  NOT NULL,      -- ÀÛ¼ºÀÚ fk (userid)
-     board_regDate     DATE  DEFAULT sysdate,       -- ÀÛ¼ºÀÏ
-     board_views       NUMBER(6)   DEFAULT 0,       -- Á¶È¸¼ö
-     board_likes       NUMBER(6)   DEFAULT 0,      -- ÁÁ¾Æ¿ä 
+     board_num         NUMBER(7),                  -- ê¸€ë²ˆí˜¸
+     board_category    VARCHAR2(30) DEFAULT 'ììœ ',                --ì¹´í…Œê³ ë¦¬ 
+     board_title       VARCHAR2(50)  NOT NULL,      -- ê¸€ì œëª©
+     board_content     CLOB  NOT NULL,              -- ê¸€ë‚´ìš©
+     board_image       VARCHAR2(1000),                -- ì´ë¯¸ì§€íŒŒì¼ ë””í´íŠ¸ ì´ë¯¸ì§€ ì£¼ê¸° (ì´ë¯¸ì§€ì—†ìŒ)
+     board_writer      VARCHAR2(30)  NOT NULL,      -- ì‘ì„±ì fk (userid)
+     board_regDate     DATE  DEFAULT sysdate,       -- ì‘ì„±ì¼
+     board_views       NUMBER(6)   DEFAULT 0,       -- ì¡°íšŒìˆ˜
+     board_likes       NUMBER(6)   DEFAULT 0,      -- ì¢‹ì•„ìš” 
      board_show        CHAR(1) DEFAULT 'y'
 );
 
 
--- ÀÚÀ¯ °Ô½ÃÆÇ ³»¸²Â÷¼ø, y Á¤·Ä
+-- ììœ  ê²Œì‹œíŒ ë‚´ë¦¼ì°¨ìˆœ, y ì •ë ¬
 DROP TABLE freeBoard_list;
 CREATE TABLE freeBoard_list
 AS
@@ -331,109 +331,109 @@ AS
       ) r 
   );
 SELECT * FROM freeBoard_list;
--- ±è¼Ò¿¬ -------------------------------------------------------------------------------
--- °ø¿¬ÈÄ±â °Ô½ÃÆÇ
+-- ê¹€ì†Œì—° -------------------------------------------------------------------------------
+-- ê³µì—°í›„ê¸° ê²Œì‹œíŒ
 DROP TABLE reviewBoard_tbl;
 CREATE TABLE reviewBoard_tbl(  
-     board_num         NUMBER(7) PRIMARY KEY,           -- ±Û¹øÈ£
-     board_category    VARCHAR2(30) DEFAULT '°ø¿¬ÈÄ±â',  -- Ä«Å×°í¸® 
-     board_title       VARCHAR2(50)  NOT NULL,          -- ±ÛÁ¦¸ñ
-     board_content     CLOB  NOT NULL,                  -- ±Û³»¿ë
-     board_thumnail    VARCHAR2(100),                   -- default ½æ³×ÀÏÀº ¸ñ·ÏÁ¶È¸½Ã »ı¼ºµÊ
-     board_image       VARCHAR2(100),                   -- ÀÌ¹ÌÁöÆÄÀÏ
-     board_writer      VARCHAR2(30) REFERENCES mvc_customer_tbl(userid),-- ÀÛ¼ºÀÚ 
-     board_regDate     DATE  DEFAULT sysdate,           -- ÀÛ¼ºÀÏ
-     board_views       NUMBER(6)   DEFAULT 0,           -- Á¶È¸¼ö
-     board_heart       NUMBER(6)   DEFAULT 0,           -- ÁÁ¾Æ¿ä 
+     board_num         NUMBER(7) PRIMARY KEY,           -- ê¸€ë²ˆí˜¸
+     board_category    VARCHAR2(30) DEFAULT 'ê³µì—°í›„ê¸°',  -- ì¹´í…Œê³ ë¦¬ 
+     board_title       VARCHAR2(50)  NOT NULL,          -- ê¸€ì œëª©
+     board_content     CLOB  NOT NULL,                  -- ê¸€ë‚´ìš©
+     board_thumnail    VARCHAR2(100),                   -- default ì¸ë„¤ì¼ì€ ëª©ë¡ì¡°íšŒì‹œ ìƒì„±ë¨
+     board_image       VARCHAR2(100),                   -- ì´ë¯¸ì§€íŒŒì¼
+     board_writer      VARCHAR2(30) REFERENCES mvc_customer_tbl(userid),-- ì‘ì„±ì 
+     board_regDate     DATE  DEFAULT sysdate,           -- ì‘ì„±ì¼
+     board_views       NUMBER(6)   DEFAULT 0,           -- ì¡°íšŒìˆ˜
+     board_heart       NUMBER(6)   DEFAULT 0,           -- ì¢‹ì•„ìš” 
      board_show        CHAR(1) DEFAULT 'y'
 );
 
--- °ø¿¬ÈÄ±â °Ô½ÃÆÇ ÇÏÆ®(toggle)
+-- ê³µì—°í›„ê¸° ê²Œì‹œíŒ í•˜íŠ¸(toggle)
 DROP TABLE heart_reviewBoard_tbl;
 CREATE TABLE heart_reviewBoard_tbl(  
      heart_num          NUMBER(6) PRIMARY KEY,
-     board_num          NUMBER(7) REFERENCES reviewBoard_tbl(board_num),    -- ±Û¹øÈ£
-     board_category     VARCHAR2(30) DEFAULT '°ø¿¬ÈÄ±â',                     -- Ä«Å×°í¸®
-     userID             VARCHAR2(30) REFERENCES mvc_customer_tbl(userid),   -- ÀÛ¼ºÀÚ 
-     heart              CHAR(1)   DEFAULT 1                                 -- ÁÁ¾Æ¿ä
+     board_num          NUMBER(7) REFERENCES reviewBoard_tbl(board_num),    -- ê¸€ë²ˆí˜¸
+     board_category     VARCHAR2(30) DEFAULT 'ê³µì—°í›„ê¸°',                     -- ì¹´í…Œê³ ë¦¬
+     userID             VARCHAR2(30) REFERENCES mvc_customer_tbl(userid),   -- ì‘ì„±ì 
+     heart              CHAR(1)   DEFAULT 1                                 -- ì¢‹ì•„ìš”
 );
 
--- °ø¿¬ÈÄ±â°Ô½ÃÆÇ ´ñ±Û
+-- ê³µì—°í›„ê¸°ê²Œì‹œíŒ ëŒ“ê¸€
 DROP TABLE reviewComment_tbl;
 CREATE TABLE reviewComment_tbl(  
-    comment_num     NUMBER(7) PRIMARY KEY,      -- PK, ´ñ±Û ÀÏ·Ã¹øÈ£
-    board_num       NUMBER(7) REFERENCES reviewBoard_tbl(board_num),                   -- FK, °Ô½Ã±Û ¹øÈ£
-    board_category  VARCHAR2(30) DEFAULT '°ø¿¬ÈÄ±â',
-    userID          VARCHAR2(30) REFERENCES mvc_customer_tbl(userid),       -- ÀÛ¼ºÀÚ
-    content         CLOB  NOT NULL,              -- ±Û³»¿ë
-    regDate         Date  DEFAULT sysdate       -- µî·ÏÀÏ
+    comment_num     NUMBER(7) PRIMARY KEY,      -- PK, ëŒ“ê¸€ ì¼ë ¨ë²ˆí˜¸
+    board_num       NUMBER(7) REFERENCES reviewBoard_tbl(board_num),                   -- FK, ê²Œì‹œê¸€ ë²ˆí˜¸
+    board_category  VARCHAR2(30) DEFAULT 'ê³µì—°í›„ê¸°',
+    userID          VARCHAR2(30) REFERENCES mvc_customer_tbl(userid),       -- ì‘ì„±ì
+    content         CLOB  NOT NULL,              -- ê¸€ë‚´ìš©
+    regDate         Date  DEFAULT sysdate       -- ë“±ë¡ì¼
 );
 
--- ÀÚÀ¯ °Ô½ÃÆÇ
+-- ììœ  ê²Œì‹œíŒ
 DROP TABLE freeBoard_tbl;
 CREATE TABLE freeBoard_tbl(  
-     board_num         NUMBER(7) PRIMARY KEY,           -- ±Û¹øÈ£
-     board_category    VARCHAR2(30) DEFAULT 'ÀÚÀ¯',  -- Ä«Å×°í¸® 
-     board_title       VARCHAR2(50)  NOT NULL,          -- ±ÛÁ¦¸ñ
-     board_content     CLOB  NOT NULL,                  -- ±Û³»¿ë
-     board_thumnail    VARCHAR2(100),                   -- default ½æ³×ÀÏÀº ¸ñ·ÏÁ¶È¸½Ã »ı¼ºµÊ
-     board_image       VARCHAR2(100),                   -- ÀÌ¹ÌÁöÆÄÀÏ
-     board_writer      VARCHAR2(30) REFERENCES mvc_customer_tbl(userid),-- ÀÛ¼ºÀÚ 
-     board_regDate     DATE  DEFAULT sysdate,           -- ÀÛ¼ºÀÏ
-     board_views       NUMBER(6)   DEFAULT 0,           -- Á¶È¸¼ö
-     board_heart       NUMBER(6)   DEFAULT 0,           -- ÁÁ¾Æ¿ä 
+     board_num         NUMBER(7) PRIMARY KEY,           -- ê¸€ë²ˆí˜¸
+     board_category    VARCHAR2(30) DEFAULT 'ììœ ',  -- ì¹´í…Œê³ ë¦¬ 
+     board_title       VARCHAR2(50)  NOT NULL,          -- ê¸€ì œëª©
+     board_content     CLOB  NOT NULL,                  -- ê¸€ë‚´ìš©
+     board_thumnail    VARCHAR2(100),                   -- default ì¸ë„¤ì¼ì€ ëª©ë¡ì¡°íšŒì‹œ ìƒì„±ë¨
+     board_image       VARCHAR2(100),                   -- ì´ë¯¸ì§€íŒŒì¼
+     board_writer      VARCHAR2(30) REFERENCES mvc_customer_tbl(userid),-- ì‘ì„±ì 
+     board_regDate     DATE  DEFAULT sysdate,           -- ì‘ì„±ì¼
+     board_views       NUMBER(6)   DEFAULT 0,           -- ì¡°íšŒìˆ˜
+     board_heart       NUMBER(6)   DEFAULT 0,           -- ì¢‹ì•„ìš” 
      board_show        CHAR(1) DEFAULT 'y'
 );
 
--- ÀÚÀ¯ °Ô½ÃÆÇ ÇÏÆ®(toggle)
+-- ììœ  ê²Œì‹œíŒ í•˜íŠ¸(toggle)
 DROP TABLE heart_freeBoard_tbl;
 CREATE TABLE heart_freeBoard_tbl(  
      heart_num          NUMBER(6) PRIMARY KEY,
-     board_num          NUMBER(7) REFERENCES freeBoard_tbl(board_num),      -- ±Û¹øÈ£
-     board_category     VARCHAR2(30) DEFAULT 'ÀÚÀ¯',                         --Ä«Å×°í¸®
-     userID             VARCHAR2(30) REFERENCES mvc_customer_tbl(userid),   -- ÀÛ¼ºÀÚ fk (userid)
-     heart              CHAR(1)   DEFAULT 1                                 -- ÁÁ¾Æ¿ä
+     board_num          NUMBER(7) REFERENCES freeBoard_tbl(board_num),      -- ê¸€ë²ˆí˜¸
+     board_category     VARCHAR2(30) DEFAULT 'ììœ ',                         --ì¹´í…Œê³ ë¦¬
+     userID             VARCHAR2(30) REFERENCES mvc_customer_tbl(userid),   -- ì‘ì„±ì fk (userid)
+     heart              CHAR(1)   DEFAULT 1                                 -- ì¢‹ì•„ìš”
 );
 SELECT * FROM reviewComment_tbl;
--- ÀÚÀ¯°Ô½ÃÆÇ ´ñ±Û
+-- ììœ ê²Œì‹œíŒ ëŒ“ê¸€
 DROP TABLE freeComment_tbl;
 CREATE TABLE freeComment_tbl(  
-    comment_num     NUMBER(7)  PRIMARY KEY,      -- PK, ´ñ±Û ÀÏ·Ã¹øÈ£
-    board_num       NUMBER(7) REFERENCES freeBoard_tbl(board_num),                   -- FK, °Ô½Ã±Û ¹øÈ£
-    board_category  VARCHAR2(30) DEFAULT 'ÀÚÀ¯',
-    userID          VARCHAR2(30) REFERENCES mvc_customer_tbl(userid),       -- ÀÛ¼ºÀÚ
-    content         CLOB  NOT NULL,              -- ±Û³»¿ë
-    regDate         Date  DEFAULT sysdate       -- µî·ÏÀÏ
+    comment_num     NUMBER(7)  PRIMARY KEY,      -- PK, ëŒ“ê¸€ ì¼ë ¨ë²ˆí˜¸
+    board_num       NUMBER(7) REFERENCES freeBoard_tbl(board_num),                   -- FK, ê²Œì‹œê¸€ ë²ˆí˜¸
+    board_category  VARCHAR2(30) DEFAULT 'ììœ ',
+    userID          VARCHAR2(30) REFERENCES mvc_customer_tbl(userid),       -- ì‘ì„±ì
+    content         CLOB  NOT NULL,              -- ê¸€ë‚´ìš©
+    regDate         Date  DEFAULT sysdate       -- ë“±ë¡ì¼
 );
--- ±èÁ¶¿ø -------------------------------------------------------------------------------
+-- ê¹€ì¡°ì› -------------------------------------------------------------------------------
 DROP TABLE mvc_customer_tbl  CASCADE CONSTRAINTS;
 CREATE TABLE mvc_customer_tbl(
    userid     VARCHAR2(20)    PRIMARY KEY,    -- ID
-   password   VARCHAR2(20)    NOT NULL,          -- ºñ¹Ğ¹øÈ£
-   username   VARCHAR2(20)    NOT NULL,          -- ÀÌ¸§
-   birthday   DATE            NOT NULL,          -- »ı³â¿ùÀÏ    
-   address    VARCHAR2(50)    NOT NULL,          -- ÁÖ¼Ò
-   hp         VARCHAR2(13),                      -- ÇÚµåÆù      
-   email      VARCHAR2(50)    NOT NULL,          -- ÀÌ¸ŞÀÏ
-   regDate    TIMESTAMP       DEFAULT sysdate    -- °¡ÀÔÀÏ
+   password   VARCHAR2(20)    NOT NULL,          -- ë¹„ë°€ë²ˆí˜¸
+   username   VARCHAR2(20)    NOT NULL,          -- ì´ë¦„
+   birthday   DATE            NOT NULL,          -- ìƒë…„ì›”ì¼    
+   address    VARCHAR2(50)    NOT NULL,          -- ì£¼ì†Œ
+   hp         VARCHAR2(13),                      -- í•¸ë“œí°      
+   email      VARCHAR2(50)    NOT NULL,          -- ì´ë©”ì¼
+   regDate    TIMESTAMP       DEFAULT sysdate    -- ê°€ì…ì¼
 ); 
 
 INSERT INTO mvc_customer_tbl(userid, password, username, birthday, address, hp, email)
-VALUES('hong', 'h1234', 'È«±æµ¿', '2000/01/01','¼­¿ï½Ã °­³²±¸ ´ëÄ¡µ¿', '010-1111-2222','hong@gmail.com');
+VALUES('hong', 'h1234', 'í™ê¸¸ë™', '2000/01/01','ì„œìš¸ì‹œ ê°•ë‚¨êµ¬ ëŒ€ì¹˜ë™', '010-1111-2222','hong@gmail.com');
 commit;
 
 SELECT * FROM mvc_customer_tbl;
--- ¹æÁØ¼º -------------------------------------------------------------------------------
+-- ë°©ì¤€ì„± -------------------------------------------------------------------------------
 
-CREATE TABLE show_tbl(                                                          -- °ø¿¬ Å×ÀÌºí
-    showNum         NUMBER(6)      PRIMARY KEY,                                 -- °ø¿¬¹øÈ£
-    showName        VARCHAR2(150)   NOT NULL,                                   -- °ø¿¬¸í
-    showPlace       VARCHAR2(150)   NOT NULL,                                   -- °ø¿¬Àå¼Ò                                     
-    showPrice       NUMBER(20)     ,                                            -- 1¸Å´ç °¡°İ
-    curCapacity     NUMBER(20)     DEFAULT 0 ,                                  -- Çö¼ö¿ëÀÎ¿ø
-    maxCapacity     NUMBER(20)     DEFAULT 50,                                  -- ÃÖ´ë¼ö¿ëÀÎ¿ø
-    showDay         Date           NOT NULL,                                    -- °ø¿¬³¯Â¥
-    showCHK         char           DEFAULT 'N'                                  -- °ø¿¬±â°£ È°¼ºÈ­ À¯¹«
+CREATE TABLE show_tbl(                                                          -- ê³µì—° í…Œì´ë¸”
+    showNum         NUMBER(6)      PRIMARY KEY,                                 -- ê³µì—°ë²ˆí˜¸
+    showName        VARCHAR2(150)   NOT NULL,                                   -- ê³µì—°ëª…
+    showPlace       VARCHAR2(150)   NOT NULL,                                   -- ê³µì—°ì¥ì†Œ                                     
+    showPrice       NUMBER(20)     ,                                            -- 1ë§¤ë‹¹ ê°€ê²©
+    curCapacity     NUMBER(20)     DEFAULT 0 ,                                  -- í˜„ìˆ˜ìš©ì¸ì›
+    maxCapacity     NUMBER(20)     DEFAULT 50,                                  -- ìµœëŒ€ìˆ˜ìš©ì¸ì›
+    showDay         Date           NOT NULL,                                    -- ê³µì—°ë‚ ì§œ
+    showCHK         char           DEFAULT 'N'                                  -- ê³µì—°ê¸°ê°„ í™œì„±í™” ìœ ë¬´
 );
 CREATE SEQUENCE show_tbl_seq
     START WITH 1
