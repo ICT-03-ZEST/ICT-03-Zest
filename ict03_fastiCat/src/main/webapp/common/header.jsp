@@ -1,3 +1,5 @@
+<!-- 2024/07/17/11:04 -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/common/setting.jsp"%>
@@ -6,8 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css"
-	href="/FastiCat/resources/css/header.css">
+<link rel="stylesheet" href="${path }/resources/css/common/header.css">
 </head>
 <body>
 	<!-- header 시작 -->
@@ -35,12 +36,13 @@
 			<li><a href="main.html"><i class="fa-brands fa-facebook"></i></a></li>
 			<li><a href="${path}/login.do">LOGIN</a></li>
 			<li><a href="${path}/join.do">JOIN</a></li>
-			<input id="searchInput" class="inputButton" type="search"
-				placeholder="" aria-label="Search">
-			<input class="inputButton" type="button" value="search"
-				; onclick="window.location='${path }/search.sc'">
-			<li><a href="${path }/myPage.do"><i
-					class="fa-solid fa-user">myPage</i></a></li>
+            <form action="${path}/search.sc" method="get">
+                <input id="searchInput" class="inputButton" type="search" name="query" placeholder="검색어를 입력하세요" aria-label="Search">
+                <button id="searchInputButton" class="inputButton" type="submit">
+                    <i class="fa-solid fa-magnifying-glass" style="color: #eb9500;"></i>
+                </button>
+            </form>
+			<li><a href="${path }/myPage.do"><i class="fa-solid fa-user">myPage</i></a></li>
 		</ul>
 		<!-- 반응형 웹 - (1). 햄버거 아이콘 fontawesome - free - bars -->
 		<a href="#" class="navbar_toggleBtn"> <i class="fa-solid fa-bars"></i>

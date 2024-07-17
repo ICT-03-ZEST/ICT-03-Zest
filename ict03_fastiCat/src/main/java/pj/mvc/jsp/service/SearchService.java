@@ -15,4 +15,12 @@ public interface SearchService {
     // 상세페이지
 	public void searchDetailAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException;
+
+	// 게시글 세부 목록
+	public void boardDetailListAction(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException;
+
+	
+
+
 }
