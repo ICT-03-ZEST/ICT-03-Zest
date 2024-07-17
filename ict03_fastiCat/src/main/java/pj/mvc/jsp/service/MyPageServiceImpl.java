@@ -8,6 +8,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import pj.mvc.jsp.dao.BoardDAO;
+import pj.mvc.jsp.dao.BoardDAOImpl;
 import pj.mvc.jsp.dao.MyPageDAO;
 import pj.mvc.jsp.dao.MyPageDAOImpl;
 import pj.mvc.jsp.dto.BoardDTO;
@@ -163,5 +165,26 @@ public class MyPageServiceImpl implements MyPageService {
 			request.setAttribute("paging", paging);
 					
 		}
+		
+		// 회원정보 인증처리 및 상세페이지
+		@Override
+		public void bdDelPwdChk(HttpServletRequest request, HttpServletResponse response)
+				throws ServletException, IOException{
+				System.out.println("서비스 - bdDelPwdChk()");
+			
+			String strId = (String) request.getSession().getAttribute("sessionID");
+			String strPwd = request.getParameter("password");
+			
+			// 4단계. 싱글톤 방식으로 DAO 객체 생성, 다형성 적용
+			// MyPageDAOImpl dao = new MyPageDAOImpl();
+			MyPageDAO dao = MyPageDAOImpl.getInstance();
+			
+			// 5단계. 중복확인 처리
+			int selectCnt = dao.idPasswordChk(strId, strPwd);
+			
+			// 6단계. jsp로 처리결과 전달
+			request.setAttribute("selectCnt", selectCnt);
+			
+		};
 
 }

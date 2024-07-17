@@ -19,7 +19,7 @@
 	   };
 	   
 	   $.ajax({
-           url :'${path}/modifyPwdChk.do' ,         //3.
+           url :'${path}/modifyPwdChk.myp' ,         //3.
            type : 'POST',
            data : param,                  //요청데이터 형식(html,xml,json,text)
            success : function(data){            //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
@@ -43,7 +43,7 @@
 	   };
 	   
 	   $.ajax({
-           url :'${path}/deletePwdChk.do' ,         //3.
+           url :'${path}/deletePwdChk.myp' ,         //3.
            type : 'POST',
            data : param,                  //요청데이터 형식(html,xml,json,text)
            success : function(data){            //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
@@ -81,7 +81,7 @@
 	   };
 	   
 	   $.ajax({
-           url :'${path}/modifyUserAction.do' ,         //3.
+           url :'${path}/modifyUserAction.myp' ,         //3.
            type : 'POST',
            data : param,                  //요청데이터 형식(html,xml,json,text)
            success : function(data){            //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
@@ -100,7 +100,7 @@
    function deleteConfirm() {
 	   
 	   $.ajax({
-           url :'${path}/deleteUserAction.do' ,         //3.
+           url :'${path}/deleteUserAction.myp' ,         //3.
            type : 'POST',
            data : '',                  //요청데이터 형식(html,xml,json,text)
            success : function(data){            //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
@@ -146,7 +146,7 @@
                     </div>
                         
                    <div class="div_text">
-                        <span>ㅁㅁㅁ님, 안녕하세요 </span>
+                        <span>${sessionID}님, 안녕하세요 </span>
                    </div>
                 </div>
             </div>
@@ -233,11 +233,11 @@
 	
 <script>
 	function boardPopup() {
-		location.href = "${path}/myBoardList.do"; 
+		location.href = "${path}/myBoardList.myp"; 
 	}
 	
 	function ticketPopup() {
-			location.href = "${path}/myTicketDetail.do"; 
+			location.href = "${path}/myTicketDetail.myp"; 
 	}
 	
 	// 회원수정

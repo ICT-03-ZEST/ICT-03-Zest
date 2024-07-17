@@ -1,6 +1,7 @@
 package pj.mvc.jsp.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -35,7 +36,7 @@ public class MyPageDAOImpl implements MyPageDAO{
 		private MyPageDAOImpl() {
 			try {
 				Context context = new InitialContext();
-				 dataSource = (DataSource) context.lookup("java:comp/env/jdbc/ict03_zest");
+				 dataSource = (DataSource) context.lookup("java:comp/env/jdbc/jsp_pj_ict03");
 			} catch (NamingException e) {
 				e.printStackTrace();
 			}

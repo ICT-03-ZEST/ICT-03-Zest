@@ -5,14 +5,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script>
-
-$(function(){	// 상세페이지가 로딩화면
-	
-	$("#sel_num").val(dto.getHp().split("-")[0]).prop("selected", true);
-
-});
-</script>
 <title>Insert title here</title>
 </head>
 <body>
