@@ -37,6 +37,10 @@
 										<!-- 상단 중앙1 시작 -->
 										<div id="section1">
 											<h1 align="center">통합게시판</h1>
+											<span
+												style="font-size: 1.5em; color: gray; text-align: center; display: block; margin: 0 auto;">
+												'${query }' 에 대한 검색결과 </span>
+
 										</div>
 
 										<!-- 상단 중앙2 시작 -->
@@ -48,28 +52,28 @@
 													<form name="boardList">
 														<table id="searchTable">
 															<tr>
-																<th style="width: 10%">글번호</th>
-																<th style="width: 50%">글제목</th>
-																<th style="width: 15%">작성자</th>
-																<th style="width: 15%">작성일</th>
-																<th style="width: 10%">조회수</th>
+																<th class="searchth" style="width: 10%">글번호</th>
+																<th class="searchth" style="width: 50%">글제목</th>
+																<th class="searchth" style="width: 15%">작성자</th>
+																<th class="searchth" style="width: 15%">작성일</th>
+																<th class="searchth" style="width: 10%">조회수</th>
 															</tr>
 
 															<!-- 상품이 있으면 -->
 															<c:forEach var="list" items="${list }">
 																<tr>
-																	<td>${list.getNum() }</td>
-																	<td><a
+																	<td class="searchtd">${list.getNum() }</td>
+																	<td class="searchtd"><a
 																		href="${path}/search_detailAction.sc?num=${list.getNum()}">${list.getTitle()}</a>
 																	</td>
-																	<td>${list.getWriter() }</td>
-																	<td>${list.getRegDate() }</td>
-																	<td>${list.getReadCnt() }</td>
+																	<td class="searchtd">${list.getWriter() }</td>
+																	<td class="searchtd">${list.getRegDate() }</td>
+																	<td class="searchtd">${list.getReadCnt() }</td>
 																</tr>
 															</c:forEach>
 
 															<tr>
-																<td colspan="5" align="center">
+																<td class="searchtd" colspan="5" align="center">
 																	<!-- 페이징 처리 --> <!-- 이전 버튼 활성화 --> <c:if
 																		test="${paging.startPage > 10 }">
 																		<a href="${path }/search.sc?pageNum=${paging.prev}">[이전]</a>
@@ -91,40 +95,35 @@
 										</div>
 									</div>
 								</div>
-							</div>
-						</thead>
+								</div>
+							</thead>
 
-						<!-- 드롭다운 + 검색 창 시작 -->
-						<tr>
-							<td colspan="2" style="border-bottom: none"><br>
-								<div align="right" id="searchfooter">
-									<select name="languages" id="lang">
+							<!-- 드롭다운 + 검색 창 시작 -->
+							<div align="right" id="searchfooter">
+								<form action="${path}/search_detailList.sc" method="get">
+									<select name="searchItem" id="lang">
 										<option value="">세부검색</option>
 										<option value="writer">작성자</option>
 										<option value="title">제목</option>
 										<option value="content">내용</option>
 									</select>
-									<!-- 검색값 넘겨서 검색 처리 -->
-									<input id="searchInput" class="inputButton" type="search"
-										placeholder="Search" aria-label="Search">
-									<!-- 검색 버튼 클릭 시 handleSearch 함수 호출 -->
-									<input class="inputButton" type="button" value="search"
-										onclick="handleSearch()">
-								</div>
-							</td>
-						</tr>
-						<!-- 드롭다운 + 검색 창 끝 -->
-
-					</table>
+									 <input id="searchInput" class="inputButton" type="search"
+										name="query" placeholder="검색어를 입력하세요" aria-label="Search">
+									<input id="searchInputButton" class="inputButton" type="submit"
+										value="search">
+								</form>
+							</div>
+							<!-- 드롭다운 + 검색 창 끝 -->
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<!-- 컨텐츠 끝 -->
+		<!-- 컨텐츠 끝 -->
 
-	<!-- footer 시작 -->
-	<%@include file="/common/footer.jsp"%>
-	<!-- footer 끝 -->
+		<!-- footer 시작 -->
+		<%@include file="/common/footer.jsp"%>
+		<!-- footer 끝 -->
 
 	</div>
 
