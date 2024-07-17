@@ -11,9 +11,13 @@ public class SearchDTO {
 	private int readCnt;          //   조회수         
 	private Date regDate;          //   작성일        
 	private int comment_count;  	//   댓글갯수   
+	private String searchInput;		// 검색값
 
+
+
+	
 	public SearchDTO(int num, String title, String content, String writer, String password, int readCnt, Date regDate,
-			int comment_count) {
+			int comment_count, String searchInput) {
 		super();
 		this.num = num;
 		this.title = title;
@@ -23,13 +27,20 @@ public class SearchDTO {
 		this.readCnt = readCnt;
 		this.regDate = regDate;
 		this.comment_count = comment_count;
+		this.searchInput = searchInput;
 	}
 
 	public SearchDTO() {
 		super();
 	}
 
+	public String getSearchInput() {
+		return searchInput;
+	}
 
+	public void setSearchInput(String searchInput) {
+		this.searchInput = searchInput;
+	}
 	public int getNum() {
 		return num;
 	}

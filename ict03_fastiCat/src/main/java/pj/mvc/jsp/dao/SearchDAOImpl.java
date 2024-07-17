@@ -34,59 +34,45 @@ public class SearchDAOImpl implements SearchDAO {
 	private SearchDAOImpl() {
 		try {
 			Context context = new InitialContext();
-			dataSource = (DataSource) context.lookup("java:comp/env/jdbc/ict03_zest"); // java:comp/env/Resource명
+			dataSource = (DataSource) context.lookup("java:comp/env/jdbc/FastiCat"); // java:comp/env/Resource명
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 	}
 
 	// 게시글 목록
-	@Override
-	public List<SearchDTO> boardList(int start, int end) {
-		System.out.println("DAO - useridCheck()");
+    @Override
+    public List<SearchDTO> boardList(String query, int start, int end) {
+        List<SearchDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
 
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		List<SearchDTO> list = new ArrayList<SearchDTO>();
-
-		try {
-			conn = dataSource.getConnection();
-
-			String sql = "SELECT * " + " 	 FROM( " + "				SELECT A.*, " + " 		       rownum AS rn "
-					+ " 			FROM " + "   			 (SELECT * FROM mvc_board_tbl "
-					+ "  		      WHERE show = 'y'" + "				  ORDER BY num DESC " + "   		      ) A "
-					+ "         ) " + "WHERE rn BETWEEN ? AND ?";
-
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, start);
-			pstmt.setInt(2, end);
-
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				// dto 생성.
-				SearchDTO dto = new SearchDTO();
-				// dto 에 1건의 rs 게시글 정보를 받는다.
-				dto.setNum(rs.getInt("num"));
-				dto.setTitle(rs.getString("Title"));
-				dto.setContent(rs.getString("content"));
-				dto.setWriter(rs.getString("writer"));
-				dto.setPassword(rs.getString("password"));
-				dto.setReadCnt(rs.getInt("readCnt"));
-				dto.setRegDate(rs.getDate("regDate"));
-				dto.setComment_count(rs.getInt("comment_count"));
-
-				// list 에 dto 를 추가.
-				list.add(dto);
-
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
+        try {
+            conn = dataSource.getConnection();
+            String sql = "SELECT * FROM (SELECT A.*, rownum AS rn FROM (SELECT * FROM mvc_board_tbl WHERE show = 'y' AND (title LIKE ? OR content LIKE ? OR writer LIKE ?) ORDER BY num DESC) A) WHERE rn BETWEEN ? AND ?";
+            pstmt = conn.prepareStatement(sql);
+            String searchQuery = "%" + query + "%";
+            pstmt.setString(1, searchQuery);
+            pstmt.setString(2, searchQuery);
+            pstmt.setString(3, searchQuery);
+            pstmt.setInt(4, start - 1); // MySQL은 0부터 시작하는 인덱스를 사용하지만, Oracle은 1부터 시작하는 인덱스를 사용합니다.
+            pstmt.setInt(5, end);
+            rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                SearchDTO dto = new SearchDTO();
+                dto.setNum(rs.getInt("num"));
+                dto.setTitle(rs.getString("title"));
+                dto.setContent(rs.getString("content"));
+                dto.setWriter(rs.getString("writer"));
+                dto.setRegDate(rs.getDate("regDate"));
+                list.add(dto);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
 			try {
-				if (rs != null)
-					rs.close();
 				if (pstmt != null)
 					pstmt.close();
 				if (conn != null)
@@ -95,10 +81,8 @@ public class SearchDAOImpl implements SearchDAO {
 				e.printStackTrace();
 			}
 		}
-
-		// list를 리턴한다.
-		return list;
-	}
+        return list;
+    }
 
 	// 게시글 갯수 구하기
 	@Override
@@ -214,4 +198,63 @@ public class SearchDAOImpl implements SearchDAO {
 		}
 		return dto;
 	}
+	
+	// 게시글 상세 검색
+	@Override
+	public List<SearchDTO> boardDetailList(String searchItem, String searchInput, int start, int end) {
+	    List<SearchDTO> list = new ArrayList<>();
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+
+	    try {
+	        conn = dataSource.getConnection();
+	        
+	        // 검색 기준에 따라 SQL 쿼리 생성
+	        String sql = "SELECT * FROM (SELECT A.*, rownum AS rn FROM (SELECT * FROM mvc_board_tbl WHERE show = 'y' ";
+
+	        if ("writer".equals(searchItem)) {
+	            sql += "AND writer LIKE ? ";
+	        } else if ("title".equals(searchItem)) {
+	            sql += "AND title LIKE ? ";
+	        } else if ("content".equals(searchItem)) {
+	            sql += "AND content LIKE ? ";
+	        }
+	        
+	        sql += "ORDER BY num DESC) A) WHERE rn BETWEEN ? AND ?";
+	        
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, "%" + searchInput + "%");
+	        pstmt.setInt(2, start - 1);
+	        pstmt.setInt(3, end);
+	        
+	        System.out.println(sql);
+	        rs = pstmt.executeQuery();
+
+	        while (rs.next()) {
+	            SearchDTO dto = new SearchDTO();
+	            dto.setNum(rs.getInt("num"));
+	            dto.setTitle(rs.getString("title"));
+	            dto.setContent(rs.getString("content"));
+	            dto.setWriter(rs.getString("writer"));
+	            dto.setRegDate(rs.getDate("regDate"));
+	            list.add(dto);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null)
+	                rs.close();
+	            if (pstmt != null)
+	                pstmt.close();
+	            if (conn != null)
+	                conn.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    return list;
+	}
+
 }

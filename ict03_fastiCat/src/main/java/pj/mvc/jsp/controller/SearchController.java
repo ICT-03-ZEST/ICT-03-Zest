@@ -69,6 +69,12 @@ public class SearchController extends HttpServlet {
 	           viewPage = "/customer/search/search_detailAction.jsp";
 	        }
 	 	     
+	      // [ 검색창 세부검색 ]
+	      if(url.equals("/search_detailList.sc")) {
+	         System.out.println("<<< url ==>  /search_detailList.sc >>>");
+	         service.boardDetailListAction(request, response);
+	         viewPage = "/customer/search/search_detailList.jsp";
+	      }
 	      // RequestDispatcher : 서블릿 또는 JSP 요청을 받은 후, 다른 컴포넌트로 요청을 위임하는 클래스이다.
 	      RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 	      dispatcher.forward(request, response);

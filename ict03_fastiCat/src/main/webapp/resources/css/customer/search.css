@@ -28,7 +28,7 @@
 	left: 50%;
 }
 
-th {
+.searchth {
 	font-size: 15px;
 	font-weight: bold;
 	width: 100px;
@@ -41,7 +41,7 @@ th {
 	margin-right: 2px;
 }
 
-td {
+.searchtd {
 	padding: 10px 0 10px 10px;
 	border-bottom: 1px solid #CCC;
 }
