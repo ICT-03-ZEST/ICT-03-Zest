@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="../ad_common/ad_setting.jsp" %>     
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,16 +15,25 @@
     <title>관리자 - 회원목록</title>
 
     <!-- Custom fonts for this template -->
-    <link href="../startbootstrap-admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="${path}/admin/startbootstrap-admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="../../resources/css/admin/sb-admin-2.css" rel="stylesheet">
+    <link href="${path}/resources/css/admin/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom styles for this page -->
-    <link href="../startbootstrap-admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="${path}/admin/startbootstrap-admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+<script type="text/javascript">
+    function setDelete(userid) {
+    	console.log("userid:", userid); // userid 값을 콘솔에 출력하여 확인
+        document.getElementById('deleteButton').setAttribute('onclick', "window.location='${path}/ad_memberDeleteAction.admember?userid=" + userid + "'");
+    	
+    }
+</script>
+
 
 </head>
 
@@ -51,10 +61,13 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                        	<th>번호</th>
+                                            <th>번호</th>
                                             <th>아이디</th>
-                                            <th>닉네임</th>
+                                            <th>비밀번호</th>
                                             <th>이름</th>
+                                            <th>생년월일</th>
+                                            <th>주소</th>
+                                            <th>전화번호</th>
                                             <th>이메일</th>
                                             <th>가입일</th>
                                             <th>강제탈퇴</th>
@@ -64,146 +77,35 @@
                                         <tr>
                                             <th>번호</th>
                                             <th>아이디</th>
-                                            <th>닉네임</th>
+                                            <th>비밀번호</th>
                                             <th>이름</th>
+                                            <th>생년월일</th>
+                                            <th>주소</th>
+                                            <th>전화번호</th>
                                             <th>이메일</th>
                                             <th>가입일</th>
                                             <th>강제탈퇴</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                    	<!-- 회원목록이 있으면 -->
+                                    	<c:forEach var="dto" items="${list}" varStatus="status">
                                         <tr>
-                                            <td>1</td>
-                                            <td>아이디1</td>
-                                            <td>닉네임1</td>
-                                            <td>홍길동</td>
-                                            <td>hong@gmail.com</td>
-                                            <td>2024/06/24</td>
+                                            <td>${status.index + 1}</td>
+                                            <td>${dto.userid}</td>
+                                            <td>${dto.password}</td>
+                                            <td>${dto.username}</td>
+                                            <td>${dto.birthday}</td>
+                                            <td>${dto.address}</td>
+                                            <td>${dto.hp}</td>
+                                            <td>${dto.email}</td>
+                                            <td>${dto.regDate}</td>
                                             <td> <!-- 강제탈퇴 모달 -->
-					    					<button class="btn btn-danger btn-icon-split"
-					    					href="#" data-toggle="modal" data-target="#DeleteModal" ><span class="text">강제탈퇴</span></button>
+					    					<button class="btn btn-danger" id="btnDelete" href="#" data-toggle="modal" data-target="#DeleteModal"
+				                              		onclick="setDelete('${dto.userid}')">강제탈퇴</button>
 					                 		</td> 
                                         </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>아이디2</td>
-                                            <td>닉네임2</td>
-                                            <td>아이유</td>
-                                            <td>iu@gmail.com</td>
-                                            <td>2024/06/20</td>
-                                            <td> <!-- 강제탈퇴 모달 -->
-					    					<button class="btn btn-danger btn-icon-split"
-					    					href="#" data-toggle="modal" data-target="#DeleteModal" ><span class="text">강제탈퇴</span></button>
-					                 		</td> 
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>아이디3</td>
-                                            <td>닉네임3</td>
-                                            <td>태연</td>
-                                            <td>ty@gmail.com</td>
-                                            <td>2024/06/01</td>
-                                            <td> <!-- 강제탈퇴 모달 -->
-					    					<button class="btn btn-danger btn-icon-split"
-					    					href="#" data-toggle="modal" data-target="#DeleteModal" ><span class="text">강제탈퇴</span></button>
-					                 		</td> 
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>아이디4</td>
-                                            <td>닉네임4</td>
-                                            <td>유재석</td>
-                                            <td>you@gmail.com</td>
-                                            <td>2024/06/05</td>
-                                            <td> <!-- 강제탈퇴 모달 -->
-					    					<button class="btn btn-danger btn-icon-split"
-					    					href="#" data-toggle="modal" data-target="#DeleteModal" ><span class="text">강제탈퇴</span></button>
-					                 		</td> 
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>아이디1</td>
-                                            <td>닉네임1</td>
-                                            <td>홍길동</td>
-                                            <td>hong@gmail.com</td>
-                                            <td>2024/06/24</td>
-                                            <td> <!-- 강제탈퇴 모달 -->
-					    					<button class="btn btn-danger btn-icon-split"
-					    					href="#" data-toggle="modal" data-target="#DeleteModal" ><span class="text">강제탈퇴</span></button>
-					                 		</td> 
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td>아이디1</td>
-                                            <td>닉네임1</td>
-                                            <td>홍길동</td>
-                                            <td>hong@gmail.com</td>
-                                            <td>2024/06/24</td>
-                                            <td> <!-- 강제탈퇴 모달 -->
-					    					<button class="btn btn-danger btn-icon-split"
-					    					href="#" data-toggle="modal" data-target="#DeleteModal" ><span class="text">강제탈퇴</span></button>
-					                 		</td> 
-                                        </tr>
-                                        <tr>
-                                            <td>7</td>
-                                            <td>아이디1</td>
-                                            <td>닉네임1</td>
-                                            <td>홍길동</td>
-                                            <td>hong@gmail.com</td>
-                                            <td>2024/06/24</td>
-                                            <td> <!-- 강제탈퇴 모달 -->
-					    					<button class="btn btn-danger btn-icon-split"
-					    					href="#" data-toggle="modal" data-target="#DeleteModal" ><span class="text">강제탈퇴</span></button>
-					                 		</td> 
-                                        </tr>
-                                        <tr>
-                                            <td>8</td>
-                                            <td>아이디1</td>
-                                            <td>닉네임1</td>
-                                            <td>홍길동</td>
-                                            <td>hong@gmail.com</td>
-                                            <td>2024/06/24</td>
-                                            <td> <!-- 강제탈퇴 모달 -->
-					    					<button class="btn btn-danger btn-icon-split"
-					    					href="#" data-toggle="modal" data-target="#DeleteModal" ><span class="text">강제탈퇴</span></button>
-					                 		</td> 
-                                        </tr>
-                                        <tr>
-                                            <td>9</td>
-                                            <td>아이디1</td>
-                                            <td>닉네임1</td>
-                                            <td>홍길동</td>
-                                            <td>hong@gmail.com</td>
-                                            <td>2024/06/24</td>
-                                            <td> <!-- 강제탈퇴 모달 -->
-					    					<button class="btn btn-danger btn-icon-split"
-					    					href="#" data-toggle="modal" data-target="#DeleteModal" ><span class="text">강제탈퇴</span></button>
-					                 		</td> 
-                                        </tr>
-                                        <tr>
-                                            <td>10</td>
-                                            <td>아이디1</td>
-                                            <td>닉네임1</td>
-                                            <td>홍길동</td>
-                                            <td>hong@gmail.com</td>
-                                            <td>2024/06/24</td>
-                                            <td> <!-- 강제탈퇴 모달 -->
-					    					<button class="btn btn-danger btn-icon-split"
-					    					href="#" data-toggle="modal" data-target="#DeleteModal" ><span class="text">강제탈퇴</span></button>
-					                 		</td> 
-                                        </tr>
-                                        <tr>
-                                            <td>11</td>
-                                            <td>아이디1</td>
-                                            <td>닉네임1</td>
-                                            <td>홍길동</td>
-                                            <td>hong@gmail.com</td>
-                                            <td>2024/06/24</td>
-                                            <td> <!-- 강제탈퇴 모달 -->
-					    					<button class="btn btn-danger btn-icon-split"
-					    					href="#" data-toggle="modal" data-target="#DeleteModal" ><span class="text">강제탈퇴</span></button>
-					                 		</td> 
-                                        </tr>
+                                 		</c:forEach>
                                     </tbody>
                                 </table>
                             </div>
@@ -230,7 +132,7 @@
                 <div class="modal-body">정말 강제탈퇴 처리하시겠습니까?</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-                    <a class="btn btn-primary" href="ad_memberDeleteAction.jsp">강제탈퇴</a>
+                    <button class="btn btn-primary" id="deleteButton">강제탈퇴</button>
                 </div>
             </div>
         </div>

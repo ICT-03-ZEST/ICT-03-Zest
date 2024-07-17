@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="../ad_common/ad_setting.jsp" %>     
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,16 +12,16 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>자유게시판 삭제 Action</title>
+    <title>공연후기 게시판 삭제 Action</title>
 
     <!-- Custom fonts for this template-->
-    <link href="../startbootstrap-admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="${path}/admin/startbootstrap-admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="../../resources/css/admin/sb-admin-2.css" rel="stylesheet">
+    <link href="${path}/resources/css/admin/sb-admin-2.css" rel="stylesheet">
 
 </head>
 
@@ -35,14 +36,27 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">배너 등록</h1>
+                        <h1 class="h3 mb-0 text-gray-800">공연후기 삭제</h1>
                     </div>
 					
 				<!-- 공연후기 게시글 삭제 성공 alert창 -->
-                <script type="text/javascript">
-					alert("게시글 삭제 성공!!");
-					window.location='ad_reviewEdit.jsp';
-			    </script>
+				<c:if test="${deleteCnt == 1}">
+	                <script type="text/javascript">
+	                	setTimeout(function(){
+	                		alert('공연후기 삭제 성공!!');
+	                		window.location="${path}/board.adbc?board_category=공연후기";
+	                	}, 1000);
+	                </script>
+                </c:if>
+                
+                <c:if test="${deleteCnt != 1}">
+	                <script type="text/javascript">
+	                	setTimeout(function(){
+	                		alert('공연후기 삭제 실패!!');
+	                		window.location="${path}/board.adbc?board_category=공연후기";
+	                	}, 1000);
+	                </script>
+                </c:if>
                 <!-- 공연후기 삭제 성공 alert창 종료 -->	
 					
                 </div>

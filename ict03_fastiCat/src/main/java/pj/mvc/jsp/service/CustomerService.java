@@ -34,4 +34,13 @@ public interface CustomerService {
 	
 	
 	
+	// 관리자 - 회원목록 조회
+	public void memberListAction(HttpServletRequest request, HttpServletResponse res)
+			throws ServletException, IOException;
+	
+	// 관리자 - 회원 삭제
+	public void memberDeleteAction(HttpServletRequest request, HttpServletResponse res)
+			throws ServletException, IOException;
+	
+	
 }

@@ -3,6 +3,7 @@ package pj.mvc.jsp.service;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import pj.mvc.jsp.dao.CustomerDAO;
 import pj.mvc.jsp.dao.CustomerDAOImpl;
+import pj.mvc.jsp.dto.CustomerDTO;
 import pj.mvc.jsp.dto.ReservationDTO;
+import pj.mvc.jsp.page.Paging;
 
 public class CustomerServiceImpl implements CustomerService{
 
@@ -216,5 +219,62 @@ public class CustomerServiceImpl implements CustomerService{
       request.setAttribute("updateCnt", updateCnt);
       
    }
+   
+   
+    
+   
+   	// 관리자 - 회원목록 조회
+	@Override
+	public void memberListAction(HttpServletRequest request, HttpServletResponse res)
+			throws ServletException, IOException {
+		System.out.println("서비스 - memberListAction()");
+		
+		// 3단계. 화면에서 입력받은 값을 가져오기
+		String pageNum = request.getParameter("pageNum");
+		System.out.println("pageNum : " + pageNum);
+		
+		///4단계. 싱글톤 방식으로 DAO 객체 생성, 다형성 적용
+		CustomerDAO dao = CustomerDAOImpl.getInstance();
+		
+		//5-1단계. 회원명수
+		int total = dao.memberCnt();
+		System.out.println("total : " + total);
+		
+		//5-2단계. 공연목록
+		Paging paging = new Paging(pageNum);
+		paging.setTotalCount(total);
+		
+		int start = paging.getStartRow();
+		int end = paging.getEndRow();
+		
+		List<CustomerDTO> list = dao.memberList(start, end);
+		//System.out.println("list : " + list);
+		
+		// 6단계. jsp로 처리결과 전달
+		request.setAttribute("list", list);
+		request.setAttribute("paging", paging);
+				
+	}
+
+	// 관리자 - 회원 삭제
+	@Override
+	public void memberDeleteAction(HttpServletRequest request, HttpServletResponse res) 
+			throws ServletException, IOException {
+		
+		System.out.println("서비스 - memberDeleteAction()");
+		
+		// 3단계. get방식 화면에서 입력받은 값을 가져오기
+		String userid = request.getParameter("userid");
+		
+		// 4단계. 싱글톤 방식으로 DAO 객체 생성, 다형성 적용
+		CustomerDAO dao = CustomerDAOImpl.getInstance();
+		
+		// 5단계. 게시글 삭제처리 후 컨트롤러에서 list로 이동
+		int deleteCnt = dao.deleteMember(userid);
+		request.setAttribute("deleteCnt", deleteCnt);
+		
+	}
+   
+   
 
 }

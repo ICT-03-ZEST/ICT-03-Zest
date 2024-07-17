@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="../ad_common/ad_setting.jsp" %>    
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,16 +15,23 @@
     <title>공연후기 관리</title>
 
     <!-- Custom fonts for this template -->
-    <link href="../startbootstrap-admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="${path}/admin/startbootstrap-admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="../../resources/css/admin/sb-admin-2.css" rel="stylesheet">
+    <link href="${path}/resources/css/admin/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom styles for this page -->
-    <link href="../startbootstrap-admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="${path}/admin/startbootstrap-admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+<script type="text/javascript">
+    function setDelete(board_num) {
+        document.getElementById('deleteButton').setAttribute('onclick', "window.location='${path}/boardDeleteAction.adbc?board_category=공연후기&board_num=" + board_num + "'");
+    }
+</script>
+
 
 </head>
 
@@ -51,109 +59,49 @@
                                     <thead>
                                         <tr>
                                         	<th>게시글번호</th>
+                                        	<th>썸네일</th>
                                             <th>제목</th>
                                             <th>내용</th>
                                             <th>작성자</th>
                                             <th>작성일</th>
+                                            <th>조회수</th>
+                                            <th>좋아요</th>
                                             <th>게시글 삭제</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>게시글번호</th>
+                                            <th>썸네일</th>
                                             <th>제목</th>
                                             <th>내용</th>
                                             <th>작성자</th>
                                             <th>작성일</th>
+                                            <th>조회수</th>
+                                            <th>좋아요</th>
                                             <th>게시글 삭제</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                    
+                                    <c:forEach var="dto" items="${list}">
                                         <tr>
-                                            <td>1</td>
-                                            <td>공연후기 제목1</td>
-                                            <td>공연후기 내용1</td>
-                                            <td>홍길동</td>
-                                            <td>2024/06/16</td>
+                                            <td>${dto.board_num}</td>
+                                            <td> <img src="${dto.board_thumnail}" width="50px" height="50px"> </td>
+                                            <td>${dto.board_title}</td>
+                                            <td>${dto.board_content}</td>
+                                            <td>${dto.board_writer}</td>
+                                            <td>${dto.board_regDate}</td>
+                                            <td>${dto.board_views}</td>
+                                            <td>${dto.board_heart}</td>
                                             <td>
                                         		<!-- 공연후기 삭제 모달 -->
 					    						<button class="btn btn-danger"
-					    						href="#" data-toggle="modal" data-target="#DeleteModal">삭제</button>
-					    					</td>
-					    						
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>공연후기 제목1</td>
-                                            <td>공연후기 내용1</td>
-                                            <td>홍길동</td>
-                                            <td>2024/06/17</td>
-                                            <td>
-                                        		<!-- 공연후기 삭제 모달 -->
-					    						<button class="btn btn-danger"
-					    						href="#" data-toggle="modal" data-target="#DeleteModal">삭제</button>
+					    						href="#" data-toggle="modal" data-target="#DeleteModal" onclick="setDelete(${dto.board_num})">삭제</button>
 					    					</td>
                                         </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>공연후기 제목1</td>
-                                            <td>공연후기 내용1</td>
-                                            <td>홍길동</td>
-                                            <td>2024/06/16</td>
-                                            <td>
-                                        		<!-- 공연후기 삭제 모달 -->
-					    						<button class="btn btn-danger"
-					    						href="#" data-toggle="modal" data-target="#DeleteModal">삭제</button>
-					    					</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>공연후기 제목1</td>
-                                            <td>공연후기 내용1</td>
-                                            <td>홍길동</td>
-                                            <td>2024/06/16</td>
-                                            <td>
-                                        		<!-- 공연후기 삭제 모달 -->
-					    						<button class="btn btn-danger"
-					    						href="#" data-toggle="modal" data-target="#DeleteModal">삭제</button>
-					    					</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>공연후기 제목1</td>
-                                            <td>공연후기 내용1</td>
-                                            <td>홍길동</td>
-                                            <td>2024/06/16</td>
-                                            <td>
-                                        		<!-- 공연후기 삭제 모달 -->
-					    						<button class="btn btn-danger"
-					    						href="#" data-toggle="modal" data-target="#DeleteModal">삭제</button>
-					    					</td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td>공연후기 제목1</td>
-                                            <td>공연후기 내용1</td>
-                                            <td>홍길동</td>
-                                            <td>2024/06/16</td>
-                                            <td>
-                                        		<!-- 공연후기 삭제 모달 -->
-					    						<button class="btn btn-danger"
-					    						href="#" data-toggle="modal" data-target="#DeleteModal">삭제</button>
-					    					</td>
-                                        </tr>
-                                        <tr>
-                                            <td>7</td>
-                                            <td>공연후기 제목1</td>
-                                            <td>공연후기 내용1</td>
-                                            <td>홍길동</td>
-                                            <td>2024/06/16</td>
-                                            <td>
-                                        		<!-- 공연후기 삭제 모달 -->
-					    						<button class="btn btn-danger"
-					    						href="#" data-toggle="modal" data-target="#DeleteModal">삭제</button>
-					    					</td>
-                                        </tr>
+                            		</c:forEach>
+                                   
                                     </tbody>
                                 </table>
                             </div>
@@ -181,7 +129,7 @@
                 <div class="modal-body">정말 삭제 하시겠습니까?</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-                    <a class="btn btn-primary" href="ad_reviewDeleteAction.jsp">삭제</a>
+                    <button class="btn btn-primary" id="deleteButton">삭제</button>
                 </div>
             </div>
         </div>
