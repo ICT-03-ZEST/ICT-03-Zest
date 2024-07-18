@@ -38,7 +38,6 @@ public class MyPageServiceImpl implements MyPageService {
 			request.setAttribute("selectCnt", selectCnt);
 		};
 				
-
 		// 회원정보 인증처리 및 탈퇴처리
 		@Override
 		public void deleteUserAction(HttpServletRequest request, HttpServletResponse response)
@@ -142,7 +141,6 @@ public class MyPageServiceImpl implements MyPageService {
 			String pageNum = request.getParameter("pageNum");
 			
 			String strId = (String) request.getSession().getAttribute("sessionID");
-			
 			// 4단계. 싱글톤 방식으로 DAO 객체 생성,
 			MyPageDAO dao = MyPageDAOImpl.getInstance();
 			
@@ -163,7 +161,7 @@ public class MyPageServiceImpl implements MyPageService {
 			// 6단계. jsp로 처리결과 전달
 			request.setAttribute("list", list);
 			request.setAttribute("paging", paging);
-					
+			request.setAttribute("strId", strId);
 		}
 		
 		// 회원정보 인증처리 및 상세페이지

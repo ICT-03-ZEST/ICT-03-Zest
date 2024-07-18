@@ -11,7 +11,7 @@
 <script src="https://kit.fontawesome.com/e3f7bcf3d6.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script type="text/javascript">
-   
+  
    function upPwdChk() {
 	   
 	   let param = {

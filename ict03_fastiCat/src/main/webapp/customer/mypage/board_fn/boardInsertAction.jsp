@@ -15,14 +15,6 @@
 				window.location="${path}/board.bc?board_category=${category}";  
 			</script>
 		</c:if>
-		
-		<c:if test="${category == null}"> <!-- 마이페이지 게시글 목록으로 이동 -->
-			<script>
-				alert("게시글이 등록되었습니다.");
-				window.location="/js_pj_fasticat/common/main.jsp"
-			</script>
-		</c:if>
-		
 	</c:if>
 	
 	<c:if test="${insertCnt != 1}">

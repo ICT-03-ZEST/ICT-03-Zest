@@ -221,13 +221,12 @@ li {
 .li_category {
     position: relative;
     left: 50%;
-    font-size: 25px;
 }
 
 .li_category > span {
     position: relative;
     left: 50%;
-    top: 5px;
+    top: 20px;
     font-size: 25px;
 }
 
@@ -240,7 +239,7 @@ li {
     margin-left: 20px;
     font-size: 30px;
     position: relative;
-    top: 20px;
+    top: 15px;
 }
 
 .writerMod ul {
@@ -252,14 +251,13 @@ li {
 .writerMod > .ul_list {
     position: relative;
     left: 15px;
-    top: 15px;
+    top: 20px;
 }
 
-.writerMod ul li {
+.ul_list li {
     margin: 10px;
     font-size: 16px;
     color: black;
-    padding-top: 10px;
 }
 
 .mod_container {
@@ -293,7 +291,7 @@ table.mod_table {
 	font-size: 22px;
 }
 .board_title {
-    font-size: 30px;
+    font-size: 25px;
     border: none;
     background-color: #140b081a;
     padding: 10px;
@@ -349,7 +347,7 @@ textarea#board_content {
 
 /* 수정확인버튼 */
 .mod_input {
-    border: 2x solid orange;
+    border: 2px solid orange;
     border-radius: 4px;
     background: none;
     color: orange;
@@ -403,6 +401,22 @@ textarea#board_content {
 	cursor: pointer;
 }
 
+
+/* 목록 */
+.mod_back {
+ 	border: 2px solid orange;
+    border-radius: 4px;
+    background: none;
+    color: orange;
+    font-size: 25px;
+    margin-right: 20px;
+    background: none;
+}
+.mod_back:hover {
+	 background: orange;
+	 color: white;
+	 cursor: pointer;
+}
 /* 댓글 */
 p.comment_text {
     margin-left: 20px;

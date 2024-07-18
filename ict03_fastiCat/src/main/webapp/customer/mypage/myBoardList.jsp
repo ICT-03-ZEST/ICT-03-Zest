@@ -11,7 +11,7 @@
     <script src="https://kit.fontawesome.com/e3f7bcf3d6.js" crossorigin="anonymous"></script>
 
 	<script type="text/javascript">
-	
+	alert("${strId}");
 	function bdDelPwdChk() {
 		   
 		   let param = {
@@ -84,7 +84,7 @@
     <div class="container_box">
 		<div class="container">
 			<div class="writing">
-		        <input type="button" name="boardWrite" class="write" value="글쓰기" onclick="">
+		        <input type="button" name="boardWrite" class="write" value="글쓰기" onclick="location.href='${path}/myWriting.bc'">
 		        <input type="button" name="delete" class="delete" value="삭제" onclick="bdDelChkShowPopup()">
 		    </div>
 			<table class="board_list">  <!-- 가능하면 자유/ 후기 나누기-->

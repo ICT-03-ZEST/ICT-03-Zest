@@ -125,7 +125,7 @@ $(function() {
 			        
 			        <tr>
 			        	<td align="left" class="td_bottom">
-			        		<input type="button" name="btn_back" class="btn_back" id="btn_back" value="목록">
+			        		<input type="button" name="btn_back" class="mod_back" id="btn_back" value="목록">
 			        	</td>
 			        	<td colspan="3" align="right" class="td_bottom">
 			        		<input type="reset" name="reset" class="mod_input" id="reset" value="초기화">

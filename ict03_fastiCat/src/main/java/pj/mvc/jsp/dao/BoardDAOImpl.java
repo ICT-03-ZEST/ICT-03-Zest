@@ -528,7 +528,6 @@ public class BoardDAOImpl implements BoardDAO {
 				if(rs.next()) {
 					selectCnt = rs.getInt("cnt");
 				}
-				
 			}
 			System.out.println("selectHeart-selectCnt:" + selectCnt);
 		}catch (SQLException e) {

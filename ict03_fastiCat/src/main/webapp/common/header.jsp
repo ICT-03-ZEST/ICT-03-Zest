@@ -42,7 +42,7 @@
                     <i class="fa-solid fa-magnifying-glass" style="color: #eb9500;"></i>
                 </button>
             </form>
-			<li><a href="${path }/myPage.do"><i class="fa-solid fa-user">myPage</i></a></li>
+			<li><a href="${path}/mypage.myp"><i class="fa-solid fa-user">myPage</i></a></li>
 		</ul>
 		<!-- 반응형 웹 - (1). 햄버거 아이콘 fontawesome - free - bars -->
 		<a href="#" class="navbar_toggleBtn"> <i class="fa-solid fa-bars"></i>

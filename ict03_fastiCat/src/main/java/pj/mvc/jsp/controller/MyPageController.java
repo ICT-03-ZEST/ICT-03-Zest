@@ -45,7 +45,7 @@ public class MyPageController extends HttpServlet {
 		MyPageService service = new MyPageServiceImpl();
 		
 		//test(테스트용 세션 아이디 미리 설정)
-		request.getSession().setAttribute("sessionID", "test");
+		//request.getSession().setAttribute("sessionID", "test");
 		
 		// 1.게시판 목록조회 - 공연후기, 페스티벌후기, 자유 메뉴 선택시 해당 목록 전체조회(최신글 부터)
 		// test(링크 수정필요)

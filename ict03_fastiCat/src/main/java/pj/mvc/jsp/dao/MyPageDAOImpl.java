@@ -95,7 +95,6 @@ public class MyPageDAOImpl implements MyPageDAO{
 			return 0;
 		}
 
-
 		@Override
 		public int idPasswordChk(String strId, String strPassword) {
 			
@@ -282,7 +281,6 @@ public class MyPageDAOImpl implements MyPageDAO{
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
-				
 				try {
 					conn = dataSource.getConnection();
 					String sql = "SELECT * "
@@ -292,7 +290,7 @@ public class MyPageDAOImpl implements MyPageDAO{
 							+ "    FROM "
 							+ "        (SELECT * FROM (SELECT * FROM reviewBoard_tbl UNION ALL SELECT * FROM freeBoard_tbl) "
 							+ "			   WHERE board_show = 'y' "
-							+ "				AND  board_writer = ?"
+							+ "				AND  board_writer = ? "
 							+ "            ORDER BY board_num DESC "
 							+ "        ) A "
 							+ ") "
@@ -357,7 +355,8 @@ public class MyPageDAOImpl implements MyPageDAO{
 				conn = dataSource.getConnection();
 				String sql = "SELECT COUNT(*) AS cnt "
 						+ "FROM (SELECT * FROM reviewBoard_tbl UNION ALL SELECT * FROM freeBoard_tbl) "
-						+ "WHERE board_writer = ?";
+						+ "WHERE board_writer = ? "
+						+ "AND board_show = 'y'";
 				
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, strId);

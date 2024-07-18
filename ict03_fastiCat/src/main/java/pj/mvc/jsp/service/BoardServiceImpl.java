@@ -71,17 +71,14 @@ public class BoardServiceImpl implements BoardService {
 		
 		//System.out.println("views: " + views);
 		// 하트체크 조회 => 해당 게시글번호의 하트를 누른 아이디라면 하트 filled
-		BoardDAO dao = BoardDAOImpl.getInstance();
 		HeartDTO dto2 = new HeartDTO();
 		dto2.setUserID(sessionID);
 		dto2.setBoard_num(board_num);
 		dto2.setBoard_category(category);
 		
+		BoardDAO dao = BoardDAOImpl.getInstance();
 		int heartChk = dao.selectHeart(dto2); //=> 1 이면 하트 filled
 		
-		//다음게시글(전체 게시글수)
-		int total = dao.boardCnt(category);
-				
 		//사용자 게시글 이력 조회 => '수정' 태그가 뜨도록함
 		BoardDTO bd_dto = new BoardDTO();
 		bd_dto.setBoard_writer(sessionID);
@@ -91,7 +88,8 @@ public class BoardServiceImpl implements BoardService {
 		int selWriter = dao.selectOfwriter(bd_dto); // 사용자게시글 수정,삭제
 		
 		System.out.println("selWriter: " + selWriter);
-		 // 게시판에서 상세페이지 클릭시에만 조회수증가
+		 
+		// 게시판에서 상세페이지 클릭시에만 조회수증가
 		if(views != null) {
 			dao.plusViews(board_num, category);
 		}
@@ -102,7 +100,6 @@ public class BoardServiceImpl implements BoardService {
 		request.setAttribute("dto", dto);
 		request.setAttribute("selWriter", selWriter);
 		request.setAttribute("heartChk", heartChk);
-		request.setAttribute("total", total); 
 		request.setAttribute("sessionID", sessionID); // 댓글작성시  param
 	}
 	
@@ -132,8 +129,6 @@ public class BoardServiceImpl implements BoardService {
 		BoardDAO dao = BoardDAOImpl.getInstance();
 		dao.modHeartCount(dto);	
 		dao.insertHeart(dto2);
-		
-		request.setAttribute("dto", dto);
 	}
 	
 	//좋아요 삭제  / 게시판 좋아요 감소
