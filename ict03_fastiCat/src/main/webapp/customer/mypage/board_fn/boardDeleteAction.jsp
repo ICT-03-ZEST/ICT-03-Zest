@@ -8,8 +8,17 @@
 <title>Insert title here</title>
 </head>
 <body>
+		<c:if test="${myBoard != 1}">
 			<script>
-				location.href='${path}/board.bc?board_category=${category}';  
+				window.location="${path}/board.bc?board_category=${category}";  
 			</script>
+		</c:if>
+		
+		<c:if test="${myBoard == 1}">
+			<script>
+				window.location="${path}/myBoardList.myp";  
+			</script>
+		</c:if>
+			
 </body>
 </html>

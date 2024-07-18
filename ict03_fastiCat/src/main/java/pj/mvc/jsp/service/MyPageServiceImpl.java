@@ -156,7 +156,8 @@ public class MyPageServiceImpl implements MyPageService {
 			int end = paging.getEndRow();
 			
 			List<BoardDTO> list = dao.myBoardList(strId,start,end);
-			System.out.println("list : " + list);
+			System.out.println("list: " + list);
+			
 			
 			// 6단계. jsp로 처리결과 전달
 			request.setAttribute("list", list);

@@ -29,7 +29,7 @@ $(function() {
         });
 
         $('#board_image').change(function() {
-        	let fileName = $(this).val().split('\\').pop();
+        	let fileName = $(this).val().split('\\').pop(); // '\\'의마지막부분 반환
             $('#image_name').text(fileName);
         });
         

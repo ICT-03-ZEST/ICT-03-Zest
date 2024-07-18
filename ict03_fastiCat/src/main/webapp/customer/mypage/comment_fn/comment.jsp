@@ -17,11 +17,9 @@ $(function() {
 		$(this).click(function() {
 			   let board_num = $(this).data('board_num');
 	           let comment_num = $(this).data('comment_num');
-	           let board_category = "${dto.board_category}";
-	           let pageNum = "${pageNum}";
 	           
 	           if (confirm("댓글을 삭제하시겠습니까?")) {
-	               location.href = '${path}/comment_deleteAction.bc?board_category=' + board_category + '&board_num=' + board_num + '&comment_num=' + comment_num + "&pageNum=" + pageNum;
+	               location.href = '${path}/comment_deleteAction.bc?board_category=${dto.board_category}' + '&board_num=' + board_num + '&comment_num=' + comment_num + "&pageNum=${pageNum}";
 	           }
 		}); 
 	});
@@ -60,7 +58,7 @@ $(function() {
     <div class="comment_list" id="comment_list" >
         <c:forEach var="dto" items="${list}">
 	        <div class="comment"> 
-                <div><span class="comment_num">${dto.comment_num}</span> 
+                <div><span class="comment_num" style="display: none">${dto.comment_num}</span> 
                     <span class="comment_img"><i class="fa-regular fa-circle-user"></i></span>
                     <span class="comment_user" id="userID">${dto.userID}</span>
                     <span class="comment_date">${dto.regDate}</span>

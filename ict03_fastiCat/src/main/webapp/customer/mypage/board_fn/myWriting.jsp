@@ -37,7 +37,15 @@
     <!-- 드롭다운 => 카테고리 공연 ,페스티벌-->
     <div class="outline">
         <form id="myWritingForm" action="boardInsertAction.bc" method="post" enctype="multipart/form-data">
-        	<input type="hidden" name="hiddenThumnail" value="/ict03_fastiCat/resources/upload/default.jpg">
+        	<!-- 썸네일 기본이미지 -->
+        	<c:if test="${category == '공연후기'}">
+        		<input type="hidden" name="hiddenThumnail" value="free.jfif">
+        	</c:if>
+        	
+        	<c:if test="${category != '공연후기'}">
+        		<input type="hidden" name="hiddenThumnail" value="default.jpg">
+        	</c:if>
+        	
         	<input type="hidden" name="hiddenImage" value="">
         
                 <table class="container">

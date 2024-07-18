@@ -1,7 +1,6 @@
 package pj.mvc.jsp.util;
 
-import java.io.IOException; 
-import java.util.Iterator;
+import java.io.IOException;  
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -28,13 +27,8 @@ public class ImageNameChange {
 		// 썸네일
 		Map<String, String> map = (Map)request.getAttribute("map");
 		
-			Iterator<String> itr = map.keySet().iterator();
-			while(itr.hasNext()) {
-				String key = itr.next();
-				System.out.println("key: " + key);
-			}
 			if(map.get("board_thumnail") == null) {
-				this.thumnail = request.getParameter("hiddenThumnail");
+				this.thumnail = "/ict03_fastiCat/resources/upload/" + request.getParameter("hiddenThumnail");
 			}
 			else if(map.get("board_thumnail") != null) {
 				this.thumnail = "/ict03_fastiCat/resources/upload/" + map.get("board_thumnail");
@@ -46,9 +40,6 @@ public class ImageNameChange {
 			else if(map.get("board_image") != null) {
 				this.image = "/ict03_fastiCat/resources/upload/" + map.get("board_image");
 			}
-			
-			
-		
 	}
 }
 

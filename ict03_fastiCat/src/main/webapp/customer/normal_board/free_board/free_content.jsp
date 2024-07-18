@@ -53,7 +53,12 @@ $(function() {
 	
 	//목록으로 돌아가기(새로고침)
 	$('#btn_back').click(function() {
-		location.href="${path}/board.bc?board_category=${dto.board_category}&pageNum=${pageNum}";
+		if(${myBoard != 1}) {
+			location.href="${path}/board.bc?board_category=${dto.board_category}&pageNum=${pageNum}";
+		}	
+		else {
+			location.href="${path}/myBoardList.myp";
+		}
 	});		
 	
 	//닉네임 css
@@ -232,7 +237,7 @@ function newLoad() { //새로고침
 	
 		<div class="div_cmtAdd">	
 	        <!-- 댓글작성 창 -->
-	        <input type="hidden" name="userID" id="userID" value="${dto2.userID}"> <!-- **사용자 아이디(세션) -->
+	        <input type="hidden" name="sessionID" id="userID" value="${sessionID}"> <!-- **사용자 아이디(세션) -->
 	        <textarea name="content" class="content" id="content" placeholder="댓글을 입력하세요" required></textarea>
 	        
 	        <div class="div_btn" align="right"> <!-- 댓글작성버튼 -->

@@ -51,8 +51,14 @@ $(function() {
 	
 	//목록으로 돌아가기(새로고침)
 	$('#btn_back').click(function() {
-		location.href="${path}/board.bc?board_category=${dto.board_category}&pageNum=${pageNum}";
-	});		
+		if(${myBoard == null}) {
+			location.href="${path}/board.bc?board_category=${dto.board_category}&pageNum=${pageNum}";
+		}	
+		else {
+			location.href="${path}/myBoardList.myp";
+		}
+		
+	});	
 	
 	//닉네임 css
 	let style = {"background-image":"url('${path}/resources/images/6574814.jpg')"
@@ -106,6 +112,7 @@ function comment_add() {
 	});
 }
 
+//하트
 function heartClick() {
 	//좋아요 누르면 채워짐
 	$('#heart').click(function() {
@@ -125,7 +132,6 @@ function heartClick() {
 }
 
 function updateLike(heart, count) {
-	// 게시글번호, 카테고리, 하트수 파라미터로 넘김
 	let param = {
 			"board_num": ${dto.board_num},
 			"board_category": "${dto.board_category}",
@@ -229,7 +235,7 @@ function newLoad() { //새로고침
 	
 		<div class="div_cmtAdd">	
 	        <!-- 댓글작성 창 -->
-	        <input type="hidden" name="userID" id="userID" value="${dto2.userID}"> <!-- **사용자 아이디(세션) -->
+	        <input type="hidden" name="sessionID" id="userID" value="${sessionID}"> <!-- **사용자 아이디(세션) -->
 	        <textarea name="content" class="content" id="content" placeholder="댓글을 입력하세요" required></textarea>
 	        
 	        <div class="div_btn" align="right"> <!-- 댓글작성버튼 -->

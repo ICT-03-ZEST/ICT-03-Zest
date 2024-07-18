@@ -50,6 +50,7 @@ public class MyPageController extends HttpServlet {
 		// 1.게시판 목록조회 - 공연후기, 페스티벌후기, 자유 메뉴 선택시 해당 목록 전체조회(최신글 부터)
 		// test(링크 수정필요)
 		if(url.equals("/mypage.myp")) {
+			request.getSession().setAttribute("myBoard", "1"); // 마이페이지로 돌아오기 위한 세션
 			
 			viewPage = "customer/mypage/myPage.jsp";
 		}

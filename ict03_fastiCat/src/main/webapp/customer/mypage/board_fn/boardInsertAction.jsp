@@ -9,10 +9,17 @@
 </head>
 <body>
 	<c:if test="${insertCnt == 1}"><!-- 컨텐츠 게시글 목록 -->
-		<c:if test="${category != null}">
+		<c:if test="${myBoard != 1}">
 			<script>
 				alert("게시글이 등록되었습니다.");
 				window.location="${path}/board.bc?board_category=${category}";  
+			</script>
+		</c:if>
+		
+		<c:if test="${myBoard == 1}">
+			<script>
+				alert("게시글이 등록되었습니다.");
+				window.location="${path}/myBoardList.myp";  
 			</script>
 		</c:if>
 	</c:if>

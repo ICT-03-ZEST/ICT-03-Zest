@@ -4,12 +4,11 @@ import java.sql.Date;
 
 //(공연/페스티벌)공연후기 게시판과 자유게시판 dto
 public class BoardDTO {
-	//썸네일 , 콘텐츠 이미지 => 배열..?
 	private int board_num;       	//글번호
     private String board_category;  //게시판 카테고리 
     private String board_title;   	//글제목    
     private String board_content;   //글내용
-    private String board_thumnail;   //썸네일 
+    private String board_thumnail;  //썸네일 
     private String board_image;     //이미지
     private String board_writer;    //작성자
     private Date board_regDate;     //작성일

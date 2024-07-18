@@ -36,7 +36,7 @@ public class MyPageDAOImpl implements MyPageDAO{
 		private MyPageDAOImpl() {
 			try {
 				Context context = new InitialContext();
-				 dataSource = (DataSource) context.lookup("java:comp/env/jdbc/jsp_pj_ict03");
+				 dataSource = (DataSource) context.lookup("java:comp/env/jdbc/ict03_zest");
 			} catch (NamingException e) {
 				e.printStackTrace();
 			}
@@ -303,9 +303,10 @@ public class MyPageDAOImpl implements MyPageDAO{
 					
 					// 3. resultSet에 담고
 					rs = pstmt.executeQuery();
-					
+					int cnt = 0;
 					// 4. resultSet에 데이터가 존재하면
 					while(rs.next()) {
+						cnt = 1;
 						//DTO 생성
 						BoardDTO dto = new BoardDTO();
 						
@@ -322,6 +323,7 @@ public class MyPageDAOImpl implements MyPageDAO{
 							
 					    list.add(dto);
 					}
+					System.out.println("cnt: " + cnt);
 				} catch(SQLException e) {
 					e.printStackTrace();
 				} finally {
@@ -339,6 +341,7 @@ public class MyPageDAOImpl implements MyPageDAO{
 				return list;
 			
 		}
+		
 		
 		// 게시글 갯수 구하기
 		@Override

@@ -11,7 +11,7 @@
     <script src="https://kit.fontawesome.com/e3f7bcf3d6.js" crossorigin="anonymous"></script>
 
 	<script type="text/javascript">
-	alert("${strId}");
+	//alert("${strId}");
 	function bdDelPwdChk() {
 		   
 		   let param = {
@@ -84,7 +84,7 @@
     <div class="container_box">
 		<div class="container">
 			<div class="writing">
-		        <input type="button" name="boardWrite" class="write" value="글쓰기" onclick="location.href='${path}/myWriting.bc'">
+		        <input type="button" name="boardWrite" class="write" value="글쓰기" onclick="boardInsertPopup()">
 		        <input type="button" name="delete" class="delete" value="삭제" onclick="bdDelChkShowPopup()">
 		    </div>
 			<table class="board_list">  <!-- 가능하면 자유/ 후기 나누기-->
@@ -109,7 +109,7 @@
 			            <td class="serialNum"> ${dto.board_num} </td>
 			            <td class="title">
 			            	
-							<a href="${path}/content.bc?board_num=${dto.board_num}&board_category=${dto.board_category}&pageNum=${paging.pageNum}&views=1">
+							<a href="${path}/content.bc?board_num=${dto.board_num}&board_category=${dto.board_category}&pageNum=${paging.pageNum}&views=1&myBoard=1">
 								${dto.board_title}
 							</a>
 							
@@ -176,6 +176,10 @@
 	<!-- footer 끝-->
 	
   <script type="text/javascript">
+  	//게시글 추가 팝업
+  	function boardInsertPopup() {
+  		location.href='${path}/myWriting.bc';
+  	}
 	//게시글 삭제 확인 팝업
 	function bdDelChkShowPopup() {
 	    document.getElementById('bd_del_chk_popup').style.display = 'block';

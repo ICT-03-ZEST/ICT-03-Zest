@@ -16,11 +16,11 @@ import pj.mvc.jsp.util.BoardImageUploadHandler;
 
 //회원이 공연/페스티벌 후기 및 자유 게시판 및 댓글을 작성,수정,삭제,조회
 @WebServlet("*.bc")
-@MultipartConfig(location="D:\\git\\ict03_festiCat\\ict03_fastiCat\\src\\main\\webapp\\resources\\upload", 
+@MultipartConfig(location="C:\\git\\ict03_festiCat\\ict03_fastiCat\\src\\main\\webapp\\resources\\upload", 
 			fileSizeThreshold=1024*1024, maxFileSize=1024*1024*5, maxRequestSize=1024*1024*5*5)
 public class BoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String IMG_UPLOAD_DIR = "D:\\git\\ict03_festiCat\\ict03_fastiCat\\src\\main\\webapp\\resources\\upload";
+	private static final String IMG_UPLOAD_DIR = "C:\\git\\ict03_festiCat\\ict03_fastiCat\\src\\main\\webapp\\resources\\upload";
        
     public BoardController() {
         super();
@@ -51,20 +51,20 @@ public class BoardController extends HttpServlet {
 		BoardImageUploadHandler uploader = null; // 썸네일, 컨텐츠이미지(여러개)
 		BoardService serv = new BoardServiceImpl();
 		///**********게시글 추가,수정,삭제 하트 클릭은 로그인 후 가능***********
+		
 		// 1.게시판 목록조회
 		if(url.equals("/board.bc")) {
-			
 			String category = request.getParameter("board_category");
+			request.getSession().removeAttribute("myBoard"); // 게시판 목록으로 돌아오기위해 마이페이지 세션을 종료
 			
 			 serv.boardListAction(request, response);
-			
+		 
 			if(category.equals("공연후기")) {
 				viewPage = "customer/normal_board/review_board/review_board.jsp";
 			}
 			else {
 				viewPage = "customer/normal_board/free_board/free_board.jsp";
 			}
-			
 		}
 		
 		// 1-1. 게시판 상세페이지 
@@ -110,8 +110,12 @@ public class BoardController extends HttpServlet {
 		else if(url.equals("/myWriting.bc")) {
 			System.out.println("컨트롤러 - myWriting.bc");
 			
+			String myBoard = request.getParameter("myBoard");
+			request.setAttribute("myBoard", myBoard);
+			
 			String category = request.getParameter("board_category");
 			request.setAttribute("category", category);
+			
 			viewPage = "customer/mypage/board_fn/myWriting.jsp";
 		}
 		

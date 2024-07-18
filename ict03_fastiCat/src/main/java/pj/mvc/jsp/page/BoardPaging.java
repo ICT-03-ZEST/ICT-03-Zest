@@ -33,9 +33,9 @@ public class BoardPaging {
 		
 		currentPage = Integer.parseInt(pageNum); //현재페이지
 		
-		System.out.println("==============");
-		System.out.println("pageNum: " + pageNum);
-		System.out.println("currentPage: " + currentPage);
+//		System.out.println("==============");
+//		System.out.println("pageNum: " + pageNum);
+//		System.out.println("currentPage: " + currentPage);
 	}
 
 	//getter setter -----------
@@ -150,11 +150,11 @@ public class BoardPaging {
 		startRow = (currentPage - 1) * pageSize + 1;	// 페이지별 시작번호 => start에 해당 
 		endRow = currentPage * pageSize; 				// 페이지별 끝번호 => end에 해당 
 		
-		System.out.println("startRow: " + startRow); //1 11
-		System.out.println("endRow: " + endRow);	//10 20
+//		System.out.println("startRow: " + startRow); //1 11
+//		System.out.println("endRow: " + endRow);	//10 20
 		
 		this.number = count - (currentPage - 1) * pageSize;//페이지 번호(1)
-		System.out.println("number: " + number); // 991
+//		System.out.println("number: " + number); // 991
 		
 		//페이지 계산
 		pageCalculator();
@@ -164,7 +164,7 @@ public class BoardPaging {
 		
 		if(count > 0) {
 			pageCount =  count / pageSize + (count % pageSize == 0 ? 0 : 1);
-			System.out.println("pageCount : " + pageCount); //100
+//			System.out.println("pageCount : " + pageCount); //100
 			
 			// 시작 페이지 설정 %3을 하면 1, 4, 7 ...
 			if(currentPage % 3 != 0) { //3으로 나눈 나머지가 0이 아닐때
@@ -189,8 +189,8 @@ public class BoardPaging {
 			// 다음
 			if(startPage < pageCount) next = startPage + 3;//123[다음] 에서 [다음]이 4가되도록함
 			
-			System.out.println("prev : " + prev);
-	        System.out.println("next : " + next);
+//			System.out.println("prev : " + prev);
+//	        System.out.println("next : " + next);
 			
 		}
 	}

@@ -13,7 +13,6 @@
 <script type="text/javascript">
 $(function() {
 	//alert("${sessionID}");
-	
 		
 		$('#writing').click(function() {
 			
