@@ -37,6 +37,10 @@
 										<!-- 상단 중앙1 시작 -->
 										<div id="section1">
 											<h1 align="center">세부게시판</h1>
+											<span
+												style="font-size: 1.5em; color: gray; text-align: center; display: block; margin: 0 auto;">
+												'${query }' 에 대한 검색결과 </span>
+
 										</div>
 
 										<!-- 상단 중앙2 시작 -->
@@ -48,17 +52,17 @@
 													<form name="boardList">
 														<table id="searchTable">
 															<tr>
-																<th  class="searchth" style="width: 10%">글번호</th>
-																<th  class="searchth" style="width: 50%">글제목</th>
-																<th  class="searchth" style="width: 15%">작성자</th>
-																<th  class="searchth" style="width: 15%">작성일</th>
-																<th  class="searchth" style="width: 10%">조회수</th>
+																<th class="searchth" style="width: 15%">카테고리</th>
+																<th class="searchth" style="width: 45%">글제목</th>
+																<th class="searchth" style="width: 15%">작성자</th>
+																<th class="searchth" style="width: 15%">작성일</th>
+																<th class="searchth" style="width: 10%">조회수</th>
 															</tr>
 
 															<!-- 상품이 있으면 -->
 															<c:forEach var="list" items="${list }">
 																<tr>
-																	<td class="searchtd">${list.getNum() }</td>
+																	<td class="searchtd">${list.getSource() }</td>
 																	<td class="searchtd"><a
 																		href="${path}/search_detailAction.sc?num=${list.getNum()}">${list.getTitle()}</a>
 																	</td>
@@ -69,16 +73,16 @@
 															</c:forEach>
 
 															<tr>
-																<td  class="searchtd" colspan="5" align="center">
+																<td class="searchtd" colspan="5" align="center">
 																	<!-- 페이징 처리 --> <!-- 이전 버튼 활성화 --> <c:if
 																		test="${paging.startPage > 10 }">
-																		<a href="${path }/search.sc?pageNum=${paging.prev}">[이전]</a>
+																		<a href="${path }/search.sc?pageNum=${paging.prev}&query=${query}">[이전]</a>
 																	</c:if> <!-- 페이지 번호 처리 --> <c:forEach var="num"
 																		begin="${paging.startPage}" end="${paging.endPage}">
-																		<a href="${path }/search.sc?pageNum=${num}">${num }</a>
+																		<a href="${path }/search.sc?pageNum=${num}&query=${query}">${num }</a>
 																	</c:forEach> <!-- 다음 버튼 활성화 --> <c:if
 																		test="${paging.endPage < paging.pageCount }">
-																		<a href="${path }/search.sc?pageNum=${paging.next}">[다음]</a>
+																		<a href="${path }/search.sc?pageNum=${paging.next}&query=${query}">[다음]</a>
 																	</c:if>
 																</td>
 															</tr>
@@ -97,12 +101,12 @@
 							<!-- 드롭다운 + 검색 창 시작 -->
 							<div align="right" id="searchfooter">
 								<form action="${path}/search_detailList.sc" method="get">
-									<select name="searchItem" id="lang">
+									<select name="searchItem" id="searchItem">
 										<option value="">세부검색</option>
 										<option value="writer">작성자</option>
 										<option value="title">제목</option>
 										<option value="content">내용</option>
-									</select> <input id="searchInput" class="inputButton" type="search"
+									</select> <input id="searchInput" class="inputButton" type="text"
 										name="query" placeholder="검색어를 입력하세요" aria-label="Search">
 									<input id="searchInputButton" class="inputButton" type="submit"
 										value="search">

@@ -2,45 +2,41 @@ package pj.mvc.jsp.page;
 
 public class Paging {
 
-	private int pageSize = 10;  // 1page당 게시글의 갯수를 지정
+	
+	private int pageSize = 10;   // 1page당 게시글의 갯수를 지정
 	private int count = 0;      // 전체글의 갯수를 저장하는 변수
-	private int number = 0;     // 페이지번호
-	private String pageNum;		
-	   
-	private int startRow;       // 페이지별 시작번호
+	private int number = 0;      // 페이지번호
+	private String pageNum;
+
+	private int startRow;      // 페이지별 시작번호
 	private int endRow;         // 페이지별 끝번호
-	   
-	private int currentPage;    // 현재페이지
+	
+	private int currentPage;   // 현재페이지
 	private int pageCount;
 	private int startPage;
 	private int pageBlock;
 	private int endPage;
-	   
-	private int prev;           // 이전
-	private int next;           // 다음
 	
-	// 생성자
-	public Paging() {}
+	private int prev;         // 이전
+	private int next;         // 다음
+	
+	public Paging()	{}
 	
 	public Paging(String pageNum) {
-		
-		// pageNum이 없는 경우(맨처음 board_list.jsp를 클릭하거나, 
-		// 수정 삭제 등 다른 게시글에서 페이지를 클릭할 때) null처리되므로 1로 설정
-		if(pageNum == null) {
+		// 맨처음 board_list.jsp 를 클릭,수정,삭제 등 다른 게시글에서 페이지를 클릭할 때
+		// null 처리되므로 1로 설정
+		if(pageNum == null)	{
 			pageNum = "1";
 		}
-		
 		this.pageNum = pageNum;
 		
-		currentPage = Integer.parseInt(pageNum); //현재페이지
+		currentPage = Integer.parseInt(pageNum);	// 현재페이지
 		
-		System.out.println("===========");
+		System.out.println("==================");
 		System.out.println("pageNum => " + pageNum);
 		System.out.println("currentPage => " + currentPage);
 	}
-
-	
-	//getter, setter --------------------------------
+ 
 	public int getPageSize() {
 		return pageSize;
 	}
@@ -145,26 +141,26 @@ public class Paging {
 		this.next = next;
 	}
 	
-	//--------------------------------
+	// getter setter ---------------
 	
-	public void setTotalCount(int count) {  //전체 게시글 건수
-		this.count = count;
+	public void setTotalCount (int count) {
+		this.count = count;		// 전체 게시글 건수
 		
-		startRow = (currentPage - 1) * pageSize + 1;	// 페이지별 시작번호 => start에 해당 (1)
-		endRow	= currentPage * pageSize;	 // 페이지별 끝번호 => end에 해당 (10)
+		startRow = (currentPage - 1) * pageSize + 1;	// 페이지별 시작번호 => start 에 해당
+		endRow = currentPage * pageSize;	// 페이지별 끝번호 => end 에 해당
 		
-		System.out.println("startRow => " + startRow);
-		System.out.println("endRow => " + endRow);
+		System.out.println("startRow =>" + startRow);
+		System.out.println("endRow =>" + endRow);
 		
-		this.number = count - (currentPage - 1) * pageSize;	// 페이지번호 (1)
-				
+		this.number = count - (currentPage - 1) * pageSize;
+		
 		// 페이지 계산
 		pageCalculator();
 	}
-	
-	// 페이지 계산
+
 	public void pageCalculator() {
-	      if(count > 0) {
+
+		if(count > 0) {
 	         pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
 	         System.out.println("pageCount : " + pageCount);
 	         
@@ -196,6 +192,5 @@ public class Paging {
 	            
 	      }
 	   }
-	
 	
 }

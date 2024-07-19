@@ -10,7 +10,7 @@ public interface SearchDAO {
 	public List<SearchDTO> boardList(String query,int start,int end);
 	
 	// 게시글 개수 구하기
-	public int boardCnt();
+	public int boardCnt(String query);
 	
 	// 조회수 증가
 	public void plusReadCnt(int num);

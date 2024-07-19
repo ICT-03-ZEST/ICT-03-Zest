@@ -30,7 +30,7 @@ public class SearchServiceImpl implements SearchService{
         
         // 5-1단계. 전체 게시글 갯수 카운트
         Paging paging = new Paging(pageNum);
-        int total = dao.boardCnt();
+        int total = dao.boardCnt(query);
         System.out.println("total => " + total);
         
         paging.setTotalCount(total);
@@ -84,7 +84,7 @@ public class SearchServiceImpl implements SearchService{
         
         // 5-1단계. 전체 게시글 갯수 카운트
         Paging paging = new Paging(pageNum);
-        int total = dao.boardCnt();
+        int total = dao.boardCnt(searchInput);
         System.out.println("total => " + total);
         
         paging.setTotalCount(total);
