@@ -19,7 +19,7 @@
    	});
    </script>
     <title>공지사항</title>
-    <link rel="stylesheet" type="text/css" href="${path}/resources/css/normal_board/notice_content.css"> 
+    <link rel="stylesheet" type="text/css" href="${path}/resources/css/normal_board/notice/notice_content.css"> 
 </head>
 <body>
     <!-- header 시작-->
