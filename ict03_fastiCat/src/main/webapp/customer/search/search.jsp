@@ -52,8 +52,8 @@
 													<form name="boardList">
 														<table id="searchTable">
 															<tr>
-																<th class="searchth" style="width: 10%">글번호</th>
-																<th class="searchth" style="width: 50%">글제목</th>
+																<th class="searchth" style="width: 15%">카테고리</th>
+																<th class="searchth" style="width: 45%">글제목</th>
 																<th class="searchth" style="width: 15%">작성자</th>
 																<th class="searchth" style="width: 15%">작성일</th>
 																<th class="searchth" style="width: 10%">조회수</th>
@@ -62,7 +62,7 @@
 															<!-- 상품이 있으면 -->
 															<c:forEach var="list" items="${list }">
 																<tr>
-																	<td class="searchtd">${list.getNum() }</td>
+																	<td class="searchtd">${list.getSource() }</td>
 																	<td class="searchtd"><a
 																		href="${path}/search_detailAction.sc?num=${list.getNum()}">${list.getTitle()}</a>
 																	</td>

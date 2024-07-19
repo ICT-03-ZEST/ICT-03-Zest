@@ -15,12 +15,8 @@
 			src="${path }/resources/images/festicat.PNG" width="155px"
 			height="50px" id="festicat"></a>
 		<ul class="navbar_menu">
-			<li><a href="#">국내 이벤트</a>
-				<ul class="submenu">
 					<li><a href="${path}/concertList.cc">국내공연</a></li>
 					<li><a href="${path}/festivalList.fv">국내 페스티벌</a></li>
-				</ul></li>
-			<li><a href="#">장르 별 인기순위</a></li>
 			<li><a href="#">게시판</a>
 				<ul class="submenu">
 					<li><a href="${path}/board.bc?board_category=공연후기"">공연후기</a></li>

@@ -52,11 +52,11 @@ public class SearchDAOImpl implements SearchDAO {
 	        conn = dataSource.getConnection();
 	        String sql = "SELECT * FROM ("
 	                   + "SELECT A.*, rownum AS rn FROM ("
-	                   + "SELECT board_num AS num, board_title AS title, board_content AS content, board_writer AS writer, board_regDate AS regDate, 'reviewBoard' AS source "
+	                   + "SELECT board_num AS num, board_title AS title, board_content AS content, board_writer AS writer, board_regDate AS regDate, board_category AS source "
 	                   + "FROM reviewBoard_tbl "
 	                   + "WHERE board_show = 'y' AND (board_title LIKE ? OR board_content LIKE ? OR board_writer LIKE ?) "
 	                   + "UNION ALL "
-	                   + "SELECT board_num AS num, board_title AS title, board_content AS content, board_writer AS writer, board_regDate AS regDate, 'freeBoard' AS source "
+	                   + "SELECT board_num AS num, board_title AS title, board_content AS content, board_writer AS writer, board_regDate AS regDate, board_category AS source "
 	                   + "FROM freeBoard_tbl "
 	                   + "WHERE board_show = 'y' AND (board_title LIKE ? OR board_content LIKE ? OR board_writer LIKE ?) "
 	                   + "UNION ALL "
@@ -91,7 +91,18 @@ public class SearchDAOImpl implements SearchDAO {
 	            dto.setContent(rs.getString("content"));
 	            dto.setWriter(rs.getString("writer"));
 	            dto.setRegDate(rs.getDate("regDate"));
-	            dto.setSource(rs.getString("source"));
+	            
+	            if(rs.getString("source").equals("자유")) {
+		            dto.setSource(rs.getString("source"));
+	            }
+	            else if(rs.getString("source").equals("공연후기")) {
+		            dto.setSource(rs.getString("source"));
+	            }
+	            else {
+	            	 dto.setSource("공지사항");
+	            }
+	            System.out.println(rs.getString("source"));
+	            
 	            list.add(dto);
 	        }
 	    } catch (Exception e) {
