@@ -9,10 +9,19 @@
     align-items: center; /* 세로 가운데 정렬 */
     height: 100vh; /*높이를 100%로 설정*/
 }
-
+	
 .table-container { /* 테이블 넓이 고정*/
-    width: 100%;
+    width: 780px;
     margin: 0 auto;
+    height: 600px;
+}
+
+.board_category {
+	width:100%;
+	height:30px;
+	margin-top:10px;
+	margin-left:20px;
+	line-height: 30px;
 }
 
 .table-container tr:nth-child(2),  .table-container tr:nth-child(3){
@@ -159,4 +168,84 @@ tbody tr:hover {
 .pop_button:hover{
     background-color: burlywood;
     color: #fff;
+}
+
+/* 마이페이지 돌아가기 버튼 */ 
+/* myBoardList.jsp - 소연*/ 
+.backMyPage {
+    position: relative;
+    left: 45%;
+} 
+ /* myTicketDetail.jsp */
+.td_backMyPage {
+    position: relative;
+    left: 45%;
+}
+.td_backMyPage div { 
+    padding-top: 30px;
+}
+
+.btn_backmypage {
+    background: rgba(255, 166, 0, 0.603);
+    font-size: 15px;
+    border: none;
+    border-radius: 4px;
+    padding: 8PX;
+    color: white;
+    font-weight: bold; 
+    width: 100px;
+}
+
+.btn_backmypage:hover {
+    box-shadow: 0 0 6px goldenrod;
+    cursor: pointer;
+}
+
+ /* 썸네일 사이즈 - 소연*/ 
+.thumnailImg {
+    max-width: 40px;
+    display: block; /* 부모 요소의 가로 길이를 차지하도록 설정 */
+}
+
+/* 라디오 버튼 */
+[type="radio"], span {
+  vertical-align: middle;
+}
+
+[type="radio"] {
+  appearance: none;
+  border: max(2px, 0.1em) solid gray;
+  border-radius: 50%;
+  width: 1.25em;
+  height: 1.25em;
+}
+
+[type="radio"]:checked {
+  border: 0.4em solid #2763ba;
+}
+
+[type="radio"]:focus-visible {
+  outline-offset: max(2px, 0.1em);
+  outline: max(2px, 0.1em) dotted tomato;
+}
+
+[type="radio"]:hover {
+  box-shadow: 0 0 0 max(4px, 0.2em) lightgray;
+  cursor: pointer;
+}
+
+[type="radio"]:hover + span {
+  cursor: pointer;
+}
+
+[type="radio"]:disabled {
+  background-color: lightgray;
+  box-shadow: none;
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+[type="radio"]:disabled + span {
+  opacity: 0.7;
+  cursor: not-allowed;
 }

@@ -37,7 +37,12 @@ $(function(){	// 상세페이지가 로딩화면
 				            <div>
 				                <input type="password" class="input" name="password" id="password"size="20" placeholder="비밀번호 변경" required>
 				            </div>
-				
+				        </td>
+				    </tr>
+				    
+				    <tr>
+				        <th>비밀번호 확인</th>
+				        <td colspan="2"> 
 				            <div>
 				                <input type="password" class="input" name="repassword" id="repassword" size="20" placeholder="비밀번호 변경확인" required>
 				            </div>
