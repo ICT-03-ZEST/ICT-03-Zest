@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="${path}/resources/css/normal_board/notice/notice_boardList.css"> 
+<link rel="stylesheet" href="${path}/resources/css/normal_board/notice_boardList.css"> 
 	
 <script>
    // 글쓰기 버튼 클릭시 작성페이지로 이동
