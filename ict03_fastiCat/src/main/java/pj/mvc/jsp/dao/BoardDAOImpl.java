@@ -64,7 +64,6 @@ public class BoardDAOImpl implements BoardDAO {
 						+ "     FROM ( "
 						+ "        SELECT A.* "
 						+ "             , ROWNUM AS rn "
-						//+ 			   ", NVL(board_thumnail, '/ict03_fastiCat/resources/upload/free.jfif') AS thumnail"	
 						+ "          FROM "
 						+ "            (SELECT * FROM reviewBoard_tbl "
 						+ "              WHERE board_show = 'y' "
@@ -84,7 +83,6 @@ public class BoardDAOImpl implements BoardDAO {
 						+ "  FROM ( "
 						+ "        SELECT A.* "
 						+ "             , ROWNUM AS rn "
-						//+ 			   ", NVL(board_thumnail, '/ict03_fastiCat/resources/upload/default.jpg') AS thumnail"	
 						+ "          FROM "
 						+ "            (SELECT * FROM freeBoard_tbl "
 						+ "              WHERE board_show = 'y' " 
@@ -107,7 +105,7 @@ public class BoardDAOImpl implements BoardDAO {
 				 dto.setBoard_category(rs.getString("board_category"));
 				 dto.setBoard_title(rs.getString("board_title"));
 				 dto.setBoard_content(rs.getString("board_content"));
-				 dto.setBoard_thumnail(rs.getString("thumnail"));
+				 dto.setBoard_thumnail(rs.getString("board_thumnail"));
 				 dto.setBoard_writer(rs.getString("board_writer"));
 				 dto.setBoard_regDate(rs.getDate("board_regDate"));
 				 dto.setBoard_views(rs.getInt("board_views"));
