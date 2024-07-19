@@ -223,7 +223,7 @@ public class SearchDAOImpl implements SearchDAO {
 		return dto;
 	}
 	
-	// 게시글 상세 검색
+    // 게시글 상세 검색
 	@Override
 	public List<SearchDTO> boardDetailList(String searchItem, String searchInput, int start, int end) {
 	    List<SearchDTO> list = new ArrayList<>();
@@ -233,24 +233,24 @@ public class SearchDAOImpl implements SearchDAO {
 
 	    try {
 	        conn = dataSource.getConnection();
-	        
-	        // 검색 기준에 따라 SQL 쿼리 생성
+
+	        // 상세 검색을 위한 SQL 쿼리
 	        String sql = "SELECT * FROM ("
-	                   + "SELECT A.*, rownum AS rn FROM ("
-	                   + "SELECT board_num AS num, board_title AS title, board_content AS content, board_writer AS writer, board_regDate AS regDate, 'reviewBoard' AS source "
-	                   + "FROM reviewBoard_tbl "
-	                   + "WHERE board_show = 'y' AND " + searchItem + " LIKE ? "
-	                   + "UNION ALL "
-	                   + "SELECT board_num AS num, board_title AS title, board_content AS content, board_writer AS writer, board_regDate AS regDate, 'freeBoard' AS source "
-	                   + "FROM freeBoard_tbl "
-	                   + "WHERE board_show = 'y' AND " + searchItem + " LIKE ? "
-	                   + "UNION ALL "
-	                   + "SELECT noticeNo AS num, noticeTitle AS title, noticeContent AS content, noticeWriter AS writer, noticeRegDate AS regDate, 'notice' AS source "
-	                   + "FROM mvc_ad_notice_tbl "
-	                   + "WHERE show = 'y' AND " + searchItem + " LIKE ? "
-	                   + "ORDER BY regDate DESC "
-	                   + ") A "
-	                   + ") WHERE rn BETWEEN ? AND ?";
+	                     + "SELECT A.*, rownum AS rn FROM ("
+	                     + "SELECT board_num AS num, board_title AS title, board_content AS content, board_writer AS writer, board_regDate AS regDate, 'reviewBoard' AS source "
+	                     + "FROM reviewBoard_tbl "
+	                     + "WHERE board_show = 'y' AND board_title LIKE ? "
+	                     + "UNION ALL "
+	                     + "SELECT board_num AS num, board_title AS title, board_content AS content, board_writer AS writer, board_regDate AS regDate, 'freeBoard' AS source "
+	                     + "FROM freeBoard_tbl "
+	                     + "WHERE board_show = 'y' AND board_title LIKE ? "
+	                     + "UNION ALL "
+	                     + "SELECT noticeNo AS num, noticeTitle AS title, noticeContent AS content, noticeWriter AS writer, noticeRegDate AS regDate, 'notice' AS source "
+	                     + "FROM mvc_ad_notice_tbl "
+	                     + "WHERE show = 'y' AND noticeTitle LIKE ? "
+	                     + "ORDER BY regDate DESC "
+	                     + ") A "
+	                     + ") WHERE rn BETWEEN ? AND ?";
 
 	        pstmt = conn.prepareStatement(sql);
 	        String searchQuery = "%" + searchInput + "%";
@@ -262,6 +262,7 @@ public class SearchDAOImpl implements SearchDAO {
 
 	        rs = pstmt.executeQuery();
 
+	        // 검색 결과를 SearchDTO 객체로 변환
 	        while (rs.next()) {
 	            SearchDTO dto = new SearchDTO();
 	            dto.setNum(rs.getInt("num"));
@@ -272,7 +273,7 @@ public class SearchDAOImpl implements SearchDAO {
 	            dto.setSource(rs.getString("source"));
 	            list.add(dto);
 	        }
-	    } catch (Exception e) {
+	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    } finally {
 	        try {
@@ -285,5 +286,4 @@ public class SearchDAOImpl implements SearchDAO {
 	    }
 	    return list;
 	}
-
 }
