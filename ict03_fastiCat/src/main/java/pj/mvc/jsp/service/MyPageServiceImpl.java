@@ -8,8 +8,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import pj.mvc.jsp.dao.BoardDAO;
-import pj.mvc.jsp.dao.BoardDAOImpl;
 import pj.mvc.jsp.dao.MyPageDAO;
 import pj.mvc.jsp.dao.MyPageDAOImpl;
 import pj.mvc.jsp.dto.BoardDTO;
@@ -38,6 +36,7 @@ public class MyPageServiceImpl implements MyPageService {
 			request.setAttribute("selectCnt", selectCnt);
 		};
 				
+
 		// 회원정보 인증처리 및 탈퇴처리
 		@Override
 		public void deleteUserAction(HttpServletRequest request, HttpServletResponse response)
@@ -57,7 +56,7 @@ public class MyPageServiceImpl implements MyPageService {
 			
 			request.getSession().invalidate(); // 세션 삭제
 			
-			request.setAttribute("selectCnt", deleteCnt);
+			request.setAttribute("deleteCnt", deleteCnt);
 			
 		};
 		
@@ -131,38 +130,58 @@ public class MyPageServiceImpl implements MyPageService {
 			
 		};
 		
-		// 게시글 목록
+		// 게시글 목록 - 공연후기
 		@Override
 		public void boardListAction(HttpServletRequest request, HttpServletResponse response)
 				throws ServletException, IOException {
 			System.out.println("서비스 - boardListAction");
 			
 			// 3단계. 화면에서 입력받은 값을 가져오기
-			String pageNum = request.getParameter("pageNum");
+			String rbPageNum = request.getParameter("rbPageNum");
+			String fbPageNum = request.getParameter("fbPageNum");
+			String category = request.getParameter("category");
 			
 			String strId = (String) request.getSession().getAttribute("sessionID");
+			
 			// 4단계. 싱글톤 방식으로 DAO 객체 생성,
 			MyPageDAO dao = MyPageDAOImpl.getInstance();
 			
 			// 5-1단계. 전체 게시글 갯수 카운트
-			Paging paging = new Paging(pageNum);
-			int total = dao.myBoardCnt(strId);
-			System.out.println("total => " + total);
+			Paging rbPaging = new Paging(rbPageNum);
+			Paging fbPaging = new Paging(fbPageNum);
+			int rtotal = dao.myBoardCnt(strId, "REVIEWBOARD_TBL");
+			int ftotal = dao.myBoardCnt(strId, "FREEBOARD_TBL");
+			System.out.println("review_total => " + rtotal);
+			System.out.println("free_total => " + ftotal);
 			
-			paging.setTotalCount(total);
+			rbPaging.setTotalCount(rtotal);
+			fbPaging.setTotalCount(ftotal);
 			
 			// 5-2단계. 게시글 목록 조회
-			int start = paging.getStartRow();
-			int end = paging.getEndRow();
+			int rbStart = rbPaging.getStartRow();
+			int rbEnd = rbPaging.getEndRow();
 			
-			List<BoardDTO> list = dao.myBoardList(strId,start,end);
-			System.out.println("list: " + list);
+			int fbStart = fbPaging.getStartRow();
+			int fbEnd = fbPaging.getEndRow();
 			
+			List<BoardDTO> rbList = dao.myBoardList(strId,"REVIEWBOARD_TBL",rbStart,rbEnd);
+			System.out.println("rbList : " + rbList);
+			
+			List<BoardDTO> fbList = dao.myBoardList(strId,"FREEBOARD_TBL",fbStart,fbEnd);
+			System.out.println("fbList : " + fbList);
 			
 			// 6단계. jsp로 처리결과 전달
-			request.setAttribute("list", list);
-			request.setAttribute("paging", paging);
-			request.setAttribute("strId", strId);
+			request.setAttribute("rbList", rbList);
+			request.setAttribute("rbPaging", rbPaging);
+			
+			request.setAttribute("fbList", fbList);
+			request.setAttribute("fbPaging", fbPaging);
+			
+			if(category == "" || category == null) {
+				category = "공연후기";
+			}
+			
+			request.setAttribute("category", category);
 		}
 		
 		// 회원정보 인증처리 및 상세페이지
@@ -183,6 +202,33 @@ public class MyPageServiceImpl implements MyPageService {
 			
 			// 6단계. jsp로 처리결과 전달
 			request.setAttribute("selectCnt", selectCnt);
+			
+		};
+		
+		// 게시물 삭제 처리
+		@Override
+		public void BoardDeleteAction(HttpServletRequest request, HttpServletResponse response)
+				throws ServletException, IOException{
+				System.out.println("서비스 - BoardDeleteAction()");
+			
+			String strId = (String) request.getSession().getAttribute("sessionID");
+			
+			String[] numList = request.getParameterValues("num_list");
+			String category = request.getParameter("category");
+			
+			
+			System.out.println("numList : " + numList);
+			System.out.println("category : " + category);
+			
+			// 4단계. 싱글톤 방식으로 DAO 객체 생성, 다형성 적용
+			// MyPageDAOImpl dao = new MyPageDAOImpl();
+			MyPageDAO dao = MyPageDAOImpl.getInstance();
+			
+			// 5단계. 중복확인 처리
+			int deleteCnt = dao.boardDelete(strId, numList, category);
+			
+			// 6단계. jsp로 처리결과 전달
+			request.setAttribute("deleteCnt", deleteCnt);
 			
 		};
 

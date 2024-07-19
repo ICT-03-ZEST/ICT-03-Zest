@@ -25,8 +25,11 @@ public interface MyPageDAO {
 		public int updateUser(MyPageDTO dto);
 		
 		// 게시물 목록
-		public List<BoardDTO> myBoardList(String strId, int start, int end);
+		public List<BoardDTO> myBoardList(String strId, String table,int start, int end);
 		
 		// 게시물 갯수
-		public int myBoardCnt(String strId);
+		public int myBoardCnt(String strId, String table);
+		
+		// 게시물 삭제
+		public int boardDelete(String strId, String[] numList, String category);
 }

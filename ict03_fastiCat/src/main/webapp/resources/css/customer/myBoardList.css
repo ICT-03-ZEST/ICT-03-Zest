@@ -1,4 +1,8 @@
 @charset "UTF-8";
+.table-container {
+	display: none;
+}
+
 .container_box {
     display: flex;
     justify-content: center; /* 가로 가운데 정렬 */
@@ -6,16 +10,16 @@
     height: 100vh; /*높이를 100%로 설정*/
 }
 
-.board_list { /* 테이블 넓이 고정*/
+.table-container { /* 테이블 넓이 고정*/
     width: 100%;
     margin: 0 auto;
 }
 
-.board_list tr:nth-child(2),  .board_list tr:nth-child(3){
+.table-container tr:nth-child(2),  .table-container tr:nth-child(3){
     border: 1px solid rgb(110, 62, 62); 
 }
 
-.board_list th {
+.table-container th {
     background: rgba(255, 166, 0, 0.603);
     color: rgb(110, 62, 62);
     font-weight: bold;
@@ -23,7 +27,7 @@
     padding: 10px;
 }
 
-.board_list td {
+.table-container td {
     font-size: 20px;
     text-align: center;
     padding: 10px;
@@ -33,9 +37,16 @@
     cursor: pointer;
 }
 
+/* 테이블 올렸을 때 */
+tbody tr:hover {
+  background-color: #d3d3d3;
+  opacity: 0.9;
+  cursor: pointer;
+}
+
 /* 체크박스 */
 
-.board_list th {
+.table-container th {
     background: rgba(255, 166, 0, 0.603);
     color: rgb(110, 62, 62);
     font-weight: bold;
@@ -43,7 +54,7 @@
     padding: 10px;
 }
 
-.board_list td {
+.table-container td {
     font-size: 20px;
     text-align: center;
     padding: 10px;
@@ -120,7 +131,32 @@
     cursor: pointer;
 }
 
-.thumnailImg {
-    max-width: 40px;
-    display: block; /* 부모 요소의 가로 길이를 차지하도록 설정 */
+/* 팝업 창 */
+.bd_del_chk_popup, .bd_del_popup{
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 650px;
+    padding: 30px 30px 50px 30px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-size: 20px;
+}
+
+.pop_button { /* 취소 버튼*/
+    cursor: pointer;
+    border: 3px solid burlywood;
+    background-color: white;
+    border-radius: 4px;
+    color: burlywood;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.pop_button:hover{
+    background-color: burlywood;
+    color: #fff;
 }

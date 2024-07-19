@@ -11,7 +11,7 @@
 <script src="https://kit.fontawesome.com/e3f7bcf3d6.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script type="text/javascript">
-  
+   
    function upPwdChk() {
 	   
 	   let param = {
@@ -84,7 +84,7 @@
            url :'${path}/modifyUserAction.myp' ,         //3.
            type : 'POST',
            data : param,                  //요청데이터 형식(html,xml,json,text)
-           success : function(data){            //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
+           success : function(){            //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
            	  alert("수정이 완료되었습니다.")
            	  
               confirmCancel();
@@ -98,25 +98,12 @@
    }
 
    function deleteConfirm() {
-	   
-	   $.ajax({
-           url :'${path}/deleteUserAction.myp' ,         //3.
-           type : 'POST',
-           data : '',                  //요청데이터 형식(html,xml,json,text)
-           success : function(data){            //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
-           	  alert("탈퇴가 완료되었습니다.")
-           	  
-              deleteCancel();
-           },
-           error : function(){
-              alert('deleteConfirm() 오류');
-           }
-        });
+	   window.location='${path}/deleteUserAction.myp';
    }
+   
 </script>
 <body> <!-- 수정 6/28  9:35 -->
-	<!-- git 수정 확인 07/17 test2 -->
-	
+
    	<!-- header 시작-->
 	<%@ include file="/common/header.jsp"%>
 	<!-- header 끝-->

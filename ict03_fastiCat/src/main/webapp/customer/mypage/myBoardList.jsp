@@ -11,7 +11,19 @@
     <script src="https://kit.fontawesome.com/e3f7bcf3d6.js" crossorigin="anonymous"></script>
 
 	<script type="text/javascript">
-	//alert("${strId}");
+	
+    window.onload = function() {
+    	//시작 테이블 토글
+    	let category = "<%= request.getAttribute("category") %>"
+    	
+    	if(category == "공연후기"){
+    		toggleTable('review_table'); 
+    	} else if(category == "자유"){
+    		toggleTable('free_table'); 
+    	}
+        
+    };
+    
 	function bdDelPwdChk() {
 		   
 		   let param = {
@@ -39,39 +51,56 @@
 	   }
 	
 	function deleteConfirm() {
+			
+		let num_list = [];
+		let category = "";
 		
-			 let checkedCheckboxIds = [];
-	
-	         // 체크된 체크박스들을 순회하며 ID 값을 리스트에 추가
-	         $('input[type="checkbox"]:checked').each(function() {
+		if ($('#review_category').is(':checked')) {
+			 // 체크된 체크박스들을 순회하며 ID 값을 리스트에 추가
+	         $('#review_table input[type="checkbox"]:checked').each(function() {
 	             
 	          // ID에서 특정 문자 제거
-                 let id = $(this).attr('id').replace('_chkBox', '');
-                 checkedCheckboxIds.push(id);
+                let id = $(this).attr('id').replace('_review_chkBox', '');
+                num_list.push(id);
 	         });
+			 
+			 category = "review"
 	         
-	      	// 중복 제거
-             let uniqueIds = [...new Set(checkedCheckboxIds)];
-			
-             let param = {
-      			  "num_list": uniqueIds
-      		 };
+        } else if ($('#free_category').is(':checked')) {
+        	 // 체크된 체크박스들을 순회하며 ID 값을 리스트에 추가
+	         $('#free_table input[type="checkbox"]:checked').each(function() {
+	             
+	          // ID에서 특정 문자 제거
+                let id = $(this).attr('id').replace('_free_chkBox', '');
+                num_list.push(id);
+	         });
+        	 
+	         category = "free"
+        }
+		
+		// 삭제할 항목이 선택되지 않은 경우
+	    if (num_list.length === 0) {
+	        alert("선택된 항목이 없습니다.");
+	        delChkClosePopup();
+	        return;
+	    }
+		
              
-			alert(param.num_list);
-           //여기부터 작업
-		   $.ajax({
-	           url :'${path}/BoardDeleteAction.myp' ,         //3.
-	           type : 'POST',
-	           data : param,                  //요청데이터 형식(html,xml,json,text)
-	           success : function(data){            //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
-	           	  alert("삭제가 완료되었습니다.")
-	           	  
-	              delChkClosePopup();
-	           },
-	           error : function(){
-	              alert('deleteConfirm() 오류');
-	           }
-	        });
+          //여기부터 작업
+             $.ajax({
+           	    url: '${path}/BoardDeleteAction.myp',
+	           	 type: 'POST',
+	             traditional: true,
+	             data: { 'num_list': num_list, 'category': category },
+	             success: function(response) {
+	                 alert("삭제가 완료되었습니다.");
+	                 delChkClosePopup();
+	             },
+	             error: function(xhr, status, error) {
+	                 console.error(xhr.responseText); // 에러 응답 내용을 콘솔에 출력
+	                 alert('삭제 중 오류가 발생했습니다.'); // 사용자에게 일반적인 오류 메시지 표시
+	             }
+	         });
 	   }
 	</script>
 </head>
@@ -84,16 +113,27 @@
     <div class="container_box">
 		<div class="container">
 			<div class="writing">
-		        <input type="button" name="boardWrite" class="write" value="글쓰기" onclick="boardInsertPopup()">
+		        <input type="button" name="boardWrite" class="write" value="글쓰기" onclick="goToMyWriting()">
 		        <input type="button" name="delete" class="delete" value="삭제" onclick="bdDelChkShowPopup()">
 		    </div>
-			<table class="board_list">  <!-- 가능하면 자유/ 후기 나누기-->
+		    
+           	<div class="board_category">
+	            <label>
+	                <input type="radio" id="review_category" name="board_category" value="공연후기" onclick="toggleTable('review_table')"<c:if test="${category == '공연후기'}">checked</c:if>>
+	                공연후기
+	            </label>
+	            <label>
+	                <input type="radio" id="free_category" name="board_category" value="자유" onclick="toggleTable('free_table')" <c:if test="${category == '자유'}">checked</c:if>>
+	                자유
+	            </label>
+        	</div>
+        	
+			<table id="free_table" class="table-container">  <!-- 가능하면 자유/ 후기 나누기-->
 				<thead>
 		        <tr>
-		        	<td class="td_chk"></td>
+		        	<td class="td_chk">자유</td>
 		            <th class="serialNum">번호</th>
 		            <th class="title">제목</th>
-		            <th class="image">이미지</th>
 		            <th class="category">카테고리</th>
 		            <th class="writer">글쓴이</th>
 		            <th class="regDate">작성일</th>
@@ -104,9 +144,9 @@
 
 		        <!-- 게시글이 있으면 -->
 		        <tbody>
-           		<c:forEach var="dto" items="${list}"> 
+           		<c:forEach var="dto" items="${fbList}"> 
             		<tr>
-						<td class="td_chk"><input type="checkbox" class="chkBox" id="${dto.board_num}_chkBox"></td>
+						<td class="td_chk"><input type="checkbox" class="free_chkBox" id="${dto.board_num}_free_chkBox"></td>
 			            <td class="serialNum"> ${dto.board_num} </td>
 			            <td class="title">
 			            	
@@ -115,8 +155,7 @@
 							</a>
 							
 						</td>
-						<td class="thumnail"><img src="${dto.board_thumnail}" alt="${dto.board_thumnail}" class="thumnailImg"></td>
-			            <td class="image">${dto.board_category}</td>
+			            <td class="category">${dto.board_category}</td>
 			            <td class="writer">${dto.board_title}</td>
 			            <td class="regDate">${dto.board_regDate}</td>
 			            <td class="views">${dto.board_views}</td>
@@ -130,17 +169,75 @@
            			<td colspan="9" align="center">
            				<!-- 페이징 처리 -->
            				<!-- 이전 버튼 활성화 -->
-           				<c:if test="${paging.startPage > 10}">
-           					<a href="${path}/myBoardList.myp?pageNum=${paging.prev}">[이전]</a>
+           				<c:if test="${fbPaging.startPage > 10}">
+           					<a href="${path}/myBoardList.myp?fbPageNum=${fbPaging.prev}&category='자유'">[이전]</a>
            				</c:if>
            				<!-- 페이지 번호 처리 -->
-           				<c:forEach var="num" begin="${paging.startPage}" end="${paging.endPage}">
-           					<a href="${path}/myBoardList.myp?pageNum=${num}">${num}</a>
+           				<c:forEach var="num" begin="${fbPaging.startPage}" end="${fbPaging.endPage}">
+           					<a href="${path}/myBoardList.myp?fbPageNum=${num}&category=자유">${num}</a>
            				</c:forEach>
            				
            				<!-- 다음 버튼 활성화 -->
-           				<c:if test="${paging.endPage < paging.pageCount}">
-           					<a href="${path}/myBoardList.myp?pageNum=${paging.next}">[다음]</a>
+           				<c:if test="${fbPaging.endPage < fbPaging.pageCount}">
+           					<a href="${path}/myBoardList.myp?fbPageNum=${fbPaging.next}&category=자유">[다음]</a>
+           				</c:if>
+           			</td>
+           		</tr>
+           		</tfoot>
+			</table>
+			
+			<table id="review_table" class="table-container">  <!-- 가능하면 자유/ 후기 나누기-->
+				<thead>
+		        <tr>
+		        	<td class="td_chk">공연후기</td>
+		            <th class="serialNum">번호</th>
+		            <th class="title">제목</th>
+		            <th class="category">카테고리</th>
+		            <th class="writer">글쓴이</th>
+		            <th class="regDate">작성일</th>
+		            <th class="views">조회</th>
+		            <th class="like"><i class="fa-regular fa-heart"></i></th>
+		        </tr> 
+				</thead>
+
+		        <!-- 게시글이 있으면 -->
+		        <tbody>
+           		<c:forEach var="dto" items="${rbList}"> 
+            		<tr>
+						<td class="td_chk"><input type="checkbox" class="review_chkBox" id="${dto.board_num}_review_chkBox"></td>
+			            <td class="serialNum"> ${dto.board_num} </td>
+			            <td class="title">
+			            	
+							<a href="${path}/content.bc?board_num=${dto.board_num}&board_category=${dto.board_category}&pageNum=${paging.pageNum}&views=1">
+								${dto.board_title}
+							</a>
+							
+						</td>
+			            <td class="category">${dto.board_category}</td>
+			            <td class="writer">${dto.board_title}</td>
+			            <td class="regDate">${dto.board_regDate}</td>
+			            <td class="views">${dto.board_views}</td>
+			            <td class="like"><i>${dto.board_heart}</i></td>
+		        	</tr> 
+           		</c:forEach>
+				</tbody>
+				
+				<tfoot>
+				<tr>
+           			<td colspan="9" align="center">
+           				<!-- 페이징 처리 -->
+           				<!-- 이전 버튼 활성화 -->
+           				<c:if test="${rbPaging.startPage > 10}">
+           					<a href="${path}/myBoardList.myp?rbPageNum=${rbPaging.prev}&category=공연후기">[이전]</a>
+           				</c:if>
+           				<!-- 페이지 번호 처리 -->
+           				<c:forEach var="num" begin="${rbPaging.startPage}" end="${rbPaging.endPage}">
+           					<a href="${path}/myBoardList.myp?rbPageNum=${num}&category=공연후기'">${num}</a>
+           				</c:forEach>
+           				
+           				<!-- 다음 버튼 활성화 -->
+           				<c:if test="${rbPaging.endPage < rbPaging.pageCount}">
+           					<a href="${path}/myBoardList.myp?rbPageNum=${rbPaging.next}&category=공연후기">[다음]</a>
            				</c:if>
            			</td>
            		</tr>
@@ -178,10 +275,6 @@
 	<!-- footer 끝-->
 	
   <script type="text/javascript">
-  	//게시글 추가 팝업
-  	function boardInsertPopup() {
-  		location.href='${path}/myWriting.bc';
-  	}
 	//게시글 삭제 확인 팝업
 	function bdDelChkShowPopup() {
 	    document.getElementById('bd_del_chk_popup').style.display = 'block';
@@ -207,6 +300,20 @@
 	    $('.dis_btn').prop('disabled', false);
 	    $(".page_out").css("opacity","");
 	}
+	
+	function goToMyWriting() {
+		location.href = "${path}/myWriting.bc"; 
+	}
+	
+	//테이블 토글
+	 function toggleTable(tableId) {
+         
+         document.querySelectorAll('.table-container').forEach(table => {
+             table.style.display = 'none';
+         });
+
+         document.getElementById(tableId).style.display = 'block';
+     }
   </script>
 		
 </body>

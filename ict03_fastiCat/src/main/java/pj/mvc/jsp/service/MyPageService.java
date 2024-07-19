@@ -24,12 +24,16 @@ public interface MyPageService {
 	public void modifyUserAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException;
 	
-	// 내 게시물 목록
+	// 내 게시물 목록 
 	public void boardListAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException;
 	
 	// 게시물 삭제 비밀번호 확인
 	public void bdDelPwdChk(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException;
+	
+	// 게시물 삭제 처리
+	public void BoardDeleteAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException;
 	
 }

@@ -45,12 +45,11 @@ public class MyPageController extends HttpServlet {
 		MyPageService service = new MyPageServiceImpl();
 		
 		//test(테스트용 세션 아이디 미리 설정)
-		//request.getSession().setAttribute("sessionID", "test");
+		request.getSession().setAttribute("sessionID", "test");
 		
 		// 1.게시판 목록조회 - 공연후기, 페스티벌후기, 자유 메뉴 선택시 해당 목록 전체조회(최신글 부터)
 		// test(링크 수정필요)
 		if(url.equals("/mypage.myp")) {
-			request.getSession().setAttribute("myBoard", "1"); // 마이페이지로 돌아오기 위한 세션
 			
 			viewPage = "customer/mypage/myPage.jsp";
 		}
@@ -60,7 +59,7 @@ public class MyPageController extends HttpServlet {
 			System.out.println("<url --> /myBoardList.myp>");
 	          
 			// 서비스 -> DAO(SELECT)
-       	 	service.boardListAction(request, response);
+			service.boardListAction(request, response);
   		
        	 	viewPage= "customer/mypage/myBoardList.jsp";
 		} 
@@ -83,7 +82,7 @@ public class MyPageController extends HttpServlet {
 			
 			service.modifyPwdChk(request, response);
 			
-			viewPage = "customer/mypage/modify.jsp";
+			viewPage = "customer/mypage/myModifyPopup.jsp";
 		}
 		
 		// 회원수정 처리 페이지
@@ -92,7 +91,7 @@ public class MyPageController extends HttpServlet {
 			
 			service.modifyUserAction(request, response);
 			
-			viewPage = "customer/mypage/modifyAction.jsp";
+			viewPage = "customer/mypage/myModifyAction.jsp";
 		}
 		
 		// [회원탈퇴]
@@ -102,7 +101,7 @@ public class MyPageController extends HttpServlet {
 			
 			service.deletePwdChk(request, response);
 			
-			viewPage = "customer/mypage/delete.jsp";
+			viewPage = "customer/mypage/myDeletePopup.jsp";
 		}
 		
 		// 회원탈퇴 처리 페이지
@@ -111,12 +110,11 @@ public class MyPageController extends HttpServlet {
 			
 			service.deleteUserAction(request, response);
 			
-			viewPage = "customer/mypage/modify.jsp";
+			viewPage = "customer/mypage/myDeleteAction.jsp";
 		}
 		
 		// [게시물 삭제]
 		// 게시물 삭제 비밀번호 인증
-		// 회원수정 인증
 		else if(url.equals("/bdDelPwdChk.myp")) {
 			System.out.println("<<< url ==> /bdDelPwdChk.myp >>>");
 			
@@ -125,6 +123,15 @@ public class MyPageController extends HttpServlet {
 			viewPage = "customer/mypage/bdDelete.jsp";
 		}
 		
+		// 게시물 삭제 처리
+		else if(url.equals("/BoardDeleteAction.myp")) {
+			System.out.println("<<< url ==> /BoardDeleteAction.myp >>>");
+			
+			service.BoardDeleteAction(request, response);
+			
+			viewPage = "customer/mypage/myBoardList.jsp";
+		}
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 	}

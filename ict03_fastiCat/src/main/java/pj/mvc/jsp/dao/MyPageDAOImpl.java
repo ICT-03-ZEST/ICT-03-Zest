@@ -36,7 +36,7 @@ public class MyPageDAOImpl implements MyPageDAO{
 		private MyPageDAOImpl() {
 			try {
 				Context context = new InitialContext();
-				 dataSource = (DataSource) context.lookup("java:comp/env/jdbc/ict03_zest");
+				 dataSource = (DataSource) context.lookup("java:comp/env/jdbc/jsp_pj_ict03");
 			} catch (NamingException e) {
 				e.printStackTrace();
 			}
@@ -94,6 +94,7 @@ public class MyPageDAOImpl implements MyPageDAO{
 			
 			return 0;
 		}
+
 
 		@Override
 		public int idPasswordChk(String strId, String strPassword) {
@@ -273,7 +274,7 @@ public class MyPageDAOImpl implements MyPageDAO{
 		
 		// 게시글 목록
 		@Override
-		public List<BoardDTO> myBoardList(String strId, int start, int end) {
+		public List<BoardDTO> myBoardList(String strId, String table, int start, int end) {
 			System.out.println("BoardDAO - boardList");
 			
 			List<BoardDTO> list = new ArrayList<>();
@@ -281,20 +282,38 @@ public class MyPageDAOImpl implements MyPageDAO{
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
+				
 				try {
 					conn = dataSource.getConnection();
-					String sql = "SELECT * "
+					
+					String sql = "";
+					if(table == "REVIEWBOARD_TBL") {
+					sql = "SELECT * "
 							+ "    FROM ( "
 							+ "SELECT A.*, "
 							+ "    rownum as rn "
 							+ "    FROM "
-							+ "        (SELECT * FROM (SELECT * FROM reviewBoard_tbl UNION ALL SELECT * FROM freeBoard_tbl) "
+							+ "        (SELECT * FROM (SELECT * FROM REVIEWBOARD_TBL) "
 							+ "			   WHERE board_show = 'y' "
-							+ "				AND  board_writer = ? "
+							+ "				AND  board_writer = ?"
 							+ "            ORDER BY board_num DESC "
 							+ "        ) A "
 							+ ") "
 							+ "WHERE rn BETWEEN ? AND ? ";
+					}else if(table == "FREEBOARD_TBL") {
+					sql = "SELECT * "
+							+ "    FROM ( "
+							+ "SELECT A.*, "
+							+ "    rownum as rn "
+							+ "    FROM "
+							+ "        (SELECT * FROM (SELECT * FROM FREEBOARD_TBL) "
+							+ "			   WHERE board_show = 'y' "
+							+ "				AND  board_writer = ?"
+							+ "            ORDER BY board_num DESC "
+							+ "        ) A "
+							+ ") "
+							+ "WHERE rn BETWEEN ? AND ? ";
+					}
 					
 					pstmt = conn.prepareStatement(sql);
 					pstmt.setString(1, strId);
@@ -303,10 +322,9 @@ public class MyPageDAOImpl implements MyPageDAO{
 					
 					// 3. resultSet에 담고
 					rs = pstmt.executeQuery();
-					int cnt = 0;
+					
 					// 4. resultSet에 데이터가 존재하면
 					while(rs.next()) {
-						cnt = 1;
 						//DTO 생성
 						BoardDTO dto = new BoardDTO();
 						
@@ -323,7 +341,6 @@ public class MyPageDAOImpl implements MyPageDAO{
 							
 					    list.add(dto);
 					}
-					System.out.println("cnt: " + cnt);
 				} catch(SQLException e) {
 					e.printStackTrace();
 				} finally {
@@ -342,25 +359,26 @@ public class MyPageDAOImpl implements MyPageDAO{
 			
 		}
 		
-		
 		// 게시글 갯수 구하기
 		@Override
-		public int myBoardCnt(String strId) {
+		public int myBoardCnt(String strId, String table) {
 			System.out.println("BoardDAO - boardCnt");
 			
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			
+			System.out.println("table : " + table);
 			int total = 0;
 			
+			String sql = "";
 			try {
 				conn = dataSource.getConnection();
-				String sql = "SELECT COUNT(*) AS cnt "
-						+ "FROM (SELECT * FROM reviewBoard_tbl UNION ALL SELECT * FROM freeBoard_tbl) "
-						+ "WHERE board_writer = ? "
-						+ "AND board_show = 'y'";
-				
+				if(table == "REVIEWBOARD_TBL") {
+					sql = "SELECT COUNT(*) cnt FROM REVIEWBOARD_TBL WHERE board_writer = ? ";
+				}else if (table == "FREEBOARD_TBL"){
+					sql = "SELECT COUNT(*) cnt FROM FREEBOARD_TBL WHERE board_writer = ? ";
+				}
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, strId);
 				
@@ -391,5 +409,56 @@ public class MyPageDAOImpl implements MyPageDAO{
 			return total;
 		
 		}
-	
+		
+		@Override
+		public int boardDelete(String strId, String[] numList, String category) {
+			System.out.println("DAO - deleteCustomer");
+			
+			int deleteCnt = 0;
+			
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			
+			try {
+				conn = dataSource.getConnection();
+				
+				String query = "";
+				if ("review".equals(category)) {
+				    query = "DELETE FROM REVIEWBOARD_TBL WHERE board_writer = ? AND board_num IN (";
+				} else if ("free".equals(category)) {
+				    query = "DELETE FROM FREEBOARD_TBL WHERE board_writer = ? AND board_num IN (";
+				}
+
+				// IN 절에 맞는 ? 설정
+				for (int i = 0; i < numList.length; i++) {
+				    query += (i == 0 ? "?" : ", ?");
+				}
+				query += ")";
+
+				pstmt = conn.prepareStatement(query);
+
+				pstmt.setString(1, strId); // 첫 번째 매개변수 설정 (board_writer)
+
+				// 두 번째 매개변수부터는 IN 절의 각 값 설정
+				for (int i = 0; i < numList.length; i++) {
+				    pstmt.setInt(i + 2, Integer.parseInt(numList[i]));
+				}
+				
+				deleteCnt = pstmt.executeUpdate();
+				System.out.println("deleteCnt : " + deleteCnt); //성공 : 1 , 실패 : 0
+			} catch(SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if(pstmt != null) pstmt.close();
+					if(conn != null) conn.close();
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			return deleteCnt;
+		}
+
 }
