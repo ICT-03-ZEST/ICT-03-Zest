@@ -62,7 +62,7 @@ $(function() {
 	          <div class="mod_container">
 		          <table class="mod_table" cellspacing="0" cellpadding="0">
 		          	<tr>
-		          		<td colspan="4">
+		          		<td colspan="3">
 		          			<div class="headMod">
 	                			<ul>
 	                    			<li class="writerMod"><span>${dto.board_writer}</span>
@@ -82,14 +82,11 @@ $(function() {
 		          	
 		          	<tr>
 		          		<th>제목</th>
-		          		<td colspan="4"><input type="text" name="board_title"  class="board_title" value="${dto.board_title}"></td>
-		          	</tr>
-		          	
-		          	<tr>
-		          		<th colspan="4" class="th_img">이미지</th>
+		          		<td colspan="2"><input type="text" name="board_title"  class="board_title" value="${dto.board_title}"></td>
 		          	</tr>
 		          	
 		          	<tr> 
+		          		<th class="th_img">이미지</th>
 			       		<td class="td_oldImg" align="center">
 				       		<c:if test="${dto.board_image != null}"> 
 	            				<img src="${dto.board_image}" class="oldImg">
@@ -103,7 +100,7 @@ $(function() {
 				        <td class="td_newImg" align="center">
 				        	<label class="btn_choice" for="board_image">파일선택</label>
 				        	<input type="file" class="input_file" name="board_image" id="board_image" accept="image/*">
-				        	<div><span class="file_name" id="image_name">파일선택 없음</span></div>
+				        	<span class="file_name" id="image_name">파일선택 없음</span>
 				        </td>
 		          	</tr>
 		          	
