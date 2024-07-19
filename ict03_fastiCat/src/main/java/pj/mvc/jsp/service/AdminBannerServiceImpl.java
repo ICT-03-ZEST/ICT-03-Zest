@@ -26,7 +26,7 @@ public class AdminBannerServiceImpl implements AdminBannerService{
 		
 		dto.setBannerArea(request.getParameter("bannerArea"));
 		//pdImg => ImageUploadHandler 클래스에서 setAttribute()로 넘겼으므로 getAttribute로 처리
-		String p_img1 = "/js_pj_fasticat/resources/upload/" + request.getAttribute("fileName");
+		String p_img1 = "/ict03_fastiCat/resources/upload/" + request.getAttribute("fileName");
 		dto.setBannerImg(p_img1);
 		dto.setBannerStatus(request.getParameter("bannerStatus"));
 	
@@ -129,7 +129,7 @@ public class AdminBannerServiceImpl implements AdminBannerService{
 		// 이미지를 수정 했을때
 		else {
 			//pdImg => ImageUploadHandler 클래스에서 setAttribute()로 넘겼으므로 getAttribute로 처리
-			strBannerImg = "/js_pj_fasticat/resources/upload/" + uploadBannerImg;
+			strBannerImg = "/ict03_fastiCat/resources/upload/" + uploadBannerImg;
 		}
 		
 		dto.setBannerImg(strBannerImg);
@@ -163,6 +163,19 @@ public class AdminBannerServiceImpl implements AdminBannerService{
 		int deleteCnt = dao.bannerDelete(bannerNo);
 		request.setAttribute("deleteCnt", deleteCnt);
 		
+	}
+	
+	// 메인 - 배너 조회
+	@Override
+	public void getMainBanner(HttpServletRequest request, HttpServletResponse res)
+			throws ServletException, IOException {
+		System.out.println("서비스 - getMainBanner()");
+		
+		// 4단계. 싱글톤 방식으로 DAO 객체 생성, 다형성 적용
+		AdminBannerDAO dao = AdminBannerDAOImpl.getInstance();
+		
+		List<AdminBannerDTO> bannerList = dao.getBannerList();
+		request.setAttribute("bannerList", bannerList);
 	}
 
 }

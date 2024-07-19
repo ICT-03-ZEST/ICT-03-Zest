@@ -14,11 +14,11 @@ import pj.mvc.jsp.service.AdminBoardServiceImlp;
 import pj.mvc.jsp.util.ImageUploadHandler;
 
 @WebServlet("*.adbc")
-@MultipartConfig(location="D:\\dev\\workspace\\js_pj_fasticat\\src\\main\\webapp\\resources\\upload",
+@MultipartConfig(location="D:\\git\\ict03_festiCat\\ict03_fastiCat\\src\\main\\webapp\\resources\\upload",
 		fileSizeThreshold=1024*1024, maxFileSize=1024*1024*5, maxRequestSize=1024*1024*5*5)
 public class AdminBoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String IMG_UPLOAD_DIR = "D:\\dev\\workspace\\js_pj_fasticat\\src\\main\\webapp\\resources\\upload";   
+	private static final String IMG_UPLOAD_DIR = "D:D:\\git\\ict03_festiCat\\ict03_fastiCat\\src\\main\\webapp\\resources\\upload";   
    
     public AdminBoardController() {
         super();

@@ -32,7 +32,7 @@ public class AdminFestivalServiceImpl implements AdminFestivalService{
 		dto.setFesPlace(request.getParameter("fesPlace"));
 		
 		//pdImg => ImageUploadHandler 클래스에서 setAttribute()로 넘겼으므로 getAttribute로 처리
-		String p_img1 = "/js_pj_fasticat/resources/upload/" + request.getAttribute("fileName");
+		String p_img1 = "/ict03_fastiCat/resources/upload/" + request.getAttribute("fileName");
 		dto.setFesImg(p_img1);
 		System.out.println("<< p_img1 : " + p_img1);
 
@@ -138,7 +138,7 @@ public class AdminFestivalServiceImpl implements AdminFestivalService{
 		// 이미지를 수정 했을때
 		else {
 			//pdImg => ImageUploadHandler 클래스에서 setAttribute()로 넘겼으므로 getAttribute로 처리
-			strFesImg = "/js_pj_fasticat/resources/upload/" + uploadFesImg;
+			strFesImg = "/ict03_fastiCat/resources/upload/" + uploadFesImg;
 		}
 		
 		dto.setFesImg(strFesImg);

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import pj.mvc.jsp.service.ReservationService;
 import pj.mvc.jsp.service.ReservationServiceImpl;
+import pj.mvc.jsp.service.AdminBannerServiceImpl;
 import pj.mvc.jsp.service.CustomerServiceImpl;
 
 @WebServlet("*.do")
@@ -55,6 +56,7 @@ public class CustomerController extends HttpServlet {
 		String viewPage = "";
 		CustomerServiceImpl service = new CustomerServiceImpl();
 		ReservationService serviceCal = new ReservationServiceImpl();
+		AdminBannerServiceImpl bannerService = new AdminBannerServiceImpl();
 
 		// 첫페이지
 		if (url.equals("/main.do") || url.equals("/*.do")) {
@@ -62,6 +64,10 @@ public class CustomerController extends HttpServlet {
 
 			// 달력 공연날짜 기입
 			// serviceCal.reservationListAction(request, response);
+			
+			// 메인 - 관리자에서 등록한 배너이미지 조회
+			bannerService.getMainBanner(request, response);
+			
 			viewPage = "common/main.jsp";
 		}
 

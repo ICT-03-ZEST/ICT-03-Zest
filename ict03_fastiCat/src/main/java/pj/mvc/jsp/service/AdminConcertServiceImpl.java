@@ -31,7 +31,7 @@ public class AdminConcertServiceImpl implements AdminConcertService{
 		dto.setConTime(request.getParameter("conTime"));
 		dto.setConPlace(request.getParameter("conPlace"));
 		//pdImg => ImageUploadHandler 클래스에서 setAttribute()로 넘겼으므로 getAttribute로 처리
-		String p_img1 = "/js_pj_fasticat/resources/upload/" + request.getAttribute("fileName");
+		String p_img1 = "/ict03_fastiCat/resources/upload/" + request.getAttribute("fileName");
 		dto.setConImg(p_img1);
 		dto.setConPrice(Integer.parseInt(request.getParameter("conPrice")));
 		dto.setConBuy(request.getParameter("conBuy"));
@@ -137,7 +137,7 @@ public class AdminConcertServiceImpl implements AdminConcertService{
 		// 이미지를 수정 했을때
 		else {
 			//pdImg => ImageUploadHandler 클래스에서 setAttribute()로 넘겼으므로 getAttribute로 처리
-			strConImg = "/js_pj_fasticat/resources/upload/" + uploadConImg;
+			strConImg = "/ict03_fastiCat/resources/upload/" + uploadConImg;
 		}
 		
 		dto.setConImg(strConImg);

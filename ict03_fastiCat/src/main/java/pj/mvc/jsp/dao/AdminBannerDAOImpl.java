@@ -130,7 +130,7 @@ public class AdminBannerDAOImpl implements AdminBannerDAO{
 			conn = dataSource.getConnection();
 			
 			String sql = "SELECT * FROM mvc_ad_banner_tbl "
-					 + "ORDER BY bannerNo";
+					 + "ORDER BY bannerArea";
 			
 			pstmt = conn.prepareStatement(sql);
 //			pstmt.setInt(1, start);
@@ -277,5 +277,56 @@ public class AdminBannerDAOImpl implements AdminBannerDAO{
 		
 		return deleteCnt;
 	}
+
+	
+	//  메인 - 배너 조회
+	@Override
+	public List<AdminBannerDTO> getBannerList() {
+		System.out.println("AdminBannerDAOImpl - bannerList()");
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		List<AdminBannerDTO> bannerList = new ArrayList<AdminBannerDTO>();
+		
+		try {
+			conn = dataSource.getConnection();
+			
+			String sql = "SELECT * FROM mvc_ad_banner_tbl "
+					 + "WHERE bannerStatus='사용함'"
+					 + "ORDER BY bannerArea";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				AdminBannerDTO dto = new AdminBannerDTO();
+				
+				dto.setBannerNo(rs.getInt("bannerNo"));
+				dto.setBannerArea(rs.getString("bannerArea"));
+				dto.setBannerImg(rs.getString("bannerImg"));
+				dto.setBannerStatus(rs.getString("bannerStatus"));
+				dto.setBannerIndate(rs.getDate("bannerIndate"));
+				
+				bannerList.add(dto);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return bannerList;
+	}
+	
+	
+	
 
 }

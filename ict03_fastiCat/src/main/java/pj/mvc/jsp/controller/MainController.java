@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import pj.mvc.jsp.service.AdminBannerServiceImpl;
+
 @WebServlet("*.mc")
 public class MainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -40,10 +42,14 @@ public class MainController extends HttpServlet {
 		String url = uri.substring(contextPath.length());
 		
 		String viewPage = "";
+		AdminBannerServiceImpl bannerService = new AdminBannerServiceImpl();
 		
 		if (url.equals("/main.mc") || url.equals("/*.mc")) {
 			System.out.println("<<< url ==>  /main.mc >>>");
-
+			
+			// 메인 - 관리자에서 등록한 배너이미지 조회
+			bannerService.getMainBanner(request, response);
+			
 			viewPage = "common/main.jsp";
 		}
 		

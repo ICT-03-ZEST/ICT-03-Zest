@@ -81,6 +81,8 @@
 			                                    <option <c:if test="${dto.bannerArea == '메인배너1'}">selected</c:if> value="메인배너1">메인배너1</option>
 			                                    <option <c:if test="${dto.bannerArea == '메인배너2'}">selected</c:if> value="메인배너2">메인배너2</option>
 			                                    <option <c:if test="${dto.bannerArea == '메인배너3'}">selected</c:if> value="메인배너3">메인배너3</option>
+			                                    <option <c:if test="${dto.bannerArea == '메인배너4'}">selected</c:if> value="메인배너4">메인배너4</option>
+			                                    <option <c:if test="${dto.bannerArea == '메인배너5'}">selected</c:if> value="메인배너5">메인배너5</option>
 			                                </select>
 			                                </td>
 		                           		</tr>
@@ -91,7 +93,7 @@
 						                        <label><input type="radio" name="bannerStatus" value="사용안함"> 사용안함</label>
 						                    </td>
 		                           		<tr>
-				                             <th> * 이미지 등록 (894*450권장) </th>
+				                             <th> * 이미지 등록 (1160*586 권장) </th>
 				                             <td>
 				                             	기존이미지 : <img src="${dto.bannerImg}" width="80px">
 				                                <input type="file" class="input" name="bannerImg" id="bannerImg" accept="image/*" onchange="previewImage(event)">

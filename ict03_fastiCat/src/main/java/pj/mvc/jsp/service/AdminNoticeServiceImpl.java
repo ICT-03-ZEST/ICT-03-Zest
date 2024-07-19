@@ -27,7 +27,7 @@ public class AdminNoticeServiceImpl implements AdminNoticeService{
 		dto.setNoticeContent(request.getParameter("noticeContent"));
 		
 		//pdImg => ImageUploadHandler 클래스에서 setAttribute()로 넘겼으므로 getAttribute로 처리
-		String p_img1 = "/js_pj_fasticat/resources/upload/" + request.getAttribute("fileName");
+		String p_img1 = "/ict03_fastiCat/resources/upload/" + request.getAttribute("fileName");
 		dto.setNoticeImg(p_img1);
 		dto.setNoticeWriter(request.getParameter("noticeWriter"));
 	
@@ -130,7 +130,7 @@ public class AdminNoticeServiceImpl implements AdminNoticeService{
 		// 이미지를 수정 했을때
 		else {
 			//pdImg => ImageUploadHandler 클래스에서 setAttribute()로 넘겼으므로 getAttribute로 처리
-			strNoticeImg = "/js_pj_fasticat/resources/upload/" + uploadNoticeImg;
+			strNoticeImg = "/ict03_fastiCat/resources/upload/" + uploadNoticeImg;
 		}
 	
 		dto.setNoticeImg(strNoticeImg);

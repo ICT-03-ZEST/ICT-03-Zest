@@ -58,13 +58,15 @@
 		                              <th> 등록일 </th>
 		                              <th> 배너관리 </th>
 		                           </tr>
-                                 <!-- 상품이 있으면 -->
-	                             <c:forEach var="dto" items="${list}">
+                                 <!-- 배너가 있으면 -->
+	                             <c:forEach var="dto" items="${list}" varStatus="status">
 		                           <tr>
-					                  <td>${dto.bannerNo}</td>
-					                  <td>${dto.bannerArea}</td>
+					                  <td>${status.index + 1}</td>
 					                  <td>
-					                    <img src="${dto.bannerImg}" width="200px" height="100px" alt="배너 이미지">
+						                 ${dto.bannerArea}
+                					  </td>
+					                  <td>
+					                    <img src="${dto.bannerImg}" width="220px" height="100px" alt="배너 이미지">
 					                  </td>
 					                  <td>${dto.bannerStatus}</td>
 					                  <td>${dto.bannerIndate}</td>

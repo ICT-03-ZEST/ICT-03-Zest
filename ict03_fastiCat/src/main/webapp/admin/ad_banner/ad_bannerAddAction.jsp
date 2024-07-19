@@ -55,7 +55,7 @@
                 <c:if test="${insertCnt != 1}">
 	                <script type="text/javascript">
 	                	setTimeout(function(){
-	                		alert('배너등록 실패!!');
+	                		alert('배너등록 실패!!\n(이미 등록된 메인배너는 등록할 수 없습니다. 수정, 삭제만 가능)');
 	                		window.location="${path}/ad_bannerAdd.ban";
 	                	}, 1000);
 	                </script>

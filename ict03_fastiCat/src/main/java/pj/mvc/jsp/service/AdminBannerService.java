@@ -27,5 +27,10 @@ public interface AdminBannerService {
 	public void bannerDeleteAction(HttpServletRequest request, HttpServletResponse res)
 			throws ServletException, IOException;
 	
+	// 메인 - 배너 조회
+	public void getMainBanner(HttpServletRequest request, HttpServletResponse res)
+			throws ServletException, IOException;
+
+	
 
 }
