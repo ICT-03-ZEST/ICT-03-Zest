@@ -154,8 +154,11 @@
                                 </form>
                             </div>
                         </li>
-
-                        
+						
+						<!-- 메인 로고 -->
+                        <a href="${path }/main.do" class="d-flex align-items-center"><img
+						src="${path }/resources/images/festicat.PNG" width="120px"
+						height="40px" id="festicat"></a>
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -170,15 +173,6 @@
                             <!-- Dropdown - 유저정보 -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    프로필
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    계정설정
-                                </a>
-                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     로그아웃
@@ -190,6 +184,7 @@
 
                 </nav>
                 <!-- End of Topbar -->
+
 
 </body>
 </html>
