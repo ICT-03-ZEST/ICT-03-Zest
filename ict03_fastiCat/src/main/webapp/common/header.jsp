@@ -11,7 +11,7 @@
 <body>
 	<!-- header 시작 -->
 	<nav class="navbar">
-		<a href="${path }/common/main.jsp"><img
+		<a href="${path }/main.do"><img
 			src="${path }/resources/images/festicat.PNG" width="155px"
 			height="50px" id="festicat"></a>
 		<ul class="navbar_menu">
