@@ -93,6 +93,7 @@
 		        	<td class="td_chk"></td>
 		            <th class="serialNum">번호</th>
 		            <th class="title">제목</th>
+		            <th class="image">이미지</th>
 		            <th class="category">카테고리</th>
 		            <th class="writer">글쓴이</th>
 		            <th class="regDate">작성일</th>
@@ -109,12 +110,13 @@
 			            <td class="serialNum"> ${dto.board_num} </td>
 			            <td class="title">
 			            	
-							<a href="${path}/content.bc?board_num=${dto.board_num}&board_category=${dto.board_category}&pageNum=${paging.pageNum}&views=1&myBoard=1">
+							<a href="${path}/content.bc?board_num=${dto.board_num}&board_category=${dto.board_category}&pageNum=${paging.pageNum}&views=1">
 								${dto.board_title}
 							</a>
 							
 						</td>
-			            <td class="category">${dto.board_category}</td>
+						<td class="thumnail"><img src="${dto.board_thumnail}" alt="${dto.board_thumnail}" class="thumnailImg"></td>
+			            <td class="image">${dto.board_category}</td>
 			            <td class="writer">${dto.board_title}</td>
 			            <td class="regDate">${dto.board_regDate}</td>
 			            <td class="views">${dto.board_views}</td>

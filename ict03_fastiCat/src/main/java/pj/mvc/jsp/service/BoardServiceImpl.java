@@ -14,6 +14,7 @@ import pj.mvc.jsp.dto.CommentDTO;
 import pj.mvc.jsp.dto.HeartDTO;
 import pj.mvc.jsp.page.BoardPaging;
 import pj.mvc.jsp.util.ImageNameChange;
+import pj.mvc.jsp.util.UpdateImageName;
 
 public class BoardServiceImpl implements BoardService {
 	
@@ -60,8 +61,6 @@ public class BoardServiceImpl implements BoardService {
 			throws ServletException, IOException {
 		System.out.println("service - boardDetailAction");
 		String sessionID = (String) request.getSession().getAttribute("sessionID");
-		//String myBoard = request.getParameter("myBoard");
-		//System.out.println("myBoard: " + myBoard);
 		
 		String pageNum = request.getParameter("pageNum");
 		int board_num = Integer.parseInt(request.getParameter("board_num"));
@@ -98,8 +97,6 @@ public class BoardServiceImpl implements BoardService {
 		request.setAttribute("dto", dto);
 		request.setAttribute("selWriter", selWriter);
 		request.setAttribute("heartChk", heartChk);
-		//request.setAttribute("sessionID", sessionID); 
-		//request.setAttribute("myBoard", myBoard); 
 	}
 	
 	//좋아요 추가 / 게시판 좋아요 수 증가
@@ -108,7 +105,6 @@ public class BoardServiceImpl implements BoardService {
 		System.out.println("서비스 - heartInsertAction");
 		// sessionID 있다고 가정
 		String sessionID = (String)request.getSession().getAttribute("sessionID");
-		//String myBoard = request.getParameter("myBoard");
 		
 		int board_num = Integer.parseInt(request.getParameter("board_num")); 
 		String board_category = request.getParameter("board_category");
@@ -129,7 +125,6 @@ public class BoardServiceImpl implements BoardService {
 		BoardDAO dao = BoardDAOImpl.getInstance();
 		dao.modHeartCount(dto);	
 		dao.insertHeart(dto2);
-		//request.setAttribute("myBoard", myBoard);
 	}
 	
 	//좋아요 삭제  / 게시판 좋아요 감소
@@ -138,7 +133,6 @@ public class BoardServiceImpl implements BoardService {
 		System.out.println("서비스 - heartDeleteAction");
 		// sessionID 있다고 가정
 		String sessionID = (String)request.getSession().getAttribute("sessionID");
-		//String myBoard = request.getParameter("myBoard");
 		
 		int board_num = Integer.parseInt(request.getParameter("board_num")); 
 		String board_category = request.getParameter("board_category");
@@ -159,7 +153,6 @@ public class BoardServiceImpl implements BoardService {
 		BoardDAO dao = BoardDAOImpl.getInstance();
 		dao.modHeartCount(dto);	
 		dao.delHeart(dto2);
-		//request.setAttribute("myBoard", myBoard);
 	}
 	
 	// 게시글 작성처리
@@ -169,7 +162,6 @@ public class BoardServiceImpl implements BoardService {
 		
 		System.out.println("서비스 - boardInsertAction");
 		String sessionID = (String)request.getSession().getAttribute("sessionID");
-		//String myBoard = request.getParameter("myBoard"); 
 		
 		//이미지 변환
 		ImageNameChange inc= new ImageNameChange();
@@ -197,7 +189,6 @@ public class BoardServiceImpl implements BoardService {
 		
 		request.setAttribute("insertCnt", insertCnt);
 		request.setAttribute("category", category); //이동할 게시판 카테고리 판단
-		//request.setAttribute("myBoard", myBoard); // 1이면 게시글 작성 후 마이페이지 게시판으로 이동
 	}
 	
 	// 게시글 수정처리
@@ -214,7 +205,7 @@ public class BoardServiceImpl implements BoardService {
 		String category = request.getParameter("hiddenCategory");
 		
 		//이미지 변환
-		ImageNameChange inc= new ImageNameChange();
+		UpdateImageName inc= new UpdateImageName();
 		inc.imageName(request, response);
 		
 		//수정사항
@@ -352,7 +343,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void commentDelAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//String myBoard = request.getParameter("myBoard");
+		
 		int comment_num = Integer.parseInt(request.getParameter("comment_num"));
 		String board_category = request.getParameter("board_category");
 		String pageNum = request.getParameter("pageNum");
@@ -364,7 +355,6 @@ public class BoardServiceImpl implements BoardService {
 		request.setAttribute("pageNum", pageNum); // 목록으로 돌아가기
 		request.setAttribute("dto", dto);
 		request.setAttribute("deleteCnt", deleteCnt);
-		//request.setAttribute("myBoard", myBoard); 
 	}
 
 }

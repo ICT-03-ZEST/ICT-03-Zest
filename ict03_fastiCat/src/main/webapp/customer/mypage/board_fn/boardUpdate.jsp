@@ -20,7 +20,12 @@ $(function() {
 
 		//목록으로 돌아가기(새로고침)
 		$('#btn_back').click(function() {
-			location.href='${path}/board.bc?board_category=${dto.board_category}';
+			if(${myBoard == null}) {
+				location.href="${path}/board.bc?board_category=${dto.board_category}&pageNum=${pageNum}";
+			}	
+			else {
+				location.href="${path}/myBoardList.myp";
+			}
 		});		
 		
         $('#board_thumnail').change(function() {
@@ -81,27 +86,10 @@ $(function() {
 		          	</tr>
 		          	
 		          	<tr>
-		          		<th colspan="2" class="th_img">썸네일</th>
-		          		<th colspan="2" class="th_img">이미지</th>
+		          		<th colspan="4" class="th_img">이미지</th>
 		          	</tr>
 		          	
-		          	<tr> <!-- 썸네일 -->
-		          		<td class="td_oldImg" align="center">
-			          		<c:if test="${dto.board_thumnail != null}"> 
-		            			<img src="${dto.board_thumnail}" class="oldImg">
-		            		</c:if>
-		            		
-		            		<c:if test="${dto.board_thumnail == null}"> 
-		            			<img src="/js_pj_fasticat/resources/upload/default.jpg" class="oldImg">
-		            		</c:if>
-		          		</td>
-		          		
-		          		<td class="td_newImg" align="center">
-		          			<label class="btn_choice" for="board_thumnail">파일선택</label>
-		          			<input type="file" class="input_file" name="board_thumnail" id="board_thumnail" accept="image/*">
-		          			<div><span class="file_name" id="thumnail_name">파일선택 없음</span></div>
-		          		</td>
-		          		
+		          	<tr> 
 			       		<td class="td_oldImg" align="center">
 				       		<c:if test="${dto.board_image != null}"> 
 	            				<img src="${dto.board_image}" class="oldImg">

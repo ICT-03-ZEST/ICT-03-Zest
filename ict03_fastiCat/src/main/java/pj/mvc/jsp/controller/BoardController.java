@@ -1,6 +1,6 @@
 package pj.mvc.jsp.controller;
 
-import java.io.IOException;  
+import java.io.IOException;   
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,15 +12,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import pj.mvc.jsp.service.BoardService;
 import pj.mvc.jsp.service.BoardServiceImpl;
-import pj.mvc.jsp.util.BoardImageUploadHandler;
+import pj.mvc.jsp.util.ImageUploadHandler;
 
 //회원이 공연/페스티벌 후기 및 자유 게시판 및 댓글을 작성,수정,삭제,조회
 @WebServlet("*.bc")
-@MultipartConfig(location="C:\\git\\ict03_festiCat\\ict03_fastiCat\\src\\main\\webapp\\resources\\upload", 
+@MultipartConfig(location="D:\\git\\ict03_festiCat\\ict03_fastiCat\\src\\main\\webapp\\resources\\upload", 
 			fileSizeThreshold=1024*1024, maxFileSize=1024*1024*5, maxRequestSize=1024*1024*5*5)
 public class BoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String IMG_UPLOAD_DIR = "C:\\git\\ict03_festiCat\\ict03_fastiCat\\src\\main\\webapp\\resources\\upload";
+	private static final String IMG_UPLOAD_DIR = "D:\\git\\ict03_festiCat\\ict03_fastiCat\\src\\main\\webapp\\resources\\upload";
        
     public BoardController() {
         super();
@@ -48,7 +48,7 @@ public class BoardController extends HttpServlet {
 		String contextPath = request.getContextPath();
 		String url = uri.substring(contextPath.length());
 		
-		BoardImageUploadHandler uploader = null; // 썸네일, 컨텐츠이미지(여러개)
+		ImageUploadHandler uploader = null; // 썸네일, 컨텐츠이미지(여러개)
 		BoardService serv = new BoardServiceImpl();
 		///**********게시글 추가,수정,삭제 하트 클릭은 로그인 후 가능***********
 		
@@ -126,7 +126,7 @@ public class BoardController extends HttpServlet {
 			//추가 : 서비스 호출전에 추가
 			String contentType = request.getContentType();
 			if(contentType != null && contentType.toLowerCase().startsWith("multipart/")) {
-				uploader = new BoardImageUploadHandler();
+				uploader = new ImageUploadHandler();
 				uploader.setUploadPath(IMG_UPLOAD_DIR);//img경로(upload 폴더)
 				uploader.imageUpload(request, response);
 			}
@@ -152,7 +152,7 @@ public class BoardController extends HttpServlet {
 			//추가 : 서비스 호출전에 추가
 			String contentType = request.getContentType();
 			if(contentType != null && contentType.toLowerCase().startsWith("multipart/")) {
-				uploader = new BoardImageUploadHandler();
+				uploader = new ImageUploadHandler();
 				uploader.setUploadPath(IMG_UPLOAD_DIR);//img경로(upload 폴더)
 				uploader.imageUpload(request, response);
 			}

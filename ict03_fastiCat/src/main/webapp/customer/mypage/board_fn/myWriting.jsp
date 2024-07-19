@@ -13,10 +13,6 @@
 <script type="text/javascript">
 	
    $(function() {
-	   $('#board_thumnail').change(function() {
-           let fileName = $(this).val().split('\\').pop();
-           $('#thumnail_name').text(fileName);
-       });
 
        $('#board_image').change(function() {
        	let fileName = $(this).val().split('\\').pop();
@@ -37,30 +33,11 @@
     <!-- 드롭다운 => 카테고리 공연 ,페스티벌-->
     <div class="outline">
         <form id="myWritingForm" action="boardInsertAction.bc" method="post" enctype="multipart/form-data">
-        	<!-- 썸네일 기본이미지 -->
-        	<c:if test="${category == '공연후기'}">
-        		<input type="hidden" name="hiddenThumnail" value="free.jfif">
-        	</c:if>
-        	
-        	<c:if test="${category != '공연후기'}">
-        		<input type="hidden" name="hiddenThumnail" value="default.jpg">
-        	</c:if>
-        	
-        	<input type="hidden" name="hiddenImage" value="">
-        
                 <table class="container">
                     <tr><!-- 제목  -->
                         <td colspan="2"><input class="title" type="text" name="board_title" id="board_title" size="30px" placeholder="제목을 입력하세요" required autofocus></td>   
                     </tr>
 
-					<tr>
-						<td colspan="2">
-							<label class="btn_choice" for="board_thumnail">thumnail</label>
-		          			<input type="file" class="input_file" name="board_thumnail" id="board_thumnail" accept="image/*">
-		          			<span class="file_name" id="thumnail_name">파일선택 없음</span>
-	                    </td>
-					</tr>
-					
                     <tr>
                         <td> <!-- 게시판 유형  -->
                             <div class="div_medium">

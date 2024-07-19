@@ -119,3 +119,8 @@
     box-shadow: 0 0 6px goldenrod;
     cursor: pointer;
 }
+
+.thumnailImg {
+    max-width: 40px;
+    display: block; /* 부모 요소의 가로 길이를 차지하도록 설정 */
+}

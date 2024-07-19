@@ -47,7 +47,6 @@ public class ImageUploadHandler {
 				}
 			}
 			
-			
 		} catch(FileNotFoundException e) {
 			e.printStackTrace();
 		}
