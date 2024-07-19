@@ -81,8 +81,8 @@ li {
 .content_box {
     margin: 0 auto;
     width: 800px;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
+    border-top: 1px solid darkgray;
+    border-bottom: 1px solid darkgray;
     display: flex;
     justify-content: center;
 }
@@ -388,18 +388,22 @@ textarea#board_content {
 	width: 500px;
 }
 
+/* 댓글작성버튼 */
 .btnCommentAdd {
-	border: none;
+	margin-right: 10px;
     background: none;
-    color: coral;
-    font-size: 16px;
-    font-weight: bold;
+    color: cornflowerblue;
+    border: 1px solid cornflowerblue;
+    border-radius: 4px; 
 }
 
 .btnCommentAdd:hover {
-	border-bottom: 1px solid coral;
-	cursor: pointer;
+    cursor: pointer;
+	font-weight: bold;
+	background: cornflowerblue;
+	color: white;
 }
+
 
 
 /* 목록 */

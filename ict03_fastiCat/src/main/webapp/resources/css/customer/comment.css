@@ -29,6 +29,9 @@ body {
 .comment_text {
     margin: 0 0 5px 0;
     margin-top: 15px;
+    font-size: 20px;
+    padding: 5px;
+    width: 280px;
 }
 
 .comment_date {
@@ -39,6 +42,32 @@ body {
 /* 댓글 */
 h2 {
     margin-top: 0;
+}
+
+/* 수정 삭제 버튼 */
+.btn_cmt {
+	margin-right: 10px;
+    background: none;
+    color: cornflowerblue;
+    border: 1px solid cornflowerblue;
+    border-radius: 4px; 
+}
+
+.btn_cmt:hover {
+    cursor: pointer;
+	font-weight: bold;
+}
+.left_btn {
+    margin-left: 30px;
+}
+
+.comment_num {
+	 display: none; 
+}
+/* 작성자 이름,로고 */
+.comment_user, .comment_img {
+	font-size: 20px;
+	font-weight: bold;
 }
 
 /* 댓글입력란, 작성버튼 */

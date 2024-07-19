@@ -34,7 +34,7 @@ $(function() {
                     <span class="left_btn"><input type="submit" name="btn_modCmt" id="btn_modCmt" class="btn_cmt" value="수정확인"></span>
                     <span><input type="reset" class="btn_cmt" id="cancel" value="취소"></span>
                 </div>
-                <div><textarea class="comment_text" name="content">${dto.content}</textarea></div>
+                <div><textarea class="comment_text" name="content" autofocus>${dto.content}</textarea></div>
 	        </div>
 	      </form>
 </body>
