@@ -38,7 +38,7 @@
                 <div class="modal-body">정말 로그아웃 하시겠습니까?</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-                    <a class="btn btn-primary" href="${path}/admin/ad_login/ad_login.jsp">로그아웃</a>
+                    <a class="btn btn-primary" href="${path}/logout.do">로그아웃</a>
                 </div>
             </div>
         </div>
