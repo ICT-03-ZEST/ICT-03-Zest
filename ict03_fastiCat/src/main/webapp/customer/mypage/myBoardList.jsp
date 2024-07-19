@@ -16,7 +16,7 @@
     	//시작 테이블 토글
     	let category = "<%= request.getAttribute("category") %>"
     	
-    	if(category == "공연후기"){
+    	if(category == "공연후기" || category == null || category == ""){
     		toggleTable('review_table'); 
     	} else if(category == "자유"){
     		toggleTable('free_table'); 
@@ -95,6 +95,7 @@
 	             success: function(response) {
 	                 alert("삭제가 완료되었습니다.");
 	                 delChkClosePopup();
+	                 location.reload();
 	             },
 	             error: function(xhr, status, error) {
 	                 console.error(xhr.responseText); // 에러 응답 내용을 콘솔에 출력
@@ -131,14 +132,15 @@
 			<table id="free_table" class="table-container">  <!-- 가능하면 자유/ 후기 나누기-->
 				<thead>
 		        <tr>
-		        	<td class="td_chk">자유</td>
-		            <th class="serialNum">번호</th>
-		            <th class="title">제목</th>
-		            <th class="category">카테고리</th>
-		            <th class="writer">글쓴이</th>
-		            <th class="regDate">작성일</th>
-		            <th class="views">조회</th>
-		            <th class="like"><i class="fa-regular fa-heart"></i></th>
+		        	<td style="width: 20px;" class="td_chk"></td>
+		            <th style="width: 40px;"class="serialNum">번호</th>
+		            <th style="width: 103px;"class="title">제목</th>
+		            <th style="width: 60px;"class="image">이미지</th>
+		            <th style="width: 80px;"class="category">카테고리</th>
+		            <th style="width: 103px"class="writer">글쓴이</th>
+		            <th style="width: 105px	;"class="regDate">작성일</th>
+		            <th style="width: 40px;"class="views">조회</th>
+		            <th style="width: 20px;"class="like"><i class="fa-regular fa-heart"></i></th>
 		        </tr> 
 				</thead>
 
@@ -155,6 +157,7 @@
 							</a>
 							
 						</td>
+						<td class="thumnail"><img src="${dto.board_thumnail}" alt="${dto.board_thumnail}" class="thumnailImg"></td>
 			            <td class="category">${dto.board_category}</td>
 			            <td class="writer">${dto.board_title}</td>
 			            <td class="regDate">${dto.board_regDate}</td>
@@ -189,14 +192,15 @@
 			<table id="review_table" class="table-container">  <!-- 가능하면 자유/ 후기 나누기-->
 				<thead>
 		        <tr>
-		        	<td class="td_chk">공연후기</td>
-		            <th class="serialNum">번호</th>
-		            <th class="title">제목</th>
-		            <th class="category">카테고리</th>
-		            <th class="writer">글쓴이</th>
-		            <th class="regDate">작성일</th>
-		            <th class="views">조회</th>
-		            <th class="like"><i class="fa-regular fa-heart"></i></th>
+		        	<td style="width: 20px;" class="td_chk"></td>
+		            <th style="width: 40px;"class="serialNum">번호</th>
+		            <th style="width: 103px;"class="title">제목</th>
+		            <th style="width: 60px;"class="image">이미지</th>
+		            <th style="width: 80px;"class="category">카테고리</th>
+		            <th style="width: 103px"class="writer">글쓴이</th>
+		            <th style="width: 105px	;"class="regDate">작성일</th>
+		            <th style="width: 40px;"class="views">조회</th>
+		            <th style="width: 20px;"class="like"><i class="fa-regular fa-heart"></i></th>
 		        </tr> 
 				</thead>
 
@@ -232,7 +236,9 @@
            				</c:if>
            				<!-- 페이지 번호 처리 -->
            				<c:forEach var="num" begin="${rbPaging.startPage}" end="${rbPaging.endPage}">
-           					<a href="${path}/myBoardList.myp?rbPageNum=${num}&category=공연후기'">${num}</a>
+           					<c:if test="${num != 0}">
+           						<a href="${path}/myBoardList.myp?rbPageNum=${num}&category=공연후기'">${num}</a>
+           					</c:if>
            				</c:forEach>
            				
            				<!-- 다음 버튼 활성화 -->
@@ -243,6 +249,10 @@
            		</tr>
            		</tfoot>
 			</table>
+         	<!-- 목록으로 돌아가기  - 소연-->
+		    <div class="backMyPage" align="center">
+				<button class="btn_backmypage" onclick="window.location='${path}/mypage.myp'">마이페이지</button>
+    		</div>
 		</div>
 	</div>
 	
