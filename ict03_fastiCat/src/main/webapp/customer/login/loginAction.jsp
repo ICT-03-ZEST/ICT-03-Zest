@@ -75,7 +75,7 @@
 								<tr>
 									<td colspan="2" align="center">
 										<h3>
-											<span style="color: #FF82AA"><b>${sessionScope.sessionID}</b></span>님 환영합니다.
+											<span style="color: orange"><b>${sessionScope.sessionID}</b></span>님 환영합니다.
 										</h3>
 									</td>
 								</tr>
@@ -87,7 +87,7 @@
 											<input class="inputButton" type="button" value="회원탈퇴" onclick="window.location='deleteCustomer.do'">
 											<input class="inputButton" type="button" value="로그아웃" onclick="window.location='logout.do'">
 											
-											<a href="../../admin/ad_product/ad_productAdd.jsp" style="color:black">관리자</a>
+											<a href="${path}/admin/ad_main/ad_dashboard.jsp" style="color:white">관리자</a>
 										</div>
 									</td>
 								</tr>
