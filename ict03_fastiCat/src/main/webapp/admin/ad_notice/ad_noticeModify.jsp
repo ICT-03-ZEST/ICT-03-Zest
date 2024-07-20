@@ -47,41 +47,32 @@
 						</div>
 
                         <div class="card-body">
-                          <form name="ad_noticeModify" action="ad_noticeModifyAction.not" method="post" enctype="multipart/form-data">
+                          <form name="ad_noticeModify" action="ad_noticeModifyAction.not" method="post">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                   <!-- hidden : 직접 input 태그에서 입력받지 못한 값들을 전달할 때 사용 -->
-		                           <input type="hidden" name="hiddenPageNum" value="${pageNum}">
-		                           <input type="hidden" name="hiddenNoticeNo" value="${dto.noticeNo}">
-		                           <input type="hidden" name="hiddenNoticeImg" value="${dto.noticeImg}">  <!-- 기존 상품이미지 -->
-                                  
+                                   <input type="hidden" name="hiddenPageNum" value="${pageNum}">
+		                           <input type="hidden" name="hidden_num" value="${dto.n_Board_Num}">
                                    <tr>	
                                    	<th> 번호 </th>
-                                   	<td> ${dto.noticeNo}</td>
+                                   	<td> ${dto.n_Board_Num}</td>
                                    </tr>
                                    <tr>
 		                              <th> * 작성자 </th>
 		                              <td>
-		                                 <input type="text" class="input" name="noticeWriter" id="noticeWriter" value="${dto.noticeWriter}" size="20" placeholder="작성자 작성" required autofocus>
+		                                 <input type="text" class="input" name="N_Writer" id="N_Writer" value="${dto.n_Writer}" size="20" placeholder="작성자 작성" required autofocus>
 		                              </td>
 		                           </tr>
                                    <tr>
 		                              <th> * 제목 </th>
 		                              <td>
-		                                 <input type="text" class="input" name="noticeTitle" id="noticeTitle" value="${dto.noticeTitle}" size="50" placeholder="공지사항 제목 작성" required autofocus>
+		                                 <input type="text" class="input" name="N_Title" id="N_Title" value="${dto.n_Title}" size="50" placeholder="공지사항 제목 작성" required>
 		                              </td>
 		                           </tr>
 		                           <tr>
 		                              <th> * 내용 </th>
 		                              <td>
-		                                 <textarea rows="5" cols="77" name="noticeContent" id="noticeContent" placeholder="공지사항 내용 작성" required>${dto.noticeContent}</textarea>
-		                              </td>
-		                           </tr>
-		                           <tr>
-		                              <th> 첨부 이미지 </th>
-		                              <td>
-		                              	 <img src="${dto.noticeImg}" width="80px">
-		                                 <input type="file" class="input" name="noticeImg" id="noticeImg" value="${dto.noticeContent}" accept="image/*">
+		                                 <textarea rows="5" cols="77" name="N_Content" id="N_Content" placeholder="공지사항 내용 작성" required>${dto.n_Content}</textarea>
 		                              </td>
 		                           </tr>
 		                           

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <%@ include file="../ad_common/ad_setting.jsp" %>    
 <!DOCTYPE html>
 <html lang="en">
@@ -28,8 +27,8 @@
     <link href="${path}/admin/startbootstrap-admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 <script type="text/javascript">
-    function setNoticeNo(noticeNo) {
-        document.getElementById('deleteButton').setAttribute('onclick', "window.location='${path}/ad_noticeDeleteAction.not?noticeNo=" + noticeNo + "'");
+    function setNoticeNo(N_Board_Num) {
+        document.getElementById('deleteButton').setAttribute('onclick', "window.location='${path}/ad_noticeDeleteAction.not?N_Board_Num=" + N_Board_Num + "'");
     }
 </script>
 
@@ -84,16 +83,16 @@
                                     	<!-- 공지사항이 있으면 -->
 			                           <c:forEach var="dto" items="${list}">
                                         <tr>
-                                            <td>${dto.noticeNo}</td>
-                                            <td>${dto.noticeTitle}</td>
-                                            <td>${dto.noticeContent}</td>
-                                            <td>${dto.noticeWriter}</td>
-                                            <td>${dto.noticeReadCnt}</td>
-                                            <td>${dto.noticeRegDate}</td>
+                                            <td>${dto.n_Board_Num}</td>
+                                            <td>${dto.n_Title}</td>
+                                            <td>${dto.n_Content}</td>
+                                            <td>${dto.n_Writer}</td>
+                                            <td>${dto.n_ReadCnt}</td>
+                                            <td>${dto.n_WriteDate}</td>
                                             <td>
-                                            <button class="btn btn-secondary" id="btnEdit" onclick="window.location='${path}/ad_noticeModify.not?noticeNo=${dto.noticeNo}&pageNum=${paging.pageNum}'">수정</button>
+                                            <button class="btn btn-secondary" id="btnEdit" onclick="window.location='${path}/ad_noticeModify.not?N_Board_Num=${dto.n_Board_Num}&pageNum=${paging.pageNum}'">수정</button>
 				                              		<button class="btn btn-danger" id="btnDelete" href="#" data-toggle="modal" data-target="#DeleteModal"
-				                              		onclick="setNoticeNo(${dto.noticeNo})">삭제</button>
+				                              		onclick="setNoticeNo(${dto.n_Board_Num})">삭제</button>
                        						</td>
                                         </tr>
                                      </c:forEach>

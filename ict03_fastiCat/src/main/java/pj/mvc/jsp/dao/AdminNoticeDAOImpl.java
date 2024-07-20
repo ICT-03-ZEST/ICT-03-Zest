@@ -12,7 +12,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import pj.mvc.jsp.dto.AdminNoticeDTO;
+import pj.mvc.jsp.dto.NoticeDTO;
 
 public class AdminNoticeDAOImpl implements AdminNoticeDAO{
 
@@ -42,7 +42,7 @@ public class AdminNoticeDAOImpl implements AdminNoticeDAO{
 	
 	// 공지사항 등록
 	@Override
-	public int noticeInsert(AdminNoticeDTO dto) {
+	public int noticeInsert(NoticeDTO dto) {
 		System.out.println("AdminNoticeDAOImpl - noticeInsert()");
 		int insertCnt = 0;
 		
@@ -51,13 +51,12 @@ public class AdminNoticeDAOImpl implements AdminNoticeDAO{
 		
 		try {
 			conn = dataSource.getConnection();
-			String sql = "INSERT INTO mvc_ad_notice_tbl(noticeNo, noticeTitle, noticeContent, noticeImg, noticeWriter, noticeReadCnt, noticeRegDate) "
-					+ " VALUES((SELECT NVL(MAX(noticeNo)+1, 1) FROM mvc_ad_notice_tbl), ?, ?, ?, ?, 0, sysdate)"; 
+			String sql = "INSERT INTO mvc_Notice_TBL(N_Board_Num, N_Title, N_Content, N_Writer, N_readCnt, N_WriteDate) "
+					+ " VALUES((SELECT NVL(MAX(N_Board_Num)+1, 1) FROM mvc_Notice_TBL), ?, ?, ?, 0, sysdate)"; 
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, dto.getNoticeTitle());
-			pstmt.setString(2, dto.getNoticeContent());
-			pstmt.setString(3, dto.getNoticeImg());
-			pstmt.setString(4, dto.getNoticeWriter());
+			pstmt.setString(1, dto.getN_Title());
+			pstmt.setString(2, dto.getN_Content());
+			pstmt.setString(3, dto.getN_Writer());
 			
 			insertCnt = pstmt.executeUpdate(); //I, U, D에 사용
 			System.out.println("insertCnt : " + insertCnt); //리턴타입은 int => 성공(1) 실패(0)
@@ -88,7 +87,7 @@ public class AdminNoticeDAOImpl implements AdminNoticeDAO{
 		
 		try {
 			conn = dataSource.getConnection();
-			String sql = "SELECT COUNT(*) as cnt FROM mvc_ad_notice_tbl";
+			String sql = "SELECT COUNT(*) as cnt FROM mvc_Notice_TBL";
 			
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -113,20 +112,20 @@ public class AdminNoticeDAOImpl implements AdminNoticeDAO{
 
 	// 공지사항 목록
 	@Override
-	public List<AdminNoticeDTO> noticeList(int start, int end) {
+	public List<NoticeDTO> noticeList(int start, int end) {
 		System.out.println("AdminNoticeDAOImpl - noticeList() ");
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		List<AdminNoticeDTO> list = new ArrayList<AdminNoticeDTO>();
+		List<NoticeDTO> list = new ArrayList<NoticeDTO>();
 		
 		try {
 			conn = dataSource.getConnection();
 			
-			String sql = "SELECT * FROM mvc_ad_notice_tbl "
+			String sql = "SELECT * FROM mvc_Notice_TBL "
 					 + "WHERE show = 'y' "
-					 + "ORDER BY noticeNo";
+					 + "ORDER BY N_Board_Num";
 			
 			pstmt = conn.prepareStatement(sql);
 //			pstmt.setInt(1, start);
@@ -136,15 +135,14 @@ public class AdminNoticeDAOImpl implements AdminNoticeDAO{
 			
 			while(rs.next()) {
 				
-				AdminNoticeDTO dto = new AdminNoticeDTO();
+				NoticeDTO dto = new NoticeDTO();
 				
-				dto.setNoticeNo(rs.getInt("noticeNo"));
-				dto.setNoticeTitle(rs.getString("noticeTitle"));
-				dto.setNoticeContent(rs.getString("noticeContent"));
-				dto.setNoticeImg(rs.getString("noticeImg"));
-				dto.setNoticeWriter(rs.getString("noticeWriter"));
-				dto.setNoticeReadCnt(rs.getInt("noticeReadCnt"));
-				dto.setNoticeRegDate(rs.getDate("noticeRegDate"));
+				dto.setN_Board_Num(rs.getInt("N_Board_Num"));
+				dto.setN_Title(rs.getString("N_Title"));
+				dto.setN_Content(rs.getString("N_Content"));
+				dto.setN_Writer(rs.getString("N_Writer"));
+				dto.setN_ReadCnt(rs.getInt("N_readCnt"));
+				dto.setN_WriteDate(rs.getDate("N_WriteDate"));
 				
 				list.add(dto);
 				System.out.println("list" + list);
@@ -165,11 +163,11 @@ public class AdminNoticeDAOImpl implements AdminNoticeDAO{
 
 	// 공지사항 상세 페이지
 	@Override
-	public AdminNoticeDTO getBoardDetail(int noticeNo) {
+	public NoticeDTO getBoardDetail(int N_Board_Num) {
 		System.out.println("DAO - getBoardDetail()");
 		
 		// DTO 생성
-		AdminNoticeDTO dto = new AdminNoticeDTO();
+		NoticeDTO dto = new NoticeDTO();
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -177,21 +175,20 @@ public class AdminNoticeDAOImpl implements AdminNoticeDAO{
 		
 		try {
 			conn = dataSource.getConnection();
-			String sql = "SELECT * FROM mvc_ad_notice_tbl "
-					+ "WHERE noticeNo=? ";
+			String sql = "SELECT * FROM mvc_Notice_TBL "
+					+ "WHERE N_Board_Num=? ";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, noticeNo);
+			pstmt.setInt(1, N_Board_Num);
 			
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				dto.setNoticeNo(rs.getInt("noticeNo"));
-				dto.setNoticeTitle(rs.getString("noticeTitle"));
-				dto.setNoticeWriter(rs.getString("noticeWriter"));
-				dto.setNoticeContent(rs.getString("noticeContent"));
-				dto.setNoticeImg(rs.getString("noticeImg"));
-				dto.setNoticeReadCnt(rs.getInt("noticeReadCnt"));
-				dto.setNoticeRegDate(rs.getDate("noticeRegDate"));
+				dto.setN_Board_Num(rs.getInt("N_Board_Num"));
+				dto.setN_Title(rs.getString("N_Title"));
+				dto.setN_Writer(rs.getString("N_Writer"));
+				dto.setN_Content(rs.getString("N_Content"));
+				dto.setN_ReadCnt(rs.getInt("N_readCnt"));
+				dto.setN_WriteDate(rs.getDate("N_WriteDate"));
 			}
 			
 		} catch(SQLException e) {
@@ -211,7 +208,7 @@ public class AdminNoticeDAOImpl implements AdminNoticeDAO{
 
 	// 공지사항 수정
 	@Override
-	public int updateNotice(AdminNoticeDTO dto) {
+	public int updateNotice(NoticeDTO dto) {
 		System.out.println("DAO - updateNotice");
 		int updateCnt = 0;
 		Connection conn = null;
@@ -219,15 +216,14 @@ public class AdminNoticeDAOImpl implements AdminNoticeDAO{
 		
 		try {
 			conn = dataSource.getConnection();
-			String sql = "UPDATE mvc_ad_notice_tbl "
-					+ "SET noticeTitle=?, noticeContent=?, noticeImg=?, noticeWriter=?, noticeRegDate=sysdate "
-					+ "WHERE noticeNo=?";
+			String sql = "UPDATE mvc_Notice_TBL "
+					+ "SET N_Title=?, N_Content=?, N_Writer=?, N_WriteDate=sysdate "
+					+ "WHERE N_Board_Num=?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, dto.getNoticeTitle());
-			pstmt.setString(2, dto.getNoticeContent());
-			pstmt.setString(3, dto.getNoticeImg());
-			pstmt.setString(4, dto.getNoticeWriter());
-			pstmt.setInt(5, dto.getNoticeNo());
+			pstmt.setString(1, dto.getN_Title());
+			pstmt.setString(2, dto.getN_Content());
+			pstmt.setString(3, dto.getN_Writer());
+			pstmt.setInt(4, dto.getN_Board_Num());
 			
 			System.out.println(dto);
 			updateCnt = pstmt.executeUpdate(); //I, U, D에 사용
@@ -249,7 +245,7 @@ public class AdminNoticeDAOImpl implements AdminNoticeDAO{
 
 	// 공지사항 삭제 
 	@Override
-	public int deleteNotice(int noticeNo) {
+	public int deleteNotice(int N_Board_Num) {
 		System.out.println("DAO - deleteNotice ");
 		
 		int deleteCnt = 0;
@@ -258,11 +254,11 @@ public class AdminNoticeDAOImpl implements AdminNoticeDAO{
 		
 		try {
 			conn = dataSource.getConnection();
-			String sql = "UPDATE mvc_ad_notice_tbl "
+			String sql = "UPDATE mvc_Notice_TBL "
 					+ "SET show='n' "
-					+ "WHERE noticeNo =?";
+					+ "WHERE N_Board_Num =?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, noticeNo);
+			pstmt.setInt(1, N_Board_Num);
 			
 			deleteCnt = pstmt.executeUpdate();
 			System.out.println("deleteCnt : " + deleteCnt);

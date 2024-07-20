@@ -47,32 +47,26 @@
 						</div>
 
                         <div class="card-body">
-                          <form name="noticeAdd" action="ad_noticeAddAction.not" method="post" enctype="multipart/form-data">
+                          <form name="noticeAdd" action="ad_noticeAddAction.not" method="post" >
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                    
                                    <tr>
 		                              <th> * 작성자 </th>
 		                              <td>
-		                                 <input type="text" class="input" name="noticeWriter" id="noticeWriter" size="20" placeholder="작성자 작성" required autofocus>
+		                                 <input type="text" class="input" name="N_Writer" id="N_Writer" size="20" placeholder="작성자 작성" required autofocus>
 		                              </td>
 		                           </tr>
                                    <tr>
 		                              <th> * 제목 </th>
 		                              <td>
-		                                 <input type="text" class="input" name="noticeTitle" id="noticeTitle" size="50" placeholder="공지사항 제목 작성" required>
+		                                 <input type="text" class="input" name="N_Title" id="N_Title" size="50" placeholder="공지사항 제목 작성" required>
 		                              </td>
 		                           </tr>
 		                           <tr>
 		                              <th> * 내용 </th>
 		                              <td>
-		                                 <textarea rows="5" cols="77" name="noticeContent" id="noticeContent" placeholder="공지사항 내용 작성" required></textarea>
-		                              </td>
-		                           </tr>
-		                           <tr>
-		                              <th> 첨부 이미지 </th>
-		                              <td>
-		                                 <input type="file" class="input" name="noticeImg" id="noticeImg" accept="image/*">
+		                                 <textarea rows="5" cols="77" name="N_Content" id="N_Content" placeholder="공지사항 내용 작성" required></textarea>
 		                              </td>
 		                           </tr>
 		                           

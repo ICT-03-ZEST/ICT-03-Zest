@@ -44,7 +44,7 @@
                 <c:if test="${updateCnt == 1}">
                   <script type="text/javascript">
                      setTimeout(function() {
-                        alert("공연수정 성공!!");
+                        alert("공지사항 수정 성공!!");
                         window.location="${path}/ad_noticeEdit.not?pageNum=${hiddenPageNum}";
                      },1000); 
                   </script>
@@ -53,8 +53,8 @@
                <c:if test="${updateCnt != 1}">
                   <script type="text/javascript">
                      setTimeout(function() {
-                        alert("공연수정 실패!!");
-                        window.location="${path}/ad_noticeEdit.not?noticeNo=${hiddenNoticeNo}&pageNum=${hiddenPageNum}";
+                        alert("공지사항 수정 실패!!");
+                        window.location="${path}/ad_noticeEdit.not?N_Board_Num=${hidden_num}&pageNum=${hiddenPageNum}";
                      },1000); 
                   </script>
                </c:if>

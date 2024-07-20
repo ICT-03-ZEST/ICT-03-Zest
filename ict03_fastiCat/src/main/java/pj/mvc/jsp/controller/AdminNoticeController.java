@@ -4,21 +4,16 @@ import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import pj.mvc.jsp.service.AdminNoticeServiceImpl;
-import pj.mvc.jsp.util.ImageUploadHandler;
 
 @WebServlet("*.not")
-@MultipartConfig(location="D:\\git\\ict03_festiCat\\ict03_fastiCat\\src\\main\\webapp\\resources\\upload",
-fileSizeThreshold=1024*1024, maxFileSize=1024*1024*5, maxRequestSize=1024*1024*5*5)
 public class AdminNoticeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String IMG_UPLOAD_DIR = "D:\\git\\ict03_festiCat\\ict03_fastiCat\\src\\main\\webapp\\resources\\upload";
        
     public AdminNoticeController() {
         super();
@@ -50,7 +45,6 @@ public class AdminNoticeController extends HttpServlet {
 		String contextPath = request.getContextPath();
 		String url = uri.substring(contextPath.length());	// uri.substring(시작위치, 끝);
 		
-		ImageUploadHandler uploader = null; // 작성
 		AdminNoticeServiceImpl service = new AdminNoticeServiceImpl();
 		
 		// 공지사항 등록화면
@@ -65,13 +59,6 @@ public class AdminNoticeController extends HttpServlet {
 		else if(url.equals("/ad_noticeAddAction.not")) {
 			System.out.println("<<< url ==> /ad_noticeAddAction.not >>>");
 			
-			// 추가 : 서비스 호출 전에 추가!
-			String contentType = request.getContentType();
-			if(contentType != null && contentType.toLowerCase().startsWith("multipart/")) {
-				uploader = new ImageUploadHandler();
-				uploader.setUploadPath(IMG_UPLOAD_DIR); // img 경로(upload 폴더)
-				uploader.imageUpload(request, response);
-			}
 			
 			// 서비스 호출
 			service.noticeAddAction(request, response);
@@ -102,13 +89,6 @@ public class AdminNoticeController extends HttpServlet {
 		else if(url.equals("/ad_noticeModifyAction.not")) {
 			System.out.println("<<< url ==> /ad_concertModifyAction.not >>>");
 			
-			// 추가 : 서비스 호출 전에 추가!
-			String contentType = request.getContentType();
-			if(contentType != null && contentType.toLowerCase().startsWith("multipart/")) {
-				uploader = new ImageUploadHandler();
-				uploader.setUploadPath(IMG_UPLOAD_DIR); // img 경로(upload 폴더)
-				uploader.imageUpload(request, response);
-			}
 			
 			// 서비스 호출
 			service.noticeUpdateAction(request, response);
