@@ -12,7 +12,6 @@
 <script src="https://kit.fontawesome.com/e3f7bcf3d6.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
 $(function() {
-	//alert("${sessionID}");
 		
 		$('#writing').click(function() {
 			

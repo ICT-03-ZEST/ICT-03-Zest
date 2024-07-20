@@ -48,7 +48,7 @@ private static final long serialVersionUID = 1L;
 		
 		// 페스티벌 목록 조회
 		if(url.equals("/festivalList.fv")) {
-			System.out.println("<<< url ==> /detailPage.fv >>>");
+			System.out.println("<<< url ==> /festivalList.fv >>>");
 			
 			service.mainFestivalList(request, response);
 			viewPage = "customer/category_board/festival.jsp";
@@ -57,7 +57,7 @@ private static final long serialVersionUID = 1L;
 		
 		// 페스티벌 상세페이지 조회
 		else if(url.equals("/festivInfo.fv")) {
-			System.out.println("<<< url ==> /festivalDetail.fv >>>");
+			System.out.println("<<< url ==> /festivInfo.fv >>>");
 			
 			service.festivalDetailAction(request, response);
 			viewPage = "customer/category_board/festivInfo.jsp";

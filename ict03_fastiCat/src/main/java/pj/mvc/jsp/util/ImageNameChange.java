@@ -23,11 +23,7 @@ public class ImageNameChange {
 	public void imageName(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		System.out.println("ImageNameChange - imageName");
-		// 썸네일
-		
-		
 		String board_img  = (String)request.getAttribute("fileName");
-		System.out.println("image: " + image);
 		String category = request.getParameter("board_category"); 
 		
 		// 게시글추가

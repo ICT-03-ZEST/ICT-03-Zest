@@ -163,17 +163,16 @@ img:hover {
  .write {
     margin-left: 20px;
     padding: 5px;
-    border: 3px solid rgba(235, 185, 235, 0.836);
+    border: 3px solid orange;
     border-radius: 5px;
     background: white;
     font-size: 15px;
-    color: rgba(235, 185, 235, 0.836);
+    color: orange;
     font-weight: bold; 
 }
 .write:hover  {
-        box-shadow: 0 0 6px gray;
-        cursor: pointer;
-    }
-.write:focus {
-        border: 3px solid rgba(235, 185, 235, 0.836);
-    }
+	background: orange;
+	color: white;
+  	box-shadow: 0 0 5px black;
+   	cursor: pointer;
+}

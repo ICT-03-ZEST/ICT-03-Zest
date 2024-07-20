@@ -57,7 +57,6 @@ $(function() {
 		else {
 			location.href="${path}/myBoardList.myp";
 		}
-		
 	});	
 	
 	//닉네임 css
@@ -117,6 +116,7 @@ function heartClick() {
 	//좋아요 누르면 채워짐
 	$('#heart').click(function() {
         $(this).toggleClass('filled');
+        
 	        if ($(this).hasClass('filled')) {
 	  
 	        	let heart = 1;

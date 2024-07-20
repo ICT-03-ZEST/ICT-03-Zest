@@ -225,7 +225,6 @@ li {
 
 .li_category > span {
     position: relative;
-    left: 50%;
     top: 20px;
     font-size: 25px;
 }
@@ -367,11 +366,6 @@ textarea#board_content {
     margin: 0 auto;
     padding: 20px;
     background-color: #ffffff;
-}
-
-.comment_list {
-    border-top: 1px solid #eee;
-    padding-top: 10px;
 }
 
 .div_cmtAdd {

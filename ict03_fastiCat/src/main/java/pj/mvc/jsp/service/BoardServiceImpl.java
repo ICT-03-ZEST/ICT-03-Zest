@@ -18,21 +18,15 @@ import pj.mvc.jsp.util.UpdateImageName;
 
 public class BoardServiceImpl implements BoardService {
 	
-	//마지막에 sessionID setAttribute , myBoard 삭제 - jsp에있는 것도 정리 => session으로 전달
 	// 게시판 목록 조회
 	@Override 
 	public void boardListAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("service - boardListAction");
-		// 아이디 있다고 가정
-		//String sessionID = "sessionID_2";
-		//String sessionID = (String) request.getSession().getAttribute("sessionID");
-		//System.out.println("sessionID: " + sessionID);
 		
 		String pageNum = request.getParameter("pageNum"); // null
 		String category = request.getParameter("board_category");
 		
-		//System.out.println("pageNum: " + pageNum);
 		BoardDAO dao = BoardDAOImpl.getInstance();
 		
 		// 5-1 단계. 전체 게시글 갯수 카운트
@@ -51,7 +45,6 @@ public class BoardServiceImpl implements BoardService {
 		request.setAttribute("list", list);
 		request.setAttribute("paging", boardPaging);
 		request.setAttribute("pageNum", pageNum);
-		//request.setAttribute("sessionID", sessionID); 
 		
 	}
 	
@@ -82,7 +75,7 @@ public class BoardServiceImpl implements BoardService {
 		bd_dto.setBoard_num(board_num);
 		bd_dto.setBoard_category(category);
 		
-		int selWriter = dao.selectOfwriter(bd_dto); // 사용자게시글 수정,삭제
+		int selWriter = dao.selectOfwriter(bd_dto); // 사용자게시글 수정,삭제버튼 block
 		
 		System.out.println("selWriter: " + selWriter);
 		 
@@ -103,7 +96,7 @@ public class BoardServiceImpl implements BoardService {
 	public void heartInsertAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("서비스 - heartInsertAction");
-		// sessionID 있다고 가정
+		
 		String sessionID = (String)request.getSession().getAttribute("sessionID");
 		
 		int board_num = Integer.parseInt(request.getParameter("board_num")); 
@@ -198,7 +191,6 @@ public class BoardServiceImpl implements BoardService {
 		
 		System.out.println("서비스 - boardUpdateAction");
 		String sessionID = (String)request.getSession().getAttribute("sessionID");
-		//String myBoard = request.getParameter("myBoard");
 		
 		//param
 		int num = Integer.parseInt(request.getParameter("hiddenNum"));
@@ -228,14 +220,12 @@ public class BoardServiceImpl implements BoardService {
 		dao.updateBoard(dto, category, num);
 		
 		request.setAttribute("category", category);
-		//request.setAttribute("myBoard", myBoard); 
 	}
 	// 게시글 삭제처리
 	@Override
 	public void boardDeleteAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("서비스 - boardDeleteAction");
-		//String myBoard = request.getParameter("myBoard");
 		String category = request.getParameter("board_category");
 		int num = Integer.parseInt(request.getParameter("board_num"));
 		
@@ -244,7 +234,6 @@ public class BoardServiceImpl implements BoardService {
 		dao.deleteBoard(num, category);
 		
 		request.setAttribute("category", category);
-		//request.setAttribute("myBoard", myBoard); 
 	}
 	
 	// 댓글 목록조회
@@ -253,12 +242,10 @@ public class BoardServiceImpl implements BoardService {
 			throws ServletException, IOException {
 		System.out.println("서비스 - commentListAction");
 		
-		//String myBoard = request.getParameter("myBoard");
 		String pageNum = request.getParameter("pageNum");
 		int num = Integer.parseInt(request.getParameter("board_num"));
 		String category = request.getParameter("board_category");
-		String sessionID = (String)request.getSession().getAttribute("sessionID");
-		System.out.println("sessionID : " + sessionID);
+		//String sessionID = (String)request.getSession().getAttribute("sessionID");
 
 		BoardDAO dao = BoardDAOImpl.getInstance();
 		BoardDTO dto = dao.getBoardDetail(num, category); //댓글 목록 자동조회시 해당 카테고리 조회됨
@@ -267,8 +254,6 @@ public class BoardServiceImpl implements BoardService {
 		request.setAttribute("dto", dto);
 		request.setAttribute("list", list);
 		request.setAttribute("pageNum", pageNum);
-		//request.setAttribute("sessionID", sessionID); // 댓글 수정 삭제 버튼 block시 필요
-		//request.setAttribute("myBoard", myBoard); 
 	}
 	
 	// 댓글 작성처리
@@ -297,8 +282,6 @@ public class BoardServiceImpl implements BoardService {
 			throws ServletException, IOException {
 		System.out.println("서비스 - commentMod");
 		
-		//String myBoard = request.getParameter("myBoard");
-		//System.out.println("myBoard: " + myBoard);
 		String pageNum = request.getParameter("pageNum");
 		int comment_num = Integer.parseInt(request.getParameter("comment_num"));
 		String board_category = request.getParameter("board_category");
@@ -310,7 +293,6 @@ public class BoardServiceImpl implements BoardService {
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("bd_dto", bd_dto);
 		request.setAttribute("dto", dto);
-		//request.setAttribute("myBoard", myBoard); 
 	}
 	
 	// 댓글 수정처리
@@ -318,7 +300,6 @@ public class BoardServiceImpl implements BoardService {
 	public void commentModAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("서비스 - commentModAction");
-		//String myBoard = request.getParameter("myBoard");
 		
 		String pageNum = request.getParameter("h_pageNum");
 		System.out.println("pageNum: " + pageNum);
@@ -336,7 +317,6 @@ public class BoardServiceImpl implements BoardService {
 		
 		request.setAttribute("pageNum", pageNum);// 목록으로 돌아가기
 		request.setAttribute("bd_dto", bd_dto);
-		//request.setAttribute("myBoard", myBoard); 
 		
 	}
 	// 댓글 삭제처리

@@ -13,7 +13,6 @@
 <script type="text/javascript">
 
 $(function() {
-	alert('${sessionID}');
 	$('#writing').click(function() {
 		
 		if(${sessionID == null}) {  //로그인 안했을때 글쓰기 선택 
