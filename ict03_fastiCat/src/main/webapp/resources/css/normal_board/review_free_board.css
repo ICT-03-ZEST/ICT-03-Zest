@@ -11,7 +11,7 @@ ul, li {
 }
 
 .board_list { 
-  width: 1500px;
+  width: 1000px;
   margin: 0 auto;
 }
 .outline li {
@@ -157,7 +157,7 @@ img:hover {
 .btn_write {
 	display: flex;
     justify-content: flex-start;
-    width: 1500px;
+    width: 1000px;
     margin: 10px auto;
 }
  .write {
