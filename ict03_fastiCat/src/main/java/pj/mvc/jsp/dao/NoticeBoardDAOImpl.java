@@ -37,8 +37,53 @@ public class NoticeBoardDAOImpl implements NoticeBoardDAO{
 		}catch(NamingException e) {
 			e.printStackTrace();
 		}
-	}
+	};
 
+	//공지사항 작성처리
+		@Override
+		public int insertNoticeBoard(NoticeDTO dto) {
+			System.out.println("DAO - insertNoticeBoard");
+			
+			 Connection conn= null;
+		     PreparedStatement pstmt =null;
+		      
+		      int insertCnt= 0;
+		      
+		      try {
+		    	  conn = dataSource.getConnection();
+		    	  
+		    	  String sql = "INSERT INTO mvc_Notice_TBL(N_Board_Num, N_Title, N_Content, N_Writer) "
+		    			     	+ "VALUES((SELECT NVL(MAX(N_Board_Num)+1,1) FROM mvc_Notice_TBL), ?, ?,	?)";
+		    	 
+		    	  pstmt = conn.prepareStatement(sql);
+		    	  
+		    	  System.out.println(dto.getN_Title());
+		  		  System.out.println(dto.getN_Content());
+		  		  System.out.println(dto.getN_Writer());
+		    	  
+		    	  pstmt.setString(1, dto.getN_Title());
+		    	  pstmt.setString(2, dto.getN_Content());
+		    	  pstmt.setString(3, dto.getN_Writer());
+		    	 
+		    	  insertCnt = pstmt.executeUpdate();
+		    	  
+		    	  System.out.println("insertCnt:" + insertCnt);
+		    	  System.out.println("dto : " + dto);
+		      }catch(SQLException e) {
+					e.printStackTrace();
+				} finally {
+					try{
+						//사용할 자원 해제
+						if(pstmt != null) pstmt.close();
+						if(conn != null) conn.close();
+					} catch(SQLException e){
+						e.printStackTrace();
+					}
+				}
+			
+			return insertCnt;
+		}
+	
 	
 	//공지사항 목록
 	@Override
@@ -51,10 +96,11 @@ public class NoticeBoardDAOImpl implements NoticeBoardDAO{
 		
 		List<NoticeDTO> list = new ArrayList<NoticeDTO>();
 		
+		
 		try {
 			conn = dataSource.getConnection();
 			
-		String sql = "SELECT * "
+		String sql  = "SELECT * "
 	         		+ "  FROM("
 	        		+ " 	SELECT A.*,"
 	                + "	     		N_Board_Num AS rn " 
@@ -80,9 +126,9 @@ public class NoticeBoardDAOImpl implements NoticeBoardDAO{
 			dto.setN_Board_Num(rs.getInt("N_Board_Num"));
 			dto.setN_Title(rs.getString("N_Title"));
 			dto.setN_Content(rs.getString("N_Content"));
-			dto.setN_Writer(rs.getString("n_Writer"));
-			dto.setN_WriteDate(rs.getDate("n_WriteDate"));
-			dto.setN_ReadCnt(rs.getInt("n_ReadCnt"));
+			dto.setN_Writer(rs.getString("N_Writer"));
+			dto.setN_WriteDate(rs.getDate("N_WriteDate"));
+			dto.setN_ReadCnt(rs.getInt("N_readCnt"));
 			
 			//list에 dto를 추가
 			list.add(dto);
@@ -111,7 +157,6 @@ public class NoticeBoardDAOImpl implements NoticeBoardDAO{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs= null;
-		
 		int total=0;
 		
 		try {
@@ -120,32 +165,31 @@ public class NoticeBoardDAOImpl implements NoticeBoardDAO{
 			String sql = "SELECT COUNT(*) AS cnt "
 					   + "FROM mvc_Notice_TBL";
 		
-		 pstmt = conn.prepareStatement(sql);
-		 
-		 rs = pstmt.executeQuery();
-		 
-		 if(rs.next()) {
-			 total = rs.getInt("cnt");
-		 }
-			
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}finally {
-			try{
-	            //사용할 자원 해제
-	            if(rs != null) rs.close();
-	            if(pstmt != null) pstmt.close();
-	            if(conn != null) conn.close();
-	         } catch(SQLException e){
-	            e.printStackTrace();
-	         }
+			 pstmt = conn.prepareStatement(sql);
+			 
+			 rs = pstmt.executeQuery();
+			 
+			 if(rs.next()) {
+				 total = rs.getInt("cnt");
+			 }
+				
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}finally {
+				try{
+		            //사용할 자원 해제
+		            if(pstmt != null) pstmt.close();
+		            if(conn != null) conn.close();
+		         } catch(SQLException e){
+		            e.printStackTrace();
+		         }
+			}
+			return total;
 		}
-		return total;
-	}
 
 	//공지사항 조회수 증가
 	@Override
-	public void plusNoticeReadCnt(int num) {
+	public void plusNoticeReadCnt(int n_Board_Num) {
 		System.out.println("DAO-plusNoticeReadCnt");
 		
 		Connection conn= null;
@@ -158,9 +202,9 @@ public class NoticeBoardDAOImpl implements NoticeBoardDAO{
 						+ "   SET N_readCnt = N_readCnt+1 "
 						+ " WHERE N_Board_Num= ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, num);
+			pstmt.setInt(1, n_Board_Num);
 			
-			pstmt.executeQuery();
+			pstmt.executeUpdate();
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -178,7 +222,7 @@ public class NoticeBoardDAOImpl implements NoticeBoardDAO{
 
 	//공지사항 상세페이지
 	@Override
-	public NoticeDTO getNoticeBoardDetail(int num) {
+	public NoticeDTO getNoticeBoardDetail(int n_Board_Num) {
 		System.out.println("DAO-getNoticeBoardDetail");
 		
 		//DTO생성
@@ -187,14 +231,15 @@ public class NoticeBoardDAOImpl implements NoticeBoardDAO{
 		Connection conn= null;
 		PreparedStatement pstmt =null;
 		ResultSet rs = null;
+		
 		try {
 			conn = dataSource.getConnection();
 			
 		String sql = "SELECT * FROM mvc_Notice_TBL "
-	                + " WHERE N_Board_Num=?";
+	               + " WHERE N_Board_Num=?";
 		
 		 pstmt = conn.prepareStatement(sql);
-		 pstmt.setInt(1, num);
+		 pstmt.setInt(1, n_Board_Num);
 	
 		 //rs에 값 담기
 		 rs = pstmt.executeQuery();
@@ -204,9 +249,9 @@ public class NoticeBoardDAOImpl implements NoticeBoardDAO{
 			dto.setN_Board_Num(rs.getInt("N_Board_Num"));
 			dto.setN_Title(rs.getString("N_Title"));
 			dto.setN_Content(rs.getString("N_Content"));
-			dto.setN_Writer(rs.getString("n_Writer"));
-			dto.setN_WriteDate(rs.getDate("n_WriteDate"));
-			dto.setN_ReadCnt(rs.getInt("n_ReadCnt"));
+			dto.setN_Writer(rs.getString("N_Writer"));
+			dto.setN_WriteDate(rs.getDate("N_WriteDate"));
+			dto.setN_ReadCnt(rs.getInt("N_ReadCnt"));
 		 }
 			
 		}catch(SQLException e) {
@@ -228,11 +273,12 @@ public class NoticeBoardDAOImpl implements NoticeBoardDAO{
 	@Override
 	public int updateNoticeBoard(NoticeDTO dto) {
 		System.out.println("DAO - updateNoticeBoard");
-		
+		System.out.println("dto :" +dto);
 		Connection conn= null;
 		PreparedStatement pstmt =null;
-		
+	
 		int updateCnt = 0;
+		
 		try {
 			conn = dataSource.getConnection();
 			
@@ -249,6 +295,9 @@ public class NoticeBoardDAOImpl implements NoticeBoardDAO{
 			
 			updateCnt = pstmt.executeUpdate();
 
+			System.out.println("dto :" +dto);
+			System.out.println("updateCnt: "+ updateCnt);
+			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -256,6 +305,7 @@ public class NoticeBoardDAOImpl implements NoticeBoardDAO{
 				//사용할 자원 해제
 				if(pstmt != null) pstmt.close();
 				if(conn != null) conn.close();
+				
 			} catch(SQLException e){
 				e.printStackTrace();
 			}
@@ -266,7 +316,7 @@ public class NoticeBoardDAOImpl implements NoticeBoardDAO{
 	
 	//공지사항 삭제처리
 	@Override
-	public int deleteNoticeBoard(int num) {
+	public int deleteNoticeBoard(int n_Board_Num) {
 		System.out.println("DAO - deleteNoticeBoard");
 		
 		Connection conn= null;
@@ -279,12 +329,12 @@ public class NoticeBoardDAOImpl implements NoticeBoardDAO{
 			
 			String sql="UPDATE mvc_Notice_TBL "
 					+ "    SET show = 'n'"
-					+ "  WHERE num= ?";
+					+ "  WHERE N_Board_Num= ?";
 			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, num);
+			pstmt.setInt(1, n_Board_Num);
 			
-			pstmt.executeQuery();
+			pstmt.executeUpdate();
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -301,42 +351,6 @@ public class NoticeBoardDAOImpl implements NoticeBoardDAO{
 		return deleteCnt;
 	}
 	
-	//공지사항 작성처리
-	@Override
-	public int insertNoticeBoard(NoticeDTO dto) {
-		System.out.println("DAO - insertNoticeBoard");
-		 Connection conn= null;
-	      PreparedStatement pstmt =null;
-	      
-	      int insertCnt= 0;
-	      
-	      try {
-	    	  conn = dataSource.getConnection();
-	    	  
-	    	  String sql="INSERT INTO mvc_Notice_TBL(N_Board_Num, N_Title, N_Content, N_Writer, N_WriteDate) "
-	    			    +"VALUES((SELECT NVL(MAX(N_Board_Num)+1,1) FROM mvc_Notice_TBL), ?, ?, ?, sysdate)";
-	    	  pstmt = conn.prepareStatement(sql);
-	    	  
-	    	  pstmt.setString(1, dto.getN_Title());
-	    	  pstmt.setString(2, dto.getN_Content());
-	    	  pstmt.setString(3, dto.getN_Writer());
-	    	  
-	    	  insertCnt = pstmt.executeUpdate();
-	    	  
-	    	  System.out.println("insertCnt:" + insertCnt);
-	      }catch(SQLException e) {
-				e.printStackTrace();
-			} finally {
-				try{
-					//사용할 자원 해제
-					if(pstmt != null) pstmt.close();
-					if(conn != null) conn.close();
-				} catch(SQLException e){
-					e.printStackTrace();
-				}
-			}
-		
-		return insertCnt;
-	}
+	
 
 }

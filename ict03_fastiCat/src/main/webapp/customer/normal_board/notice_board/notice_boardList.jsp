@@ -12,7 +12,7 @@
    // 글쓰기 버튼 클릭시 작성페이지로 이동
    $(function(){
    	$('#btnInsert').click(function(){
-		location.href="${path}/notice_insertAction.nb"
+		location.href="${path}/notice_insert.nb"
 	});
    });
 </script>

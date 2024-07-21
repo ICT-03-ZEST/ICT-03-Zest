@@ -43,19 +43,19 @@
 				<tr>
 					<th style="width: 200px">공지사항 제목</th>
 					<td colspan="3" style="text-align:center">
-					  <input type="text" class="input" name="title" id="title" size="60" placeholder="글제목 입력" required>
+					  <input type="text" class="input" name="n_Title" id="title" size="60" placeholder="글제목 입력" required>
 					</td>
 					
 					<th style="width: 200px">작성자</th>
 	               	<td colspan="3" style="text-align:center">
-	               	 <input type="text" class="input" name="writer" id="writer" size="20" placeholder="작성자이름" required>
+	               	 <input type="text" class="input" name="n_Writer" id="writer" size="20" placeholder="작성자이름" required>
 	                </td>
 				</tr>
 				
 				<tr>
 					<th style="width: 200px">글내용</th>
 					<td colspan="5" style="text-align:center">
-					  <textarea rows="5" cols="93" name="content" id="content" placeholder="본문을 입력하세요"></textarea> 
+					  <textarea rows="5" cols="93" name="n_Content" id="content" placeholder="본문을 입력하세요"></textarea> 
 					</td>
 				</tr>
 			</table>
