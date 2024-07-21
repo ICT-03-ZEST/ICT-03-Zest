@@ -120,12 +120,15 @@ public class CustomerController extends HttpServlet {
 		}
 
 		else if (url.equals("/logout.do")) {
-			System.out.println("<<< url ==>  /logout.do >>>");
+	         System.out.println("<<< url ==>  /logout.do >>>");
 
-			// 세션 삭제
-			request.getSession().invalidate();
-			viewPage = "common/main.jsp";
-		}
+	         // 세션 삭제
+	         request.getSession().invalidate();
+	         viewPage = request.getContextPath() + "/main.do";
+	         response.sendRedirect(viewPage);
+	         return;
+	         //viewPage = "common/main.jsp";
+	      }
 
 		// [ 회원수정 ]
 		// 회원수정 - 인증화면

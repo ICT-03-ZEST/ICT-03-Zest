@@ -39,7 +39,7 @@
 											<h1 align="center">세부게시판</h1>
 											<span
 												style="font-size: 1.5em; color: gray; text-align: center; display: block; margin: 0 auto;">
-												'${query }' 에 대한 검색결과 </span>
+												${searchItem } '${searchInput }' 에 대한 검색결과 </span>
 
 										</div>
 
@@ -76,13 +76,16 @@
 																<td class="searchtd" colspan="5" align="center">
 																	<!-- 페이징 처리 --> <!-- 이전 버튼 활성화 --> <c:if
 																		test="${paging.startPage > 10 }">
-																		<a href="${path }/search.sc?pageNum=${paging.prev}&query=${query}">[이전]</a>
+																		<a
+																			href="${path }/search.sc?pageNum=${paging.prev}&query=${query}">[이전]</a>
 																	</c:if> <!-- 페이지 번호 처리 --> <c:forEach var="num"
 																		begin="${paging.startPage}" end="${paging.endPage}">
-																		<a href="${path }/search.sc?pageNum=${num}&query=${query}">${num }</a>
+																		<a
+																			href="${path }/search.sc?pageNum=${num}&query=${query}">${num }</a>
 																	</c:forEach> <!-- 다음 버튼 활성화 --> <c:if
 																		test="${paging.endPage < paging.pageCount }">
-																		<a href="${path }/search.sc?pageNum=${paging.next}&query=${query}">[다음]</a>
+																		<a
+																			href="${path }/search.sc?pageNum=${paging.next}&query=${query}">[다음]</a>
 																	</c:if>
 																</td>
 															</tr>

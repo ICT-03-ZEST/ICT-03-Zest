@@ -99,6 +99,15 @@ public class SearchServiceImpl implements SearchService{
         // 6단계. jsp로 처리결과 전달
         request.setAttribute("list", list);
         request.setAttribute("paging", paging);
+        if(searchItem.equals("writer")) {
+        	searchItem = "작성자";
+        }
+        else if(searchItem.equals("title")) {
+        	searchItem = "제목";
+        }
+        else if(searchItem.equals("content")) {
+        	searchItem = "내용";
+        }
         request.setAttribute("searchItem", searchItem); // 검색 항목도 전달
         request.setAttribute("searchInput", searchInput); // 검색어도 전달
     }
