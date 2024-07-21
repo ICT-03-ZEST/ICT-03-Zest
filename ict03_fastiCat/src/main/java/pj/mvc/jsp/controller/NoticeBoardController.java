@@ -50,7 +50,7 @@ public class NoticeBoardController extends HttpServlet {
 			System.out.println("url -> notice_board");
 			
 			n_service.NoticeBoardListAction(request, response);
-			viewPage="/customer/notice_board/notice_board/notice_boardList.jsp";
+			viewPage="/customer/normal_board/notice_board/notice_boardList.jsp";
 		}
 		
 		//공지사항 상세페이지
@@ -58,7 +58,7 @@ public class NoticeBoardController extends HttpServlet {
 			System.out.println("url -> notice_content");
 			
 			n_service.NoticeBoardDetail_Action(request, response);
-			viewPage="/customer/notice_board/notice_board/notice_content.jsp";
+			viewPage="/customer/normal_board/notice_board/notice_content.jsp";
 		}
 		
 		//공지사항 수정 
@@ -66,7 +66,7 @@ public class NoticeBoardController extends HttpServlet {
 			System.out.println("url -> notice_updateAction.nb");
 			
 			n_service.NoticeBoard_UpdateAction(request, response);
-			viewPage="/customer/notice_board/notice_board/notice_updateAction.jsp";
+			viewPage="/customer/normal_board/notice_board/notice_updateAction.jsp";
 		}
 		
 		//공지사항 삭제 
@@ -74,7 +74,7 @@ public class NoticeBoardController extends HttpServlet {
 			System.out.println("url -> notice_deleteAction");
 			
 			n_service.NoticeBoard_DeleteAction(request, response);
-			viewPage="/customer/notice_board/notice_board/notice_deleteAction.jsp";
+			viewPage="/customer/normal_board/notice_board/notice_deleteAction.jsp";
 		}
 		
 		//공지사항 작성
@@ -82,7 +82,7 @@ public class NoticeBoardController extends HttpServlet {
 			System.out.println("url -> notice_insertAction");
 			
 			n_service.NoticeBoard_InsertAction(request, response);
-			viewPage="/customer/notice_board/notice_board/notice_insertAction.jsp";
+			viewPage="/customer/normal_board/notice_board/notice_insertAction.jsp";
 		}
 		
 		//RequestDispatcher : 서블릿 또는 JSP 요청을 받은 후, 다른 컴포넌트로 요청을 위임하는 클래스이다.

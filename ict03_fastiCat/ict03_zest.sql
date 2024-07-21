@@ -424,20 +424,42 @@ commit;
 
 SELECT * FROM mvc_customer_tbl;
 -- 방준성 -------------------------------------------------------------------------------
-
+--공연 예매정보
+DROP  TABLE show_tbl;
 CREATE TABLE show_tbl(                                                          -- 공연 테이블
     showNum         NUMBER(6)      PRIMARY KEY,                                 -- 공연번호
     showName        VARCHAR2(150)   NOT NULL,                                   -- 공연명
     showPlace       VARCHAR2(150)   NOT NULL,                                   -- 공연장소                                     
     showPrice       NUMBER(20)     ,                                            -- 1매당 가격
+    showTime        NUMBER(5)      ,                                            -- 공연시간
+    showAge         NUMBER(3)      ,                                            -- 관람연령
+    showBene        VARCHAR2(150)  ,                                            -- 혜택
     curCapacity     NUMBER(20)     DEFAULT 0 ,                                  -- 현수용인원
     maxCapacity     NUMBER(20)     DEFAULT 50,                                  -- 최대수용인원
     showDay         Date           NOT NULL,                                    -- 공연날짜
-    showCHK         char           DEFAULT 'N'                                  -- 공연기간 활성화 유무
+    showImage       VARCHAR2(150),                                              -- 이미지 이름
+    showCHK         char           DEFAULT 'Y'                                  -- 공연기간 활성화 유무
 );
+commit;
+DROP SEQUENCE show_tbl_seq;
 CREATE SEQUENCE show_tbl_seq
     START WITH 1
     INCREMENT BY 1
     NOCACHE
     NOCYCLE;  
     
+CREATE TABLE show_Reservation (
+    show_ResId          NUMBER(6)           PRIMARY KEY,
+    showNum     NUMBER(6)           REFERENCES show_tbl(showNum),
+    userID      VARCHAR2(20char)    REFERENCES MVC_CUSTOMER_TBL(USERID),
+    password    VARCHAR2(20char)    NOT NULL,
+    totalPrice  NUMBER(20)
+);
+commit;
+
+-- show_seat_grade 테이블을 위한 시퀀스
+CREATE SEQUENCE show_Reservation_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE
+    NOCYCLE;

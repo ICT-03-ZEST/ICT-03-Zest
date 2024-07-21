@@ -10,16 +10,17 @@
 <head>
 <!-- 반응형 웹 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="${path }/resources/css/common/header.css">
-<link rel="stylesheet" href="${path }/resources/css/common/main.css">
-<link rel="stylesheet" href="${path }/resources/css/common/footer.css">
-<link rel="stylesheet" href="${path }/resources/css/customer/search.css">
+<link rel="stylesheet" href="${path}/resources/css/common/header.css">
+<link rel="stylesheet" href="${path}/resources/css/common/main.css">
+<link rel="stylesheet" href="${path}/resources/css/common/footer.css">
+<link rel="stylesheet" href="${path}/resources/css/customer/search.css">
+<link rel="stylesheet" href="${path}/resources/css/calender/style.css" >
 
 <script src="https://kit.fontawesome.com/e99c5d1543.js" crossorigin="anonymous"></script>
 <!-- (3-3-2). 자바스크립트 소스 추가 -->
 <!-- defer : 모든 html 파일을 로딩할때까지 html이 브라우저에 표시가 안되는 것을 방지 -->
 
-<script src="/FastiCat/resources/js/customer/main.js" defer></script>
+<script src="${path}/resources/js/customer/main.js" defer></script>
 <title>main</title>
 
 </head>
@@ -42,7 +43,7 @@
        
       
       <!-- 컨텐츠 시작 -->
-      <center>
+      <div align="center">
 <div class="slide_section">
 	<input type="radio" name="slide" id="slide01" checked>
 	<% for (int i = 2; i <= activeBannerCount; i++) { %>
@@ -83,15 +84,36 @@
 		</ul>
 	</div>
 </div>	                                                                
-      </center>
+      </div>
       <!-- 컨텐츠 끝 -->
-      
+      <div class="calendar-container">
+        <div class="calendar-header">
+            <button id="prevBtn">◀</button>
+            <span id="currentMonth"></span>
+            <button id="nextBtn">▶</button>
+        </div>
+        <div id="calendarDates"></div>
+    </div>
       
       <!-- footer 시작 -->
 		<%@include file="footer.jsp" %>
       <!-- footer 끝 -->
       
    </div>
-   
+   <script>
+    var shows = [
+        <c:forEach var="item" items="${list}" varStatus="status">
+            {
+                "showNum": "${item.showNum}",
+                "showName": "${item.showName}",
+                "curCapacity": "${item.curCapacity}",
+                "maxCapacity": "${item.maxCapacity}",
+                "showDay": "${item.showDay}",
+                "showCHK": "${item.showCHK}"
+            }<c:if test="${!status.last}">,</c:if>
+        </c:forEach>
+    ];
+    </script>
+    <script src="${path}/resources/js/calender/calendar.js"></script>
 </body>
 </html>

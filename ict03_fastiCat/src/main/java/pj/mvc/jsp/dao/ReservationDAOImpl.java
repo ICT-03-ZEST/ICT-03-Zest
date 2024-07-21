@@ -33,16 +33,16 @@ public class ReservationDAOImpl implements ReservationDAO{
 	private ReservationDAOImpl() {
 		try {
 			Context context = new InitialContext();
-			dataSource = (DataSource) context.lookup("java:comp/env/jdbc/ict03_zest");  // java:comp/env/Resource명
+			dataSource = (DataSource) context.lookup("java:comp/env/jdbc/FastiCat2");  // java:comp/env/Resource명
 		} catch(NamingException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	
-	public List<ShowDTO> ResList(String curMonthS) {
-		System.out.println("ReservationDAOImpl - ResList curMonthS:"+curMonthS);
-		
+	@Override
+	public List<ShowDTO> ResList(String curMonth) {
+		System.out.println("ReservationDAOImpl - ResList ");
+
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -50,7 +50,7 @@ public class ReservationDAOImpl implements ReservationDAO{
 		// 1. list 생성
 		List<ShowDTO> list = new ArrayList<ShowDTO>();
 		try {
-			System.out.println("try { 진입 확인");
+			System.out.println("try { 진입 확인 curMonth :"+curMonth);
 			conn = dataSource.getConnection();
 			String sql = "SELECT showNum, showName, curCapacity, maxCapacity, showDay, showCHK "
 					+ "FROM show_tbl "
@@ -60,24 +60,24 @@ public class ReservationDAOImpl implements ReservationDAO{
 					+ "ORDER BY showNum ";
 			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, curMonthS);
+			pstmt.setString(1, curMonth);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				// 2. dto 생성 
 				System.out.println("while(rs.next()) { 진입");
 				ShowDTO dto = new ShowDTO();
-		            dto.setShowNum(rs.getInt("showNum"));
-		            dto.setShowName(rs.getString("showName"));
-		            dto.setCurCapacity(rs.getInt("curCapacity"));
-		            dto.setMaxCapacity(rs.getInt("maxCapacity"));
-		            dto.setShowDay(rs.getDate("showDay"));
-		            dto.setShowCHK(rs.getString("showCHK"));
-		            
-		            System.out.println("dto : "+dto);
-		            
-		            list.add(dto);
-		            System.out.println("list : "+list);
-		            
+	            dto.setShowNum(rs.getInt("showNum"));
+	            dto.setShowName(rs.getString("showName"));
+	            dto.setCurCapacity(rs.getInt("curCapacity"));
+	            dto.setMaxCapacity(rs.getInt("maxCapacity"));
+	            dto.setShowDay(rs.getDate("showDay"));
+	            dto.setShowCHK(rs.getString("showCHK"));
+	            
+	            System.out.println("dto : "+dto);
+	            
+	            list.add(dto);
+	            System.out.println("list : "+list);
+		              
 			}
 			
 		} catch(SQLException e) {
@@ -96,6 +96,7 @@ public class ReservationDAOImpl implements ReservationDAO{
 		return list;
 	}
 	
+	@Override
 	public ShowDTO ResDetailPageView(int shownum){
 	System.out.println("ReservationDAOImpl - ResDetailPageView");
 		
@@ -108,13 +109,11 @@ public class ReservationDAOImpl implements ReservationDAO{
 		
 		try {
 			conn = dataSource.getConnection();
-			String sql = "SELECT showNum, showName,showPlace, showPrice, curCapacity, maxCapacity, showDay, showCHK "
-						+ "FROM show_tbl "
-						+ "WHERE EXTRACT(MONTH FROM showDay) = EXTRACT(MONTH FROM SYSDATE) "
-						+ "AND EXTRACT(YEAR FROM showDay) = EXTRACT(YEAR FROM SYSDATE) "
-						+ "AND SHOWCHK LIKE 'Y' "
-						+ "AND shownum = ? "
-						+ "ORDER BY SHOWNUM";
+			String sql = "SELECT showNum, showName,showPlace, showPrice,showTime,showAge,showBene,curCapacity, maxCapacity, showDay,showImage, showCHK  "
+					+ "FROM show_tbl "
+					+ "WHERE SHOWCHK LIKE 'Y' "
+					+ "AND showNum = ?  "
+					+ "ORDER BY showNum";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, shownum);
 			
@@ -127,9 +126,13 @@ public class ReservationDAOImpl implements ReservationDAO{
 				dto.setShowName(rs.getString("showName"));
 				dto.setShowPlace(rs.getString("showPlace"));
 				dto.setShowPrice(rs.getInt("showPrice"));
+				dto.setShowTime(rs.getInt("showTime"));
+				dto.setShowAge(rs.getInt("showAge"));
+				dto.setShowBene(rs.getString("showBene"));
 				dto.setCurCapacity(rs.getInt("curCapacity"));
 				dto.setMaxCapacity(rs.getInt("maxCapacity"));
 				dto.setShowDay(rs.getDate("showDay"));
+				dto.setShowImage(rs.getString("showImage"));
 				dto.setShowCHK(rs.getString("showCHK"));
 			}
 			
@@ -147,5 +150,95 @@ public class ReservationDAOImpl implements ReservationDAO{
 		
 		return dto;
 	}
+	
+	@Override
+	public List<ShowDTO> ResDetailPageViewList(String showdto){
+		System.out.println("ReservationDAOImpl - ResDetailPageViewList");
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		// 1. dto 생성
+		List<ShowDTO> list = new ArrayList<ShowDTO>();
+		
+		try {
+			conn = dataSource.getConnection();
+			String sql = "SELECT * "
+					+ "FROM show_tbl  "
+					+ "WHERE showName LIKE ? "
+					+ "AND SHOWCHK LIKE 'Y' "
+					+ "ORDER BY SHOWNUM";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, showdto);
+			
+			rs = pstmt.executeQuery();
+			
+			// 2. setter에 결과를 담는다.
+			while(rs.next()) {
+				
+				ShowDTO dto = new ShowDTO();
+				// 3. dto에 1건의 rs 게시글 정보를 담는다.
+				dto.setShowNum(rs.getInt("shownum"));
+				dto.setShowName(rs.getString("showName"));
+				dto.setShowPlace(rs.getString("showPlace"));
+				dto.setShowPrice(rs.getInt("showPrice"));
+				dto.setShowTime(rs.getInt("showTime"));
+				dto.setShowAge(rs.getInt("showAge"));
+				dto.setShowBene(rs.getString("showBene"));
+				dto.setCurCapacity(rs.getInt("curCapacity"));
+				dto.setMaxCapacity(rs.getInt("maxCapacity"));
+				dto.setShowDay(rs.getDate("showDay"));
+				dto.setShowImage(rs.getString("showImage"));
+				dto.setShowCHK(rs.getString("showCHK"));
+				
+				list.add(dto);
+			}
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
+	}
+	
+	// 선택한 날짜에 있는 공연정보
+	@Override
+	public void showUpdate(int showNum, int quantity) {
+		System.out.println("ReservationDAOImpl - showUpdate");
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = dataSource.getConnection();
+			String sql = "UPDATE show_tbl "
+						+ "SET curCapacity = curCapacity+? "
+						+ "WHERE shownum = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, quantity);
+			pstmt.setInt(2, showNum);
+			
+			pstmt.executeUpdate();
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 
 }
