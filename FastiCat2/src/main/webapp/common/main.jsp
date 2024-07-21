@@ -92,7 +92,6 @@
             }<c:if test="${!status.last}">,</c:if>
         </c:forEach>
     ];
- 
     </script>
     <script src="${path}/resources/js/calender/calendar.js"></script>
 
