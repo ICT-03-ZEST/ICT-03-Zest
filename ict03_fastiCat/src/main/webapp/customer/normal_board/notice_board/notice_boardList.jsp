@@ -12,7 +12,7 @@
    // 글쓰기 버튼 클릭시 작성페이지로 이동
    $(function(){
    	$('#btnInsert').click(function(){
-		location.href="${path}/notice_insert.nb"
+		location.href="${path}/notice_insertAction.nb"
 	});
    });
 </script>
@@ -74,7 +74,7 @@ table th, table td{
              </c:forEach>
      	</table>
     
-    
+    </div>
     <div class="btnNum">
 			<!-- 페이징처리 -->
 			<!-- 이전 버튼 활성화 -->

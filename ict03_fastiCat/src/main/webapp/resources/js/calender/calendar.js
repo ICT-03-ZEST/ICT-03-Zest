@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const currentMonthElement = document.getElementById("currentMonth");
     const prevBtn = document.getElementById("prevBtn");
     const nextBtn = document.getElementById("nextBtn");
-	let currentMonthsave;
+
     // 현재 연도와 월을 초기화
     let currentYear = new Date().getFullYear();
     let currentMonth = new Date().getMonth();
@@ -16,12 +16,11 @@ document.addEventListener("DOMContentLoaded", function() {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('curYear') && urlParams.has('curMonth')) {
         currentYear = parseInt(urlParams.get('curYear'), 10);
-        currentMonth = parseInt(urlParams.get('curMonth'), 10);
+        currentMonth = parseInt(urlParams.get('curMonth'), 10) - 1; // URL에서 월은 1부터 시작
     }
 
     // 캘린더를 생성하는 함수
     function Calendar() {
-        // 현재 월의 첫 날과 마지막 날을 계산
         const firstDayOfMonth = new Date(currentYear, currentMonth, 1);
         const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
         const startDayOfWeek = firstDayOfMonth.getDay(); // 월의 첫 날이 주의 어떤 요일인지
@@ -51,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let showsMap = new Map();
         for (let i = 1; i <= daysInMonth; i++) {
             let testDay = new Date(currentYear, currentMonth, i);
-            let formattedDate = formatDate(testDay); // 날짜를 포맷팅
+            let formattedDate = formatDate(testDay);
 
             // 해당 날짜의 공연 정보를 필터링
             let showsForDate = shows.filter(item => item.showDay === formattedDate);
@@ -79,11 +78,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
             const dateNumber = document.createElement("span");
             dateNumber.classList.add("date-number");
-            dateNumber.textContent = i; // 날짜 숫자 표시
+            dateNumber.textContent = i;
 
             const dateWeek = document.createElement("span");
             dateWeek.classList.add("date-week");
-            dateWeek.textContent = `(${daysOfWeek[testDay.getDay()]})`; // 요일 표시
+            dateWeek.textContent = `(${daysOfWeek[testDay.getDay()]})`;
 
             dateElement.appendChild(dateNumber);
             dateElement.appendChild(dateWeek);
@@ -118,13 +117,11 @@ document.addEventListener("DOMContentLoaded", function() {
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
         const day = String(date.getDate()).padStart(2, '0');
-        currentMonthsave = month;
         return `${year}-${month}-${day}`;
     }
 
     // 공연의 상세 정보를 모달로 표시하는 함수
     function openModal(show) {
-        // show 객체를 사용하여 URL 쿼리를 생성
         const url = `/ict03_fastiCat/showTicket_Detail.do?showNum=${show.showNum}&sendShowDay=${show.showDay}`;
         window.location.href = url;
     }
@@ -132,11 +129,9 @@ document.addEventListener("DOMContentLoaded", function() {
     // 이전 달 버튼 클릭 시 이벤트 핸들러
     prevBtn.addEventListener("click", () => {
         currentMonth--;
-        currentMonthsave=currentMonth;
         if (currentMonth < 0) {
             currentMonth = 11;
             currentYear--;
-	        currentMonthsave=currentMonth;
         }
         updateURLAndReload();
     });
@@ -144,30 +139,20 @@ document.addEventListener("DOMContentLoaded", function() {
     // 다음 달 버튼 클릭 시 이벤트 핸들러
     nextBtn.addEventListener("click", () => {
         currentMonth++;
-        currentMonthsave=currentMonth;
         if (currentMonth > 11) {
             currentMonth = 0;
             currentYear++;
-	        currentMonthsave=currentMonth;
         }
         updateURLAndReload();
     });
 
     // URL을 업데이트하고 페이지를 리로드하는 함수
     function updateURLAndReload() {
-        curMonth = `${String(currentMonth + 1).padStart(2, '0')}`;
-        const url = `/ict03_fastiCat/main.do?curMonth=${currentMonthsave}`;
+        const curMonth = String(currentMonth + 1).padStart(2, '0');
+        const url = `/ict03_fastiCat/main.do?curYear=${currentYear}&curMonth=${curMonth}`;
         window.location.href = url;
     }
-// alert(urlParams.has('curMonth'));
-    // 페이지 로드 시 URL을 업데이트하지 않도록 설정
-    if (!urlParams.has('curMonth')) {
-        Calendar();
-    }
-    
-    let cnt=0;
-    if(cnt==0){
-	    Calendar();
-		cnt=1;
-	}
+
+    // 페이지 로드 시 캘린더 생성
+    Calendar();
 });

@@ -82,7 +82,7 @@ public class NoticeBoardController extends HttpServlet {
 			System.out.println("url -> notice_insertAction");
 			
 			n_service.NoticeBoard_InsertAction(request, response);
-			viewPage="/customer/normal_board/notice_board/notice_insertAction.jsp";
+			viewPage="/customer/normal_board/notice_board/notice_insert.jsp";
 		}
 		
 		//RequestDispatcher : 서블릿 또는 JSP 요청을 받은 후, 다른 컴포넌트로 요청을 위임하는 클래스이다.
