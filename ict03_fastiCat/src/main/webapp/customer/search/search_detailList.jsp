@@ -39,7 +39,7 @@
 											<h1 align="center">세부게시판</h1>
 											<span
 												style="font-size: 1.5em; color: gray; text-align: center; display: block; margin: 0 auto;">
-												${searchItem } '${searchInput }' 에 대한 검색결과 </span>
+												'${searchInput }' 에 대한 검색결과 </span>
 
 										</div>
 
