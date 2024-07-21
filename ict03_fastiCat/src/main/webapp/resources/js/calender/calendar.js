@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const url = `/ict03_fastiCat/main.do?curMonth=${currentMonthsave}`;
         window.location.href = url;
     }
-alert(urlParams.has('curMonth'));
+// alert(urlParams.has('curMonth'));
     // 페이지 로드 시 URL을 업데이트하지 않도록 설정
     if (!urlParams.has('curMonth')) {
         Calendar();
