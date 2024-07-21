@@ -169,84 +169,6 @@ public class SearchDAOImpl implements SearchDAO {
 
 	    return total;
 	}
-
-	@Override
-	public void plusReadCnt(int num) {
-		System.out.println("DAO - plusReadCnt()");
-
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-
-		try {
-			conn = dataSource.getConnection();
-			String sql = " UPDATE mvc_board_tbl " + "   SET readCnt = readCnt + 1 " + " WHERE num = ?";
-
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, num);
-
-			pstmt.executeUpdate();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (pstmt != null)
-					pstmt.close();
-				if (conn != null)
-					conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	// 게시글 상세페이지
-	@Override
-	public SearchDTO getBoardDetail(int num) {
-		System.out.println("DAO - getBoardDetail()");
-
-		SearchDTO dto = new SearchDTO();
-
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			conn = dataSource.getConnection();
-			String sql = " SELECT * FROM mvc_board_tbl " + " WHERE num = ?";
-
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, num);
-
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				dto.setNum(rs.getInt("num"));
-				dto.setTitle(rs.getString("Title"));
-				dto.setContent(rs.getString("content"));
-				dto.setWriter(rs.getString("writer"));
-				dto.setPassword(rs.getString("password"));
-				dto.setReadCnt(rs.getInt("readCnt"));
-				dto.setRegDate(rs.getDate("regDate"));
-				dto.setComment_count(rs.getInt("comment_count"));
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (rs != null)
-					rs.close();
-				if (pstmt != null)
-					pstmt.close();
-				if (conn != null)
-					conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return dto;
-	}
 	
     // 게시글 상세 검색
 	@Override
@@ -368,4 +290,125 @@ public class SearchDAOImpl implements SearchDAO {
 	    }
 	    return list;
 	}
+
+	//공연 갯수
+	@Override
+	public int getTotalCount(String query) {
+	    System.out.println("SearchDAOImpl - getTotalCount");
+
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    int total = 0;
+	    try {
+	        conn = dataSource.getConnection();
+	        String sql = "SELECT COUNT(*) AS cnt " +
+	                     "FROM (" +
+	                     "    SELECT conNo AS num " +
+	                     "    FROM mvc_ad_concert_tbl " +
+	                     "    WHERE show = 'y' AND (conName LIKE ? OR conPlace LIKE ?) " +
+	                     "    UNION ALL " +
+	                     "    SELECT fesNo AS num " +
+	                     "    FROM mvc_ad_festival_tbl " +
+	                     "    WHERE show = 'y' AND (fesName LIKE ? OR fesPlace LIKE ?) " +
+	                     ") combinedResults";
+
+	        pstmt = conn.prepareStatement(sql);
+	        String searchQuery = "%" + query + "%";
+	        pstmt.setString(1, searchQuery);
+	        pstmt.setString(2, searchQuery);
+	        pstmt.setString(3, searchQuery);
+	        pstmt.setString(4, searchQuery);
+
+	        rs = pstmt.executeQuery();
+	        if (rs.next()) {
+	            total = rs.getInt("cnt");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (pstmt != null) pstmt.close();
+	            if (conn != null) conn.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return total;
+	}
+
+	@Override
+	public List<SearchDTO> concertList(String query, int start, int end) {
+	    List<SearchDTO> list = new ArrayList<>();
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+
+	    try {
+	        conn = dataSource.getConnection();
+
+	        // SQL 쿼리
+	        String sql = "SELECT * FROM ("
+	                   + "    SELECT A.*, rownum AS rn FROM ("
+	                   + "        SELECT 'concert' AS source, conNo AS num, conName AS title, conPlace AS place, conTime AS regDate "
+	                   + "        FROM mvc_ad_concert_tbl "
+	                   + "        WHERE show = 'y' AND (conName LIKE ? OR conPlace LIKE ?) "
+	                   + "        UNION ALL "
+	                   + "        SELECT 'festival' AS source, fesNo AS num, fesName AS title, fesPlace AS place, fesTime AS regDate "
+	                   + "        FROM mvc_ad_festival_tbl "
+	                   + "        WHERE show = 'y' AND (fesName LIKE ? OR fesPlace LIKE ?) "
+	                   + "    ) A "
+	                   + "    ORDER BY regDate DESC"
+	                   + ") WHERE rn BETWEEN ? AND ?";
+
+	        pstmt = conn.prepareStatement(sql);
+
+	        String searchQuery = "%" + query + "%";
+	        pstmt.setString(1, searchQuery);
+	        pstmt.setString(2, searchQuery);
+	        pstmt.setString(3, searchQuery);
+	        pstmt.setString(4, searchQuery);
+	        pstmt.setInt(5, start);
+	        pstmt.setInt(6, end);
+
+	        rs = pstmt.executeQuery();
+
+	        System.out.println(sql);
+	        while (rs.next()) {
+	            SearchDTO dto = new SearchDTO();
+	            dto.setNum(rs.getInt("num"));
+	            dto.setTitle(rs.getString("title"));
+	            dto.setContent(rs.getString("place")); // 장소 정보를 content에 저장
+	            dto.setWriter(rs.getString("source")); // source를 writer에 저장
+
+	            // source에 따라 정보 설정
+	            String source = rs.getString("source");
+	            if ("concert".equals(source)) {
+	                dto.setSource("공연");
+	            } else if ("festival".equals(source)) {
+	                dto.setSource("페스티벌");
+	            } else {
+	                dto.setSource("알 수 없음");
+	            }
+
+	            System.out.println(dto.getSource());
+
+	            list.add(dto);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (pstmt != null) pstmt.close();
+	            if (conn != null) conn.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    return list;
+	}
+
 }

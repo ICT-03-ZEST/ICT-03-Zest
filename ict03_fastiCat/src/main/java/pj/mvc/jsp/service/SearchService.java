@@ -11,6 +11,9 @@ public interface SearchService {
 	public void boardListAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException;
 
+	//공연 목록
+	public void concertListAction(HttpServletRequest request, HttpServletResponse res)
+			throws ServletException, IOException;
 	
     // 상세페이지
 	public void searchDetailAction(HttpServletRequest request, HttpServletResponse response)

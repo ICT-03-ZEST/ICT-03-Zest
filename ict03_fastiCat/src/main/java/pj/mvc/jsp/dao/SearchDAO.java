@@ -9,15 +9,15 @@ public interface SearchDAO {
 	// 게시글 목록
 	public List<SearchDTO> boardList(String query,int start,int end);
 	
+	// 공연갯수
+	public int getTotalCount(String query);
+	
+	// 공연목록
+	public List<SearchDTO> concertList(String query, int start, int end);
+
 	// 게시글 개수 구하기
 	public int boardCnt(String query);
 	
-	// 조회수 증가
-	public void plusReadCnt(int num);
-	
-	// 게시글 상세페이지
-	public SearchDTO getBoardDetail(int num);
-
 	// 게시글 상세 목록
 	public List<SearchDTO> boardDetailList(String searchItem,String searchInput,int start, int end);
 	

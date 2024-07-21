@@ -10,9 +10,8 @@
 <link rel="stylesheet" href="${path}/resources/css/common/header.css">
 <link rel="stylesheet" href="${path}/resources/css/common/footer.css">
 <link rel="stylesheet" href="${path}/resources/css/customer/search.css">
-
-<script src="https://kit.fontawesome.com/e99c5d1543.js"
-	crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/e3f7bcf3d6.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="${path}/resources/js/jquery-3.7.1.min.js"></script>
 <script src="../../resources/js/customer/main.js" defer></script>
 <title>검색 페이지</title>
 
@@ -22,7 +21,8 @@
 	<!-- header 시작 -->
 	<%@ include file="/common/header.jsp"%>
 	<!-- header 끝 -->
-
+	
+	
 	<!-- 컨텐츠 시작 -->
 	<div id="container">
 		<div id="contents">
@@ -42,7 +42,7 @@
 												'${query }' 에 대한 검색결과 </span>
 
 										</div>
-
+										
 										<!-- 상단 중앙2 시작 -->
 										<div id="section2">
 
@@ -63,8 +63,10 @@
 															<c:forEach var="list" items="${list }">
 																<tr>
 																	<td class="searchtd">${list.getSource() }</td>
-																	<td class="searchtd"><a
-																		href="${path}/search_detailAction.sc?num=${list.getNum()}">${list.getTitle()}</a>
+																	<td class="searchtd">
+																		<a href="${path}/content.bc?board_num=${list.getNum()}&board_category=${list.getSource()}&pageNum=1">
+																			${list.getTitle()}
+																		</a>
 																	</td>
 																	<td class="searchtd">${list.getWriter() }</td>
 																	<td class="searchtd">${list.getRegDate() }</td>

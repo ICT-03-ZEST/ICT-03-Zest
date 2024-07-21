@@ -77,15 +77,15 @@
 																	<!-- 페이징 처리 --> <!-- 이전 버튼 활성화 --> <c:if
 																		test="${paging.startPage > 10 }">
 																		<a
-																			href="${path }/search.sc?pageNum=${paging.prev}&query=${query}">[이전]</a>
+																			href="${path }/search.sc?pageNum=${paging.prev}&query=${searchInput}&searchItem=${searchItem}">[이전]</a>
 																	</c:if> <!-- 페이지 번호 처리 --> <c:forEach var="num"
 																		begin="${paging.startPage}" end="${paging.endPage}">
 																		<a
-																			href="${path }/search.sc?pageNum=${num}&query=${query}">${num }</a>
+																			href="${path }/search.sc?pageNum=${num}&query=${searchInput}&searchItem=${searchItem}">${num }</a>
 																	</c:forEach> <!-- 다음 버튼 활성화 --> <c:if
 																		test="${paging.endPage < paging.pageCount }">
 																		<a
-																			href="${path }/search.sc?pageNum=${paging.next}&query=${query}">[다음]</a>
+																			href="${path }/search.sc?pageNum=${paging.next}&query=${searchInput}&searchItem=${searchItem}">[다음]</a>
 																	</c:if>
 																</td>
 															</tr>
