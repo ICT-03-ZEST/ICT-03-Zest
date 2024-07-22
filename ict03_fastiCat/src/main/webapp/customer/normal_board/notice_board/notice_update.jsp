@@ -25,6 +25,32 @@
 		});
 	});
 </script>
+
+<style>
+  table {
+        width: 1200px;
+        margin: 50px auto;
+        border-collapse: collapse;
+        border: 1px solid orange;
+        border-radius: 8px;
+    }
+    th, td {
+        border: 1px solid orange;
+        padding: 10px;
+        text-align: center;
+    }
+    th {
+        font-weight: bold;
+    }
+  
+    .inputButton{
+	border: 2px solid orange;
+	background-color: white;
+	width: 100px;
+	height: 50px;
+	font-size: 12px;
+	}
+</style>
 <title>수정페이지</title>
 <link rel="stylesheet" type="text/css"
 	href="${path}/resources/css/normal_board/notice_insertAction.css">
