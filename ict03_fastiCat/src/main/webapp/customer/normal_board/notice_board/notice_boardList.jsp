@@ -38,12 +38,18 @@ table td{
    
 }
 
-.btnNum{
+.btnNum {
    text-align: center;
+   margin-top: 10px;
 }
 
-.inputbutton{
-   weight: 100px;
+.inputButton {
+   padding: 12px 24px;
+   background-color: orange;
+   border: none;
+   color: white;
+   cursor: pointer;
+   border-radius: 5px;
 }
 </style>
 <title>공지사항 작성</title>
