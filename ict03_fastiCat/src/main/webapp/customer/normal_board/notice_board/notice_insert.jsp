@@ -5,7 +5,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="${path}/resources/css/normal_board/notice/notice_insertAction.css">
+<style>
+  table {
+        width: 1200px;
+        margin: 50px auto;
+        border-collapse: collapse;
+        border: 1px solid orange;
+        border-radius: 8px;
+    }
+    th, td {
+        border: 1px solid orange;
+        padding: 10px;
+        text-align: center;
+    }
+    th {
+        font-weight: bold;
+    }
+  
+</style>
 <title>공지사항 작성페이지</title>
  <script>
 	 $(function(){
