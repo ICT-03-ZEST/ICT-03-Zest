@@ -211,6 +211,17 @@ CREATE TABLE reviewBoard_tbl(
      board_heart       NUMBER(6)   DEFAULT 0,           -- 좋아요 
      board_show        CHAR(1) DEFAULT 'y'
 );
+--반복추가
+DECLARE 
+    i NUMBER:=1; 
+BEGIN
+    WHILE i<=30 LOOP
+        INSERT INTO reviewBoard_tbl(board_num, board_title, board_content, board_thumnail, board_writer)
+        VALUES ((SELECT NVL(MAX(board_num)+1, 1) FROM reviewBoard_tbl), '자유제목'||i, '자유내용'||i, '/ict03_fastiCat/resources/upload/free.jfif', 'user1');
+        i:=i+1;
+    END LOOP;
+END;
+/
 
 -- 공연후기 게시판 하트(toggle)
 DROP TABLE heart_reviewBoard_tbl;
@@ -248,6 +259,18 @@ CREATE TABLE freeBoard_tbl(
      board_heart       NUMBER(6)   DEFAULT 0,           -- 좋아요 
      board_show        CHAR(1) DEFAULT 'y'
 );
+--반복추가
+DECLARE 
+    i NUMBER:=1; 
+BEGIN
+    WHILE i<=30 LOOP
+        INSERT INTO freeBoard_tbl(board_num, board_title, board_content, board_thumnail, board_writer)
+        VALUES ((SELECT NVL(MAX(board_num)+1, 1) FROM freeBoard_tbl), '자유제목'||i, '자유내용'||i, '/ict03_fastiCat/resources/upload/default.jpg', 'user1');
+        i:=i+1;
+    END LOOP;
+END;
+/
+commit;
 
 -- 자유 게시판 하트(toggle)
 DROP TABLE heart_freeBoard_tbl;
