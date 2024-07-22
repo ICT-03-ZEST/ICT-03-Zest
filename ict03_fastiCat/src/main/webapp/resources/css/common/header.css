@@ -34,6 +34,7 @@ a {
 }
 
 .navbar_menu li {
+	padding: 5px 10px 5px 10px;
 	display: flex;
 	position: relative;
 	margin-right: 7vw; /* 예시로 줄임 */
@@ -64,6 +65,7 @@ a {
 
 #navbar_icons {
 	display: flex; /* 한줄(수평) 배치 */
+	 white-space: nowrap;    
 	position: relative; /* 하위 메뉴 위치 설정을 위한 상대 위치 설정 */
 	list-style: none; /* 리스트 불릿없앰 */
 	color: white;
