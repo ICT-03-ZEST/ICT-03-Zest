@@ -338,7 +338,8 @@ public class SearchDAOImpl implements SearchDAO {
 
 	    return total;
 	}
-
+	
+	// 공연 검색
 	@Override
 	public List<SearchDTO> concertList(String query, int start, int end) {
 	    List<SearchDTO> list = new ArrayList<>();

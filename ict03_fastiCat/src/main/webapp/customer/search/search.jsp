@@ -111,9 +111,9 @@
 										<option value="writer">작성자</option>
 										<option value="title">제목</option>
 										<option value="content">내용</option>
-									</select> <input id="searchInput" class="inputButton" type="text"
+									</select> <input id="searchInput" class="searchInputButton" type="text"
 										name="query" placeholder="검색어를 입력하세요" aria-label="Search">
-									<input id="searchInputButton" class="inputButton" type="submit"
+									<input id="searchInputButton" class="searchInputButton" type="submit"
 										value="search">
 								</form>
 							</div>

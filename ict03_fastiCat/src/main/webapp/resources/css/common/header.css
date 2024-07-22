@@ -78,14 +78,14 @@ a {
 	margin-left: 10px;
 }
 /* search 디자인 시작 */
-.inputButton {
+.searchInputButton {
 	margin-left: 10px;
 	border: none;
 	outline: none;
 	box-sizing: border-box;
 }
 
-.inputButton:first-of-type {
+.searchInputButton:first-of-type {
 	border-radius: 30px; /* 동그란 형태 */
 	border-right: 1px solid gray;
 	border-bottom: 1px solid gray;
