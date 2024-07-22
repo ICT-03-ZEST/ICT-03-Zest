@@ -44,13 +44,10 @@ public class MyPageController extends HttpServlet {
 		
 		MyPageService service = new MyPageServiceImpl();
 		
-		//test(테스트용 세션 아이디 미리 설정)
-		// request.getSession().setAttribute("sessionID", "test");
-		
 		// 1.게시판 목록조회 - 공연후기, 페스티벌후기, 자유 메뉴 선택시 해당 목록 전체조회(최신글 부터)
-		// test(링크 수정필요)
 		if(url.equals("/mypage.myp")) {
-			request.getSession().setAttribute("myBoard","1"); // 게시판 목록으로 돌아오기위해 마이페이지 세션을 종료
+			
+			request.getSession().setAttribute("myBoard", "1");// 게시글 추가,수정,삭제 후 나의게시글 목록으로 돌아오는 값
 			
 			viewPage = "customer/mypage/myPage.jsp";
 		}
