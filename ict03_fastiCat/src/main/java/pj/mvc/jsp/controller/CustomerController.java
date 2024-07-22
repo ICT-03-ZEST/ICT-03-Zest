@@ -17,7 +17,7 @@ import pj.mvc.jsp.service.CustomerServiceImpl;
 @WebServlet("*.do")
 public class CustomerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	public CustomerController() {
 		super();
 	}
@@ -63,11 +63,11 @@ public class CustomerController extends HttpServlet {
 			System.out.println("<<< url ==>  /main.do >>>");
 
 			// 달력 공연날짜 기입
-			// serviceCal.reservationListAction(request, response);
-			
+			serviceCal.reservationListAction(request, response);
+
 			// 메인 - 관리자에서 등록한 배너이미지 조회
 			bannerService.getMainBanner(request, response);
-			
+
 			viewPage = "common/main.jsp";
 		}
 
@@ -76,7 +76,12 @@ public class CustomerController extends HttpServlet {
 			System.out.println("<<< url ==>  /showTicket_Detail.do >>>");
 
 			serviceCal.showTicketDetail(request, response);
+            serviceCal.showTicketDetailList(request, response);
 			viewPage = "showTiket/showTiketDetail.jsp";
+		} 
+		else if (url.equals("/showTicketInsert.do")) {
+			serviceCal.showTicketInsert(request, response);
+			return;
 		}
 
 		// [ 회원가입 ]
@@ -120,15 +125,15 @@ public class CustomerController extends HttpServlet {
 		}
 
 		else if (url.equals("/logout.do")) {
-	         System.out.println("<<< url ==>  /logout.do >>>");
+			System.out.println("<<< url ==>  /logout.do >>>");
 
-	         // 세션 삭제
-	         request.getSession().invalidate();
-	         viewPage = request.getContextPath() + "/main.do";
-	         response.sendRedirect(viewPage);
-	         return;
-	         //viewPage = "common/main.jsp";
-	      }
+			// 세션 삭제
+			request.getSession().invalidate();
+			viewPage = request.getContextPath() + "/main.do";
+			response.sendRedirect(viewPage);
+			return;
+			// viewPage = "common/main.jsp";
+		}
 
 		// [ 회원수정 ]
 		// 회원수정 - 인증화면

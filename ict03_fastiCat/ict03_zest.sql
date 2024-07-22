@@ -314,10 +314,12 @@ CREATE SEQUENCE show_tbl_seq
     
 CREATE TABLE show_Reservation (
     show_ResId          NUMBER(6)           PRIMARY KEY,
-    showNum     NUMBER(6)           REFERENCES show_tbl(showNum),
-    userID      VARCHAR2(20char)    REFERENCES MVC_CUSTOMER_TBL(USERID),
-    password    VARCHAR2(20char)    NOT NULL,
-    totalPrice  NUMBER(20)
+    showNum           NUMBER(6)           REFERENCES show_tbl(showNum),
+    userID            VARCHAR2(20char)    REFERENCES MVC_CUSTOMER_TBL(USERID),
+    totalPrice        NUMBER(20),
+    Reservation_date    date,
+    Reservation_check   CHAR(1)             DEFAULT 'y',
+    Reservation_dateNow date                DEFAULT sysdate
 );
 commit;
 

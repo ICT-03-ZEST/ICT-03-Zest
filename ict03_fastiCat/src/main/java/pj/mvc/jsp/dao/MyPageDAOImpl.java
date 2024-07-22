@@ -36,7 +36,7 @@ public class MyPageDAOImpl implements MyPageDAO{
 		private MyPageDAOImpl() {
 			try {
 				Context context = new InitialContext();
-				 dataSource = (DataSource) context.lookup("java:comp/env/jdbc/jsp_pj_ict03");
+				 dataSource = (DataSource) context.lookup("java:comp/env/jdbc/ict03_zest");
 			} catch (NamingException e) {
 				e.printStackTrace();
 			}

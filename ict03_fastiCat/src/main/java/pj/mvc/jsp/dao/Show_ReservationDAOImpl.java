@@ -9,6 +9,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import pj.mvc.jsp.dto.ShowDTO;
+
 public class Show_ReservationDAOImpl implements Show_ReservationDAO{
 
 	// 커넥션 풀 객체를 보관
@@ -29,44 +31,46 @@ public class Show_ReservationDAOImpl implements Show_ReservationDAO{
 	private Show_ReservationDAOImpl() {
 		try {
 			Context context = new InitialContext();
-			dataSource = (DataSource) context.lookup("java:comp/env/jdbc/FastiCat2");  // java:comp/env/Resource명
+			dataSource = (DataSource) context.lookup("java:comp/env/jdbc/ict03_zest");  // java:comp/env/Resource명
 		} catch(NamingException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	// 공연에 구입자가 쓴 비용 Insert
-	@Override
-	public void ticketInsert(int showNum, String userID, int totalPrice) {
-		System.out.println("Show_ReservationDAOImpl - ticketInsert");
-		
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		int insertCnt = 0;
-		
-		try {
-			conn = dataSource.getConnection();
-			
-			String sql = "INSERT INTO show_Reservation (show_ResId, showNum, userID,  totalPrice) "
-					   + "VALUES (show_Reservation_seq.NEXTVAL, ?, ?, ?)";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, showNum);
-			pstmt.setString(2, userID);
-			pstmt.setInt(3, totalPrice);
-			
-			insertCnt = pstmt.executeUpdate();
-			System.out.println("insertCnt : " + insertCnt);
-			
-		} catch(SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if(pstmt != null) pstmt.close();
-				if(conn != null) conn.close();
-			} catch(SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
+	// 공연에 구입자가 쓴 비용 Insert
+	   @Override
+	   public void ticketInsert(ShowDTO dto, String userID, int totalPrice) {
+	      System.out.println("Show_ReservationDAOImpl - ticketInsert");
+	      
+	      Connection conn = null;
+	      PreparedStatement pstmt = null;
+	      int insertCnt = 0;
+	      
+	      try {
+	         conn = dataSource.getConnection();
+	         
+	         String sql = "INSERT INTO show_Reservation (show_ResId, showNum, userID, totalPrice, Reservation_date) "
+	                  + "VALUES (show_Reservation_seq.NEXTVAL, ?, ?, ?,?)";
+	         pstmt = conn.prepareStatement(sql);
+	         pstmt.setInt(1, dto.getShowNum());
+	         pstmt.setString(2, userID);
+	         pstmt.setInt(3, totalPrice);
+	         pstmt.setDate(4, dto.getShowDay());
+	         
+	         insertCnt = pstmt.executeUpdate();
+	         System.out.println("insertCnt : " + insertCnt);
+	         
+	      } catch(SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         try {
+	            if(pstmt != null) pstmt.close();
+	            if(conn != null) conn.close();
+	         } catch(SQLException e) {
+	            e.printStackTrace();
+	         }
+	      }
+	   }
+	
 }

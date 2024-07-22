@@ -311,7 +311,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 		try {
 			// 2. strId(세션ID)와 일치하는 데이터가 존재하는지 확인
 			conn = dataSource.getConnection();
-			String sql = "SELECT PASSWORD FROM mvc_customer_tbl " + "WHERE userid=?";
+			String sql = "SELECT userid, password FROM mvc_customer_tbl " + "WHERE userid=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, strId);
 
@@ -467,5 +467,5 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 		return deleteCnt;
 	}
-
+	
 }

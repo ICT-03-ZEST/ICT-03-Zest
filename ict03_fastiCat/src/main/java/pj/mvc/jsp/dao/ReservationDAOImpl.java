@@ -33,7 +33,7 @@ public class ReservationDAOImpl implements ReservationDAO{
 	private ReservationDAOImpl() {
 		try {
 			Context context = new InitialContext();
-			dataSource = (DataSource) context.lookup("java:comp/env/jdbc/FastiCat2");  // java:comp/env/Resource명
+			dataSource = (DataSource) context.lookup("java:comp/env/jdbc/ict03_zest");  // java:comp/env/Resource명
 		} catch(NamingException e) {
 			e.printStackTrace();
 		}
@@ -53,15 +53,15 @@ public class ReservationDAOImpl implements ReservationDAO{
 			System.out.println("try { 진입 확인 curMonth :"+curMonth);
 			conn = dataSource.getConnection();
 			String sql = "SELECT showNum, showName, curCapacity, maxCapacity, showDay, showCHK "
-					+ "FROM show_tbl "
-					+ "WHERE LPAD(TO_CHAR(showDay, 'MM'), 2, '0') = LPAD(?, 2, '0') "
-					+ "AND EXTRACT(YEAR FROM showDay) = EXTRACT(YEAR FROM SYSDATE)  "
-					+ "AND SHOWCHK = 'Y' "
-					+ "ORDER BY showNum ";
+					+ "					FROM show_tbl "
+					+ "					WHERE LPAD(TO_CHAR(showDay, 'MM'), 2, '0') = LPAD('"+curMonth+"', 2, '0') "
+					+ "					AND EXTRACT(YEAR FROM showDay) = EXTRACT(YEAR FROM SYSDATE) "
+					+ "					AND SHOWCHK = 'Y' "
+					+ "					ORDER BY showNum";
 			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, curMonth);
 			rs = pstmt.executeQuery();
+			System.out.println("rs.next() : "+rs.next());
 			while(rs.next()) {
 				// 2. dto 생성 
 				System.out.println("while(rs.next()) { 진입");
@@ -239,6 +239,5 @@ public class ReservationDAOImpl implements ReservationDAO{
 			}
 		}
 	}
-
 
 }

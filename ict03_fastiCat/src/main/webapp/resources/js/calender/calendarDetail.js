@@ -185,7 +185,7 @@ document.addEventListener("DOMContentLoaded", function() {
 //	alert(show.showDay);
 //	alert(reservationData.totalPrice);
 	
-	    const url = `/FastiCat/showTicketInsert.do?showNum=${reservationData.showNum}&sendShowDay=${show.showDay}&quantity=${reservationData.quantity}&totalPrice=${reservationData.totalPrice}`;
+	    const url = `/ict03_fastiCat/showTicketInsert.do?showNum=${reservationData.showNum}&sendShowDay=${show.showDay}&quantity=${reservationData.quantity}&totalPrice=${reservationData.totalPrice}`;
    	 	window.location.href = url;
 
     }
