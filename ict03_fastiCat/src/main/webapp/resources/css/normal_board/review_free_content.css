@@ -9,21 +9,24 @@ li {
 }
 /* 카테고리 */
 .nav_title {
-    width: 800;
+    width: 1000px;
     margin: 0 auto;
 }    
 .h3_review {
    color: #f0b9c8;
-   font-size: 25px;
+   font-size: 30px;
    margin-top: 100px;
    text-align: left;
 }
 
 .h3_free {
    color: #adccfb;
-   font-size: 25px;
+   font-size: 30px;
    margin-top: 100px;
    text-align: left;
+}
+.review_box {
+    width: 1000px;
 }
 
 .head {
@@ -53,7 +56,7 @@ li {
 
 .writer span {
     margin-left: 60%;
-    font-size: 30px;
+    font-size: 50px;
 }
 
 .writer ul {
@@ -64,7 +67,7 @@ li {
 
 .writer ul li {
     margin: 10px;
-    font-size: 16px;
+    font-size: 20px;
     color: white;
     padding-top: 10px;
 }
@@ -73,14 +76,19 @@ li {
 	margin-right: 5px;
 }
 /* 본문 */
+.content_text {
+    width: 800px;
+    word-wrap: break-word; /* 긴 단어가 요소의 너비를 넘지 않도록 함 */
+}
 .content_text p {
 	font-size: 20px;
+	margin: 0 auto;
 }
 
 /* 이미지 & 텍스트 */
 .content_box {
     margin: 0 auto;
-    width: 800px;
+    width: 1000px;
     border-top: 1px solid darkgray;
     border-bottom: 1px solid darkgray;
     display: flex;
@@ -95,13 +103,13 @@ li {
 }
 
 .content_box ul li {
-    width: 1000px;
+    width: 800px;
     text-align: center;
     margin: 0 auto;
 }
-.content_text {
-    width: 1000px;
-}
+/* .content_text {
+   width: 1000px;
+} */
         
 .boardImg {
     max-width: 300px;
@@ -140,7 +148,7 @@ li {
 /* 컨텐츠 바로 위버튼 3개 */
 .top_btn {
     display: flex;
-    width: 800px;
+    width: 1000px;
     justify-content: space-between;
     margin: 20px auto;
     position: relative;
@@ -389,6 +397,7 @@ textarea#board_content {
     color: cornflowerblue;
     border: 1px solid cornflowerblue;
     border-radius: 4px; 
+	font-size: 20px;
 }
 
 .btnCommentAdd:hover {
