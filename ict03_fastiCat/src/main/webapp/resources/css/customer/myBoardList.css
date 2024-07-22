@@ -21,6 +21,10 @@
 	line-height: 30px;
 }
 
+.container {
+	height: 700px;
+}
+
 .table-container tr:nth-child(2),  .table-container tr:nth-child(3){
     border: 1px solid rgb(110, 62, 62); 
 }

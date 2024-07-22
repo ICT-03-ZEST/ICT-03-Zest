@@ -47,6 +47,8 @@ public class MyPageController extends HttpServlet {
 		// 1.게시판 목록조회 - 공연후기, 페스티벌후기, 자유 메뉴 선택시 해당 목록 전체조회(최신글 부터)
 		if(url.equals("/mypage.myp")) {
 			
+			//test
+			request.getSession().setAttribute("sessionID", "test");
 			request.getSession().setAttribute("myBoard", "1");// 게시글 추가,수정,삭제 후 나의게시글 목록으로 돌아오는 값
 			
 			viewPage = "customer/mypage/myPage.jsp";

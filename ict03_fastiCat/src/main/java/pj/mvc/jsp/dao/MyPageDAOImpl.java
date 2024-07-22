@@ -36,7 +36,7 @@ public class MyPageDAOImpl implements MyPageDAO{
 		private MyPageDAOImpl() {
 			try {
 				Context context = new InitialContext();
-				 dataSource = (DataSource) context.lookup("java:comp/env/jdbc/ict03_zest");
+				 dataSource = (DataSource) context.lookup("java:comp/env/jdbc/jsp_pj_ict03");
 			} catch (NamingException e) {
 				e.printStackTrace();
 			}
@@ -474,7 +474,7 @@ public class MyPageDAOImpl implements MyPageDAO{
 			String sql = "";
 			try {
 				conn = dataSource.getConnection();
-				sql = "SELECT COUNT(*) cnt FROM SHOW_RESERVATION WHERE userid = ? ";
+				sql = "SELECT COUNT(*) cnt FROM SHOW_RESERVATION WHERE userid = ? AND Reservation_check = 'y'";
 				
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, strId);

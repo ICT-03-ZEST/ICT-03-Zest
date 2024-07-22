@@ -174,7 +174,7 @@
            				<!-- 페이징 처리 -->
            				<!-- 이전 버튼 활성화 -->
            				<c:if test="${fbPaging.startPage > 10}">
-           					<a href="${path}/myBoardList.myp?fbPageNum=${fbPaging.prev}&category='자유'">[이전]</a>
+           					<a href="${path}/myBoardList.myp?fbPageNum=${fbPaging.prev}&category=자유">[이전]</a>
            				</c:if>
            				<!-- 페이지 번호 처리 -->
            				<c:forEach var="num" begin="${fbPaging.startPage}" end="${fbPaging.endPage}">
@@ -240,7 +240,7 @@
            				<!-- 페이지 번호 처리 -->
            				<c:forEach var="num" begin="${rbPaging.startPage}" end="${rbPaging.endPage}">
            					<c:if test="${num != 0}">
-           						<a href="${path}/myBoardList.myp?rbPageNum=${num}&category=공연후기'">${num}</a>
+           						<a href="${path}/myBoardList.myp?rbPageNum=${num}&category=공연후기">${num}</a>
            					</c:if>
            				</c:forEach>
            				
