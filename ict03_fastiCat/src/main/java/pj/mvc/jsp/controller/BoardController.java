@@ -110,9 +110,6 @@ public class BoardController extends HttpServlet {
 		else if(url.equals("/myWriting.bc")) {
 			System.out.println("컨트롤러 - myWriting.bc");
 			
-			String myBoard = request.getParameter("myBoard");
-			request.setAttribute("myBoard", myBoard);
-			
 			String category = request.getParameter("board_category");
 			request.setAttribute("category", category);
 			

@@ -50,6 +50,9 @@
     z-index: 0;
     margin-top: 80px; /* 예시로 20px로 설정 */
 }
+
+
+
 .slide_section input[id*="slide"] {display:none;}
 	.slide_section .slidewrap {max-width:1200px;margin:0 auto;}
 	.slide_section .slidelist {white-space:nowrap;font-size:0;overflow:hidden;position:relative;}
@@ -65,6 +68,8 @@
 	.slide_section input[id="slide01"]:checked ~ .slidewrap .slidelist > li {transform:translateX(0%);}
 	.slide_section input[id="slide02"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-100%);}
 	.slide_section input[id="slide03"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-200%);}
+	.slide_section input[id="slide04"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-300%);}
+    .slide_section input[id="slide05"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-400%);}
 
 	/* input에 체크되면 텍스트 효과 */
 	.slide_section input[id="slide01"]:checked ~ .slidewrap li:nth-child(1) .textbox h3 {opacity:1;transform:translateY(0);transition-delay:.2s;}
@@ -73,6 +78,11 @@
 	.slide_section input[id="slide02"]:checked ~ .slidewrap li:nth-child(2) .textbox p {opacity:1;transform:translateY(0);transition-delay:.4s;}
 	.slide_section input[id="slide03"]:checked ~ .slidewrap li:nth-child(3) .textbox h3 {opacity:1;transform:translateY(0);transition-delay:.2s;}
 	.slide_section input[id="slide03"]:checked ~ .slidewrap li:nth-child(3) .textbox p {opacity:1;transform:translateY(0);transition-delay:.4s;}
+    .slide_section input[id="slide04"]:checked ~ .slidewrap li:nth-child(4) .textbox h3 {opacity:1;transform:translateY(0);transition-delay:.2s;}
+    .slide_section input[id="slide04"]:checked ~ .slidewrap li:nth-child(4) .textbox p {opacity:1;transform:translateY(0);transition-delay:.4s;}
+    .slide_section input[id="slide05"]:checked ~ .slidewrap li:nth-child(5) .textbox h3 {opacity:1;transform:translateY(0);transition-delay:.2s;}
+    .slide_section input[id="slide05"]:checked ~ .slidewrap li:nth-child(5) .textbox p {opacity:1;transform:translateY(0);transition-delay:.4s;}
+
 
 	/* 좌,우 슬라이드 버튼 */
 	.slide-control > div {display:none;}
@@ -81,7 +91,9 @@
 	.slide_section input[id="slide01"]:checked ~ .slidewrap .slide-control > div:nth-child(1) {display:block;}
 	.slide_section input[id="slide02"]:checked ~ .slidewrap .slide-control > div:nth-child(2) {display:block;}
 	.slide_section input[id="slide03"]:checked ~ .slidewrap .slide-control > div:nth-child(3) {display:block;}
-
+    .slide_section input[id="slide04"]:checked ~ .slidewrap .slide-control > div:nth-child(4) {display:block;}
+    .slide_section input[id="slide05"]:checked ~ .slidewrap .slide-control > div:nth-child(5) {display:block;}
+    
 	/* 페이징 */
 	.slide-pagelist {text-align:center;padding:20px;}
 	.slide-pagelist > li {display:inline-block;vertical-align:middle;}
@@ -89,6 +101,9 @@
 	.slide_section input[id="slide01"]:checked ~ .slidewrap .slide-pagelist > li:nth-child(1) > label {background:#999;}
 	.slide_section input[id="slide02"]:checked ~ .slidewrap .slide-pagelist > li:nth-child(2) > label {background:#999;}
 	.slide_section input[id="slide03"]:checked ~ .slidewrap .slide-pagelist > li:nth-child(3) > label {background:#999;}
+	.slide_section input[id="slide04"]:checked ~ .slidewrap .slide-pagelist > li:nth-child(4) > label {background:#999;}
+    .slide_section input[id="slide05"]:checked ~ .slidewrap .slide-pagelist > li:nth-child(5) > label {background:#999;}
+	
 /* 배너 슬라이드 끝 */
 
 @media screen and (max-width: 768px) {

@@ -58,8 +58,7 @@ SELECT *
  FROM mvc_Notice_TBL;
 
 -- 김가연 -------------------------------------------------------------------------------
--- jsp_pj_ict03으로 접속
-----------  공연테이블 mvc_ad_concert_tbl 생성 ----------------------------------------------------
+---------- 공연 테이블 ----------------------------------------------------
 DROP TABLE mvc_ad_concert_tbl CASCADE CONSTRAINTS;
  CREATE TABLE mvc_ad_concert_tbl(
     conNo        NUMBER(7)  PRIMARY KEY,            -- 공연번호
@@ -73,62 +72,16 @@ DROP TABLE mvc_ad_concert_tbl CASCADE CONSTRAINTS;
     conPrice     NUMBER(9) NOT NULL,                -- 공연가격
     conContent   CLOB,                              -- 공연설명
     conStatus    VARCHAR2(20) NOT NULL,             -- 공연상태코드
-    conIndate    DATE  DEFAULT sysdate              -- 공연등록일
+    conIndate    DATE  DEFAULT sysdate,             -- 공연등록일
+    show         CHAR(1) DEFAULT 'y'     
  );
  
 -- 공연  목록 조회
 SELECT * FROM mvc_ad_concert_tbl
 ORDER BY conNo;
 
--- 공연 갯수
-SELECT COUNT(*) as cnt FROM mvc_ad_concert_tbl;
 
--- 공연 (삭제 show 칼럼 추가)
- ALTER TABLE mvc_ad_concert_tbl
-   ADD show CHAR(1) DEFAULT 'y';
-
- SELECT *
-   FROM (
-         SELECT A.*, 
-               rownum AS rn  -- 일련변호 가져오기
-          FROM 
-            (
-              SELECT *                
-                FROM mvc_ad_concert_tbl 
-                WHERE show = 'y'
-                ORDER BY conNo DESC
-            ) A
-        )   
- WHERE rn BETWEEN 1 AND 10; 
-
----- 공연 목록 조회 -----
-SELECT * FROM mvc_ad_concert_tbl 
- WHERE show = 'y'
- ORDER BY conNo;
-   
--- 칼럼 수정
-ALTER TABLE mvc_ad_concert_tbl 
-MODIFY conTime VARCHAR2(200);
-  
-   
--- 공연등록
-INSERT INTO mvc_ad_concert_tbl(conNo, conCategory, conName, conGrade, conTime, conPlace, conImg, conBuy, conPrice, conContent, conStatus, conIndate)
- VALUES((SELECT NVL(MAX(conNo)+1, 1) FROM mvc_ad_concert_tbl), '트로트', '콘서트이름1', '만7세이상', '2024/07/07', '체조경기장', '/js_pj_fasticat/resources/images/고양이뒷모습.jpg', '예매처', 115000, '공연설명', '판매중', sysdate); 
-
-COMMIT;
-
--- 공연 삭제(update n)
-UPDATE mvc_ad_concert_tbl
-SET show = 'n'
-WHERE conNo = 1;
-
--- 공연 수정
-UPDATE mvc_ad_concert_tbl
-SET conCategory = '케이팝'
-WHERE conNo = 4;
-
-------------------  페스티벌 테이블 ----------------------------------------------------------------------------
--- 페스티벌테이블 mvc_ad_festival_tbl 생성
+--------  페스티벌 테이블 ----------------------------------------------------------------------------
 DROP TABLE mvc_ad_festival_tbl CASCADE CONSTRAINTS;
  CREATE TABLE mvc_ad_festival_tbl(
     fesNo        NUMBER(7)  PRIMARY KEY,            -- 페스티벌 번호
@@ -147,53 +100,7 @@ DROP TABLE mvc_ad_festival_tbl CASCADE CONSTRAINTS;
  
 -- 페스티벌 목록 조회
 SELECT * FROM mvc_ad_festival_tbl
-WHERE show = 'y'
 ORDER BY fesNo;
-
-INSERT INTO mvc_ad_festival_tbl(fesNo, fesName, fesGrade, fesTime, fesPlace, fesImg, fesBuy, fesPrice, fesContent, fesStatus, fesIndate)
- VALUES((SELECT NVL(MAX(fesNo)+1, 1) FROM mvc_ad_festival_tbl), '서울재즈페스티벌', '전체관람가', '2024/07/07', '올림픽공원', '/js_pj_fasticat/resources/images/고양이뒷모습.jpg', '인터파크', 189000, '공연설명', '판매중', sysdate); 
-COMMIT;
-
-
--- 페스티벌 갯수
-SELECT COUNT(*) as cnt FROM mvc_ad_festival_tbl;
-
-
--- 페스티벌 (삭제 show 칼럼 추가)
- ALTER TABLE mvc_ad_festival_tbl
-   ADD show CHAR(1) DEFAULT 'y';
-
- SELECT *
-   FROM (
-         SELECT A.*, 
-               rownum AS rn  -- 일련변호 가져오기
-          FROM 
-            (
-              SELECT *                
-                FROM mvc_ad_festival_tbl 
-                WHERE show = 'y'
-                ORDER BY fesNo DESC
-            ) A
-        )   
- WHERE rn BETWEEN 1 AND 10; 
-
-
--- 페스티벌 데이터 삭제
-DELETE mvc_ad_festival_tbl
-WHERE fesNo = 9;
-
--- 페스티벌 수정
-UPDATE mvc_ad_festival_tbl
-SET fesNo=1, fesName='', fesGrade='', fesTime='', fesPlace='', fesImg='', fesBuy='', fesPrice='', fesContent='', fesStatus='', fesIndate=''
-WHERE fesNo=1;
-
--- 페스티벌 삭제(update n)
-UPDATE mvc_ad_festival_tbl
-SET show = 'n'
-WHERE fesNo = 7;
-
-COMMIT;
-
 
 
 ----------- 배너테이블 ----------------------------------------------------------
@@ -203,41 +110,16 @@ DROP TABLE mvc_ad_banner_tbl CASCADE CONSTRAINTS;
     bannerArea      VARCHAR2(50)  NOT NULL UNIQUE,     -- 배너영역(메인1,2,3)
     bannerImg       VARCHAR2(100) NOT NULL,            -- 배너 이미지
     bannerStatus    VARCHAR2(20) NOT NULL,             -- 배너 상태코드(사용함,안함)
-    bannerIndate    DATE  DEFAULT sysdate,              -- 등록일
-    show              CHAR(1) DEFAULT 'y'     
+    bannerIndate    DATE  DEFAULT sysdate,             -- 등록일
+    show            CHAR(1) DEFAULT 'y'     
  );
  
 -- 배너 목록 조회
 SELECT * FROM mvc_ad_banner_tbl
 ORDER BY bannerNo;
 
--- 배너 등록
-INSERT INTO mvc_ad_banner_tbl(bannerNo, bannerArea, bannerImg, bannerStatus, bannerIndate)
- VALUES((SELECT NVL(MAX(bannerNo)+1, 1) FROM mvc_ad_banner_tbl), '메인배너1', '/js_pj_fasticat/resources/images/고양이뒷모습.jpg', '사용함', sysdate); 
-COMMIT;
 
-SELECT * FROM mvc_ad_banner_tbl
- WHERE show = 'y'
- ORDER BY bannerNo;
-
--- 배너 삭제
-DELETE mvc_ad_banner_tbl
-WHERE bannerNo = 3;
-COMMIT;
-
--- 배너 수정
-UPDATE mvc_ad_banner_tbl
-SET bannerArea='메인배너1', bannerImg='/js_pj_fasticat/resources/images/고양이뒷모습.jpg', bannerStatus='사용함', bannerIndate=sysdate
-WHERE bannerNo=1;
-
--- 배너 삭제(update n)
-UPDATE mvc_ad_banner_tbl
-SET show = 'y'
-WHERE bannerNo = 2;
-
-
------- 공지사항 --------------------------------------------------------------------
--- 공지사항  테이블
+------ 공지사항 테이블 --------------------------------------------------------------------
 DROP TABLE mvc_ad_notice_tbl  CASCADE CONSTRAINTS;
 CREATE TABLE mvc_ad_notice_tbl(  
    noticeNo          NUMBER(7)  PRIMARY KEY,      -- 공지사항 번호
@@ -254,24 +136,6 @@ CREATE TABLE mvc_ad_notice_tbl(
 SELECT * FROM mvc_ad_notice_tbl
 ORDER BY noticeNo;
 
--- 공지사항 등록
-INSERT INTO mvc_ad_notice_tbl(noticeNo, noticeTitle, noticeContent, noticeImg, noticeWriter, noticeReadCnt, noticeRegDate)
- VALUES((SELECT NVL(MAX(noticeNo)+1, 1) FROM mvc_ad_notice_tbl), '제목1', '내용', '/js_pj_fasticat/resources/images/고양이뒷모습.jpg', '관리자1', 0, sysdate); 
-COMMIT;
-
--- 공지사항 (삭제 show 칼럼 추가)
- ALTER TABLE mvc_ad_notice_tbl
-   ADD show CHAR(1) DEFAULT 'y';
-   
--- 공지사항 수정
-UPDATE mvc_ad_notice_tbl
-SET noticeTitle='메인배너1', noticeContent='내용' , noticeImg='/js_pj_fasticat/resources/images/고양이뒷모습.jpg', noticeWriter='작성자', noticeReadCnt='0', noticeRegDate=sysdate
-WHERE noticeNo=1;
-
--- 공지사항 삭제
-UPDATE mvc_ad_notice_tbl
-SET show='n'
-WHERE noticeNo=1;
 
 -- 김성태 -------------------------------------------------------------------------------
 --2. 게시판 공연, 페스티벌 후기 게시판/  
@@ -336,7 +200,7 @@ SELECT * FROM freeBoard_list;
 DROP TABLE reviewBoard_tbl;
 CREATE TABLE reviewBoard_tbl(  
      board_num         NUMBER(7) PRIMARY KEY,           -- 글번호
-     board_category    VARCHAR2(30) DEFAULT '공연후기',  -- 카테고리 
+     board_category    VARCHAR2(30) DEFAULT '공연후기',    -- 카테고리 
      board_title       VARCHAR2(50)  NOT NULL,          -- 글제목
      board_content     CLOB  NOT NULL,                  -- 글내용
      board_thumnail    VARCHAR2(100),                   -- default 썸네일은 목록조회시 생성됨
