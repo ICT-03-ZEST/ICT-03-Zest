@@ -6,36 +6,46 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
 table {
-   width: 1200px;
-   margin: 50px auto;
-   border-collapse: collapse;
+    width: 80%; /* 반응형 디자인을 위한 너비 조정 */
+    margin: 50px auto;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0	,0,0.1); /* 카드 스타일 그림자 효과 추가 */
 }
 
 th, td {
-   border: 1px solid orange;
-   padding: 10px;
-   text-align: center;
-   height: 50px;
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
 }
 
 th {
-   font-weight: bold;
+	background-color: orange;
+    font-weight: bold;
 }
 
 .button {
-   text-align: center; /* 가운데 정렬 */
-   margin-top: 10px; /* 위 여백 */
+    text-align: center;
+    margin-top: 20px; /* 버튼 위 여백 조정 */
 }
 
 .button input[type="button"] {
-   margin: 5px; 
-   padding: 10px 20px; 
-   background-color: orange;
-   border: none; 
-   cursor: pointer; 
-   border-radius: 5px; 
-}
+ 	border: 2px solid orange;
+    background-color: white;
+    width: 100px;
+    height: 50px;
+    font-size: 14px;
+    color: orange;
+    cursor: pointer;
+    border-radius: 5px;
 </style>
 <title>상세페이지</title>
 </head>

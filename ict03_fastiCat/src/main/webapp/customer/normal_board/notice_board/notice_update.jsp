@@ -27,29 +27,61 @@
 </script>
 
 <style>
-  table {
-        width: 1200px;
-        margin: 50px auto;
-        border-collapse: collapse;
-        border: 1px solid orange;
-        border-radius: 8px;
-    }
-    th, td {
-        border: 1px solid orange;
-        padding: 10px;
-        text-align: center;
-    }
-    th {
-        font-weight: bold;
-    }
-  
-    .inputButton{
-	border: 2px solid orange;
-	background-color: white;
-	width: 100px;
-	height: 50px;
-	font-size: 12px;
-	}
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+table {
+    width: 80%; /* 반응형 디자인을 위한 너비 조정 */
+    margin: 50px auto;
+    border-collapse: collapse;
+    border: 1px solid orange;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+th, td {
+    border: 1px solid orange;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    font-weight: bold;
+    background-color: orange;
+}
+
+.input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.button {
+    text-align: center;
+    margin-top: 20px; /* 버튼 위 여백 조정 */
+}
+
+.inputbutton {
+    border: 2px solid black;
+    background-color: orange;
+    width: 100px;
+    height: 50px;
+    font-size: 14px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
 </style>
 <title>수정페이지</title>
 <link rel="stylesheet" type="text/css"
