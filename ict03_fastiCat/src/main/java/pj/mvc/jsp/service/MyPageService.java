@@ -36,4 +36,17 @@ public interface MyPageService {
 	public void BoardDeleteAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException;
 	
+	// 나의 예매 내역
+	public void reservationListAction(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException;
+	
+	// 나의 예매 내역 취소 확인
+	public void resCanPwdChk(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException;
+	
+	// 나의 예매 내역 처리
+	public void reservationCancelAction(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException;
+	
+	
 }

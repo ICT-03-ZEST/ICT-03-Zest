@@ -1,7 +1,6 @@
 package pj.mvc.jsp.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,6 +14,7 @@ import javax.sql.DataSource;
 
 import pj.mvc.jsp.dto.BoardDTO;
 import pj.mvc.jsp.dto.MyPageDTO;
+import pj.mvc.jsp.dto.MyReservationDTO;
 
 public class MyPageDAOImpl implements MyPageDAO{
 
@@ -36,7 +36,7 @@ public class MyPageDAOImpl implements MyPageDAO{
 		private MyPageDAOImpl() {
 			try {
 				Context context = new InitialContext();
-				 dataSource = (DataSource) context.lookup("java:comp/env/jdbc/ict03_zest");
+				 dataSource = (DataSource) context.lookup("java:comp/env/jdbc/jsp_pj_ict03");
 			} catch (NamingException e) {
 				e.printStackTrace();
 			}
@@ -275,7 +275,7 @@ public class MyPageDAOImpl implements MyPageDAO{
 		// 게시글 목록
 		@Override
 		public List<BoardDTO> myBoardList(String strId, String table, int start, int end) {
-			System.out.println("BoardDAO - boardList");
+			System.out.println("MyPageDAO - boardList");
 			
 			List<BoardDTO> list = new ArrayList<>();
 			
@@ -362,7 +362,7 @@ public class MyPageDAOImpl implements MyPageDAO{
 		// 게시글 갯수 구하기
 		@Override
 		public int myBoardCnt(String strId, String table) {
-			System.out.println("BoardDAO - boardCnt");
+			System.out.println("MyPageDAO - boardCnt");
 			
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -444,6 +444,158 @@ public class MyPageDAOImpl implements MyPageDAO{
 				    pstmt.setInt(i + 2, Integer.parseInt(numList[i]));
 				}
 				
+				deleteCnt = pstmt.executeUpdate();
+				System.out.println("deleteCnt : " + deleteCnt); //성공 : 1 , 실패 : 0
+			} catch(SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if(pstmt != null) pstmt.close();
+					if(conn != null) conn.close();
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			return deleteCnt;
+		}
+
+
+		@Override
+		public int resBoardCnt(String strId) {
+			System.out.println("MyPageDAO - resBoardCnt");
+			
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			int total = 0;
+			
+			String sql = "";
+			try {
+				conn = dataSource.getConnection();
+				sql = "SELECT COUNT(*) cnt FROM SHOW_RESERVATION WHERE userid = ? ";
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, strId);
+				
+				// 3. resultSet에 담고
+				rs = pstmt.executeQuery();
+				
+				// 4. resultSet에 데이터가 존재하면
+				
+				
+				if(rs.next()) {
+					total = rs.getInt("cnt");
+				}
+				
+				System.out.println("total : " + total);
+			} catch(SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if(rs != null) rs.close();
+					if(pstmt != null) pstmt.close();
+					if(conn != null) conn.close();
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			// 5. CustomerDTO를 리턴한다.
+			return total;
+		}
+
+
+		@Override
+		public List<MyReservationDTO> resBoardList(String strId, int start, int end) {
+			System.out.println("MyPageDAO - resBoardList");
+			
+			List<MyReservationDTO> list = new ArrayList<>();
+			
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+				
+				try {
+					conn = dataSource.getConnection();
+					
+					String sql = "";
+					
+					sql = "SELECT *  FROM ( SELECT A.*, rownum as rn "
+							+ "    FROM ( "
+							+ "        SELECT sr.show_ResId showId, st.showName showName, mc.username userName, sr.totalPrice totalPrice, sr.Reservation_date showDate, sr.Reservation_dateNow resDate"
+							+ "        FROM show_Reservation sr "
+							+ "            JOIN show_tbl st ON sr.showNum = st.showNum "
+							+ "            JOIN mvc_customer_tbl mc ON sr.userID = mc.userid "
+							+ "        WHERE sr.userID = ? "
+							+ "        AND sr.Reservation_check = 'y' "
+							+ "        ORDER BY sr.show_ResId DESC "
+							+ "        ) A "
+							+ "    ) WHERE rn BETWEEN ? AND ? ";
+					
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, strId);
+					pstmt.setInt(2, start);
+					pstmt.setInt(3, end);
+					
+					// 3. resultSet에 담고
+					rs = pstmt.executeQuery();
+					
+					// 4. resultSet에 데이터가 존재하면
+					while(rs.next()) {
+						//DTO 생성
+						MyReservationDTO dto = new MyReservationDTO();
+						
+						dto.setShowId(rs.getInt("showId"));
+						dto.setShowName(rs.getString("showName"));
+						dto.setUserName(rs.getString("userName"));
+						dto.setShowDate(rs.getDate("showDate"));
+						dto.setResDate(rs.getDate("resDate"));
+						dto.setTotalPrice(rs.getInt("totalPrice"));
+							
+					    list.add(dto);
+					}
+				} catch(SQLException e) {
+					e.printStackTrace();
+				} finally {
+					try {
+						if(rs != null) rs.close();
+						if(pstmt != null) pstmt.close();
+						if(conn != null) conn.close();
+						
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				
+				// 5. CustomerDTO를 리턴한다.
+				return list;
+		}
+		
+		@Override
+		public int resDelete(String strId, String resNum) {
+			System.out.println("DAO - deleteCustomer");
+			
+			int deleteCnt = 0;
+			
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			
+			try {
+				conn = dataSource.getConnection();
+				
+				String query = "";
+				
+				query = "UPDATE SHOW_RESERVATION SET reservation_check = 'n' WHERE show_resid = ? AND userid = ? ";
+				
+				pstmt = conn.prepareStatement(query);
+
+				pstmt.setString(1, resNum); 
+				pstmt.setString(2, strId); 
+
+
 				deleteCnt = pstmt.executeUpdate();
 				System.out.println("deleteCnt : " + deleteCnt); //성공 : 1 , 실패 : 0
 			} catch(SQLException e) {

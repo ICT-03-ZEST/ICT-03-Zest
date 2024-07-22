@@ -116,7 +116,7 @@
                         <button class="btn_board dis_btn" onclick="boardPopup()">나의 게시글</button>
                     </div>
                     <div>
-                        <button class="btn_ticket dis_btn" onclick="ticketPopup()">예매내역 확인</button>
+                        <button class="btn_res dis_btn" onclick="resPopup()">예매내역 확인</button>
                     </div>
                     <div>
                         <button class="btn_mod dis_btn" onclick="upChkPopup()">회원정보 수정</button>
@@ -224,8 +224,8 @@
 		location.href = "${path}/myBoardList.myp"; 
 	}
 	
-	function ticketPopup() {
-			location.href = "${path}/myTicketDetail.myp"; 
+	function resPopup() {
+			location.href = "${path}/myReservation.myp"; 
 	}
 	
 	// 회원수정

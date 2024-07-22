@@ -4,6 +4,7 @@ import java.util.List;
 
 import pj.mvc.jsp.dto.BoardDTO;
 import pj.mvc.jsp.dto.MyPageDTO;
+import pj.mvc.jsp.dto.MyReservationDTO;
 
 public interface MyPageDAO {
 	// ID 중복확인 처리
@@ -32,4 +33,12 @@ public interface MyPageDAO {
 		
 		// 게시물 삭제
 		public int boardDelete(String strId, String[] numList, String category);
+		
+		// 예매 내역 갯수
+		public int resBoardCnt(String strId);
+		
+		// 게시물 목록
+		public List<MyReservationDTO> resBoardList(String strId, int start, int end);
+		
+		public int resDelete(String strId, String resNum);
 }

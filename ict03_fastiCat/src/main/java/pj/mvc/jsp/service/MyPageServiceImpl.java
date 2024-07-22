@@ -12,6 +12,7 @@ import pj.mvc.jsp.dao.MyPageDAO;
 import pj.mvc.jsp.dao.MyPageDAOImpl;
 import pj.mvc.jsp.dto.BoardDTO;
 import pj.mvc.jsp.dto.MyPageDTO;
+import pj.mvc.jsp.dto.MyReservationDTO;
 import pj.mvc.jsp.page.Paging;
 
 public class MyPageServiceImpl implements MyPageService {
@@ -226,6 +227,84 @@ public class MyPageServiceImpl implements MyPageService {
 			
 			// 5단계. 중복확인 처리
 			int deleteCnt = dao.boardDelete(strId, numList, category);
+			
+			// 6단계. jsp로 처리결과 전달
+			request.setAttribute("deleteCnt", deleteCnt);
+			
+		};
+		
+		// 게시글 목록 - 공연후기
+		@Override
+		public void reservationListAction(HttpServletRequest request, HttpServletResponse response)
+				throws ServletException, IOException {
+			System.out.println("서비스 - reservationListAction");
+			
+			// 3단계. 화면에서 입력받은 값을 가져오기
+			String pageNum = request.getParameter("pageNum");
+
+			String strId = (String) request.getSession().getAttribute("sessionID");
+			System.out.println("strId :" + strId);
+			
+			// 4단계. 싱글톤 방식으로 DAO 객체 생성,
+			MyPageDAO dao = MyPageDAOImpl.getInstance();
+			
+			// 5-1단계. 전체 게시글 갯수 카운트
+			Paging paging = new Paging(pageNum);
+			int total = dao.resBoardCnt(strId);
+			System.out.println("SHOW_RESERVATION => " + total);
+			
+			paging.setTotalCount(total);
+			
+			// 5-2단계. 게시글 목록 조회
+			int start = paging.getStartRow();
+			int end = paging.getEndRow();
+			
+			List<MyReservationDTO> list = dao.resBoardList(strId, start, end);
+			System.out.println("list : " + list);
+			
+			request.setAttribute("list", list);
+			request.setAttribute("paging", paging);
+		}
+		
+		// 회원정보 인증처리 및 상세페이지
+		@Override
+		public void resCanPwdChk(HttpServletRequest request, HttpServletResponse response)
+				throws ServletException, IOException{
+				System.out.println("서비스 - resCanPwdChk()");
+			
+			String strId = (String) request.getSession().getAttribute("sessionID");
+			String strPwd = request.getParameter("password");
+			
+			// 4단계. 싱글톤 방식으로 DAO 객체 생성, 다형성 적용
+			MyPageDAO dao = MyPageDAOImpl.getInstance();
+			
+			// 5단계. 중복확인 처리
+			int selectCnt = dao.idPasswordChk(strId, strPwd);
+			
+			// 6단계. jsp로 처리결과 전달
+			request.setAttribute("selectCnt", selectCnt);
+			
+		};
+		
+		
+		@Override
+		public void reservationCancelAction(HttpServletRequest request, HttpServletResponse response)
+				throws ServletException, IOException{
+				System.out.println("서비스 - reservationCancelAction()");
+			
+			String strId = (String) request.getSession().getAttribute("sessionID");
+			
+			String resNum = request.getParameter("resNum");
+		
+			System.out.println("resNum : " + resNum);
+			System.out.println("strId : " + strId);
+			
+			// 4단계. 싱글톤 방식으로 DAO 객체 생성, 다형성 적용
+			// MyPageDAOImpl dao = new MyPageDAOImpl();
+			MyPageDAO dao = MyPageDAOImpl.getInstance();
+			
+			// 5단계. 중복확인 처리
+			int deleteCnt = dao.resDelete(strId, resNum);
 			
 			// 6단계. jsp로 처리결과 전달
 			request.setAttribute("deleteCnt", deleteCnt);

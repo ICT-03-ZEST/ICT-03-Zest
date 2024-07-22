@@ -13,6 +13,7 @@
 	<script type="text/javascript">
 	
     window.onload = function() {
+    	
     	//시작 테이블 토글
     	let category = "<%= request.getAttribute("category") %>"
     	
@@ -58,7 +59,6 @@
 		if ($('#review_category').is(':checked')) {
 			 // 체크된 체크박스들을 순회하며 ID 값을 리스트에 추가
 	         $('#review_table input[type="checkbox"]:checked').each(function() {
-	             
 	          // ID에서 특정 문자 제거
                 let id = $(this).attr('id').replace('_review_chkBox', '');
                 num_list.push(id);
@@ -129,6 +129,7 @@
 	            </label>
         	</div>
         	
+        	<!-- 자유 -->
 			<table id="free_table" class="table-container">  <!-- 가능하면 자유/ 후기 나누기-->
 				<thead>
 		        <tr>
@@ -189,6 +190,7 @@
            		</tfoot>
 			</table>
 			
+			<!-- 공연 -->
 			<table id="review_table" class="table-container">  <!-- 가능하면 자유/ 후기 나누기-->
 				<thead>
 		        <tr>
@@ -208,7 +210,7 @@
 		        <tbody>
            		<c:forEach var="dto" items="${rbList}"> 
             		<tr>
-						<td class="td_chk"><input type="checkbox" class="review_chkBox" id="${dto.board_num}_review_chkBox"></td>
+						<td class="td_chk"><input type="checkbox" class="free_chkBox" id="${dto.board_num}_review_chkBox"></td>
 			            <td class="serialNum"> ${dto.board_num} </td>
 			            <td class="title">
 			            	
@@ -217,6 +219,7 @@
 							</a>
 							
 						</td>
+						<td class="thumnail"><img src="${dto.board_thumnail}" alt="${dto.board_thumnail}" class="thumnailImg"></td>
 			            <td class="category">${dto.board_category}</td>
 			            <td class="writer">${dto.board_title}</td>
 			            <td class="regDate">${dto.board_regDate}</td>

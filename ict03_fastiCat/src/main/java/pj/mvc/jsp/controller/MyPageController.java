@@ -47,6 +47,8 @@ public class MyPageController extends HttpServlet {
 		// 1.게시판 목록조회 - 공연후기, 페스티벌후기, 자유 메뉴 선택시 해당 목록 전체조회(최신글 부터)
 		if(url.equals("/mypage.myp")) {
 			
+			//test
+			request.getSession().setAttribute("sessionID", "test");
 			request.getSession().setAttribute("myBoard", "1");// 게시글 추가,수정,삭제 후 나의게시글 목록으로 돌아오는 값
 			
 			viewPage = "customer/mypage/myPage.jsp";
@@ -55,6 +57,8 @@ public class MyPageController extends HttpServlet {
 		// 나의 게시물 목록
 		else if (url.equals("/myBoardList.myp")) {
 			System.out.println("<url --> /myBoardList.myp>");
+			
+			request.getSession().setAttribute("myBoard","1");
 	          
 			// 서비스 -> DAO(SELECT)
 			service.boardListAction(request, response);
@@ -62,16 +66,39 @@ public class MyPageController extends HttpServlet {
        	 	viewPage= "customer/mypage/myBoardList.jsp";
 		} 
 		
-		// 나의 예매 내역
-		else if (url.equals("/myTicketDetail.myp")) {
-			System.out.println("<url --> /myTicketDetail.myp>");
+		// [나의 예매 내역]
+		else if (url.equals("/myReservation.myp")) {
+			System.out.println("<url --> /myReservation.myp>");
 			
-			viewPage = "customer/mypage/myTicketDetail.jsp";
-		} else if (url.equals("/join.myp")) {
-			System.out.println("<<< url ==> /join.myp >>>");
+			request.getSession().setAttribute("myBoard","1");
 			
-			viewPage = "views/join.jsp";
-		} 
+			service.reservationListAction(request, response);
+			
+			viewPage = "customer/mypage/myReservation.jsp";
+		
+		}
+		
+		// 나의 예매 내역 취소 비밀번호 확인
+		else if (url.equals("/resCancelPwdChk.myp")) {
+			System.out.println("<url --> /resCancelPwdChk.myp>");
+				
+			service.resCanPwdChk(request, response);
+			
+			viewPage = "customer/mypage/myResCancelPopup.jsp";
+		
+		}
+		
+		// 나의 예매 내역 취소 처리
+		else if (url.equals("/myReservationCancelAction.myp")) {
+			System.out.println("<url --> /myReservationCancelAction.myp>");
+			
+			request.getSession().setAttribute("myBoard","1");
+			
+			service.reservationCancelAction(request, response);
+			
+			viewPage = "customer/mypage/myReservation.jsp";
+		
+		}
 		
 		// [회원수정 ]	
 		// 회원수정 인증
@@ -129,6 +156,7 @@ public class MyPageController extends HttpServlet {
 			
 			viewPage = "customer/mypage/myBoardList.jsp";
 		}
+		
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

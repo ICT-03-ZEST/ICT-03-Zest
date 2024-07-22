@@ -12,7 +12,7 @@
 <c:if test="${selectCnt == 1}">
 	<div class="popup-header">회원탈퇴 확인</div>
         <div class="del_popup-body"> 
-            회원탈퇴시 회원님의 게시글은 바로 삭제가 되며 복구할 수 없습니다. <br>
+            회원탈퇴시 회원님의 정보는 바로 삭제가 되며 복구할 수 없습니다. <br>
             회원탈퇴를 하시겠습니까? 
         </div>
         <div>
