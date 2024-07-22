@@ -73,7 +73,7 @@ public class BoardController extends HttpServlet {
 			System.out.println("컨트롤러 - /content.bc");
 			
 			String category = request.getParameter("board_category");
-			
+			System.out.println("category: " + category);
 			serv.boardDetailAction(request, response);
 			
 			if(category.equals("공연후기")) {
@@ -88,7 +88,6 @@ public class BoardController extends HttpServlet {
 		//좋아요 추가 / 삭제
 		else if(url.equals("/heartClick.bc")) { 
 			int heart = Integer.parseInt(request.getParameter("heart"));
-			String category = request.getParameter("board_category");
 			
 			if(heart == 1) {
 				
@@ -97,13 +96,6 @@ public class BoardController extends HttpServlet {
 			else {
 				serv.heartDeleteAction(request, response);
 			}
-			// 없애도 하트클릭후 새로고침이 될까??
-			if(category.equals("공연후기")) { 
-				viewPage = "customer/normal_board/review_board/review_content.jsp"; 
-			} 
-			else { 
-				viewPage = "customer/normal_board/free_board/free_content.jsp"; 
-				}
 		}
 		
 		//2-1. 게시글 추가 페이지
@@ -210,7 +202,7 @@ public class BoardController extends HttpServlet {
 			
 			viewPage = "customer/mypage/comment_fn/comment_deleteAction.jsp";
 		}
-				RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 		
 	}

@@ -864,7 +864,8 @@ public class BoardDAOImpl implements BoardDAO {
 	// 댓글 한건 조회 - 댓글번호
 	public CommentDTO cmtSelect(int num, String category) {
 		System.out.println("BoardDAOImpl - cmtSelect");
-		
+		System.out.println("num: " + num);
+		System.out.println("category: " + category);
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

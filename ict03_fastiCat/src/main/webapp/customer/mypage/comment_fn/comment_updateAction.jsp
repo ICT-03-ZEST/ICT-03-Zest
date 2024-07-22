@@ -10,7 +10,7 @@
 <body>
 	<script>
 		alert("댓글 수정 완료 ");
-		location.href='${path}/content.bc?board_category=${bd_dto.board_category}&board_num=${bd_dto.board_num}&pageNum=${pageNum}';  
+		location.href='${path}/content.bc?board_category=${dto.board_category}&board_num=${dto.board_num}&pageNum=${pageNum}';  
 	</script>
 </body>
 </html>

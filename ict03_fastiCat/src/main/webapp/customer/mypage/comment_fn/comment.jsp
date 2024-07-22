@@ -19,7 +19,7 @@ $(function() {
 	           let comment_num = $(this).data('comment_num');
 	           
 	           if (confirm("댓글을 삭제하시겠습니까?")) {
-	               location.href = '${path}/comment_deleteAction.bc?board_category=${dto.board_category}' + '&board_num=' + board_num + '&comment_num=' + comment_num + "&pageNum=${pageNum}";
+	               location.href = '${path}/comment_deleteAction.bc?board_category=${category}&board_num=' + board_num + '&comment_num=' + comment_num + '&pageNum=${pageNum}';
 	           }
 		}); 
 	});
@@ -30,7 +30,7 @@ $(function() {
 		  let param = {
 				"pageNum":"${pageNum}",
 				"comment_num":$(this).data('comment_num'),
-				"board_category":"${dto.board_category}"
+				"board_category":"${category}"
 			}
          
 			$.ajax({
