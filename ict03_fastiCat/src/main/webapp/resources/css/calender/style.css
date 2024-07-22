@@ -11,7 +11,7 @@ body {
 .calendar-container {
     width: 90vw;
     height: 90vh;
-    max-width: 1200px;
+    max-width: 1400px;
     max-height: 800px;
     margin: 20px auto;
     border: 1px solid #ddd;
@@ -26,14 +26,14 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #007bff;
+    background-color: #ffb01f;
     color: #fff;
     padding: 10px;
     border-bottom: 1px solid #ddd;
 }
 
 .calendar-header button {
-    background-color: #0056b3;
+    background-color: #ffb01f;
     border: none;
     color: #fff;
     padding: 8px;
@@ -111,7 +111,7 @@ body {
 }
 
 .show-name {
-    background-color: #007bff;
+    background-color: #ffb01f;
     color: #fff;
     padding: 2px 5px;
     border-radius: 3px;
