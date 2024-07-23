@@ -41,60 +41,6 @@ public class MyPageDAOImpl implements MyPageDAO{
 				e.printStackTrace();
 			}
 		}
-		
-		
-		// ID 중복확인 처리
-		@Override
-		public int useridCheck(String strId) {
-			
-			System.out.println("DAO - useridCheck");
-			
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			
-			int selectCnt = 0;
-
-			try {
-				conn = dataSource.getConnection();
-				String sql = "SELECT * FROM mvc_user_tbl "
-							+ "WHERE userId=?";
-				
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, strId);
-				
-				rs = pstmt.executeQuery();
-				if(rs.next()) {
-					selectCnt = 1;
-				}
-				
-				System.out.println("selectCnt : " + selectCnt);
-			} catch(SQLException e) {
-				e.printStackTrace();
-			} finally {
-				try {
-					if(rs != null) rs.close();
-					if(pstmt != null) pstmt.close();
-					if(conn != null) conn.close();
-					
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			
-			return selectCnt;
-		}
-		
-		// 회원가입 처리
-		@Override
-		public int insertUser(MyPageDTO dto) {
-			System.out.println("DAO - insertUser");
-			
-			
-			
-			return 0;
-		}
-
 
 		@Override
 		public int idPasswordChk(String strId, String strPassword) {

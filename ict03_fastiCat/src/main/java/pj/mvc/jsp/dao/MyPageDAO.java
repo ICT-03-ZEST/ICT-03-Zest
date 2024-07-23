@@ -7,11 +7,6 @@ import pj.mvc.jsp.dto.MyPageDTO;
 import pj.mvc.jsp.dto.MyReservationDTO;
 
 public interface MyPageDAO {
-	// ID 중복확인 처리
-		public int useridCheck(String strUserId);
-		
-		// 회원가입 처리
-		public int insertUser(MyPageDTO dto);
 		
 		// 로그인 처리 / 회원정보 인증 (수정, 탈퇴)
 		public int idPasswordChk(String strId, String strPassword);
