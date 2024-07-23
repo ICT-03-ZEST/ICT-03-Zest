@@ -335,6 +335,13 @@ CREATE SEQUENCE show_tbl_seq
     INCREMENT BY 1
     NOCACHE
     NOCYCLE;  
+
+-- show_seat_grade 테이블을 위한 시퀀스
+CREATE SEQUENCE show_Reservation_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE
+    NOCYCLE;
     
 CREATE TABLE show_Reservation (
     show_ResId          NUMBER(6)           PRIMARY KEY,
@@ -347,12 +354,7 @@ CREATE TABLE show_Reservation (
 );
 commit;
 
--- show_seat_grade 테이블을 위한 시퀀스
-CREATE SEQUENCE show_Reservation_seq
-    START WITH 1
-    INCREMENT BY 1
-    NOCACHE
-    NOCYCLE;
+
     
     
     
@@ -384,4 +386,41 @@ BEGIN
     END LOOP;
 END
 
+--캘린더 더미 ---------------------------------------------------------------------------
+DECLARE
+    start_date DATE := TO_DATE('2024-06-01', 'YYYY-MM-DD'); -- 6월 1일
+    end_date DATE := TO_DATE('2024-08-31', 'YYYY-MM-DD'); -- 8월 31일
+    current_day DATE;
 
+BEGIN
+    -- 데이터 삽입
+    current_day := start_date;
+
+    WHILE current_day <= end_date LOOP
+        FOR j IN 1..5 LOOP -- 각 날짜에 5개의 공연 추가
+            -- showName을 공연마다 3일씩 지속되도록 설정
+            FOR k IN 0..2 LOOP
+                INSERT INTO show_tbl(showNum, showName, showPlace, showPrice, curCapacity, maxCapacity, showDay, showCHK, showBene, showAge, showTime)
+                VALUES(
+                    show_tbl_seq.NEXTVAL,
+                    '공연명' || (5 * (current_day - start_date) + j),  -- 공연명
+                    '잠실실내체육관',
+                    200000 + (j * 100000),  -- 가격
+                    CASE
+                        WHEN EXTRACT(MONTH FROM current_day) = 6 THEN 150 -- 6월
+                        WHEN EXTRACT(MONTH FROM current_day) = 7 THEN 0   -- 7월
+                        WHEN EXTRACT(MONTH FROM current_day) = 8 THEN 350 -- 8월
+                    END,
+                    35000,
+                    current_day + k, -- 연속된 날짜 지정
+                    'Y',
+                    '무이자할부', -- showBene 값
+                    7,             -- showAge 값
+                    120            -- showTime 값
+                );
+            END LOOP;
+        END LOOP;
+        current_day := current_day + 1; -- 다음 날짜로 이동
+    END LOOP;
+END;
+/
