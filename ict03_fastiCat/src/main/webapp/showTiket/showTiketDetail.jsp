@@ -96,7 +96,7 @@
 	<div id="showModal" class="modal">
 		<div class="modal-content">
 			<span class="close">&times;</span>
-			<div class="content-left">
+			<div class="modaa-left">
 				<table>
 					<tr>
 						<th colspan="8">
