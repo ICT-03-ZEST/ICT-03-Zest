@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    alert("디테일 스크립트 진입 확인 shows:" + shows); // 페이지 로드 시 shows 배열 내용 확인
+    // alert("디테일 스크립트 진입 확인 shows:" + shows); // 페이지 로드 시 shows 배열 내용 확인
 
     const calendarDates = document.getElementById("calendarDates"); // 캘린더 날짜 요소
     const currentMonthElement = document.getElementById("currentMonth"); // 현재 월 표시 요소
