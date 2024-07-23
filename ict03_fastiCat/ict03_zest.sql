@@ -361,7 +361,11 @@ commit;
     
 --더미데이터==============================================================================
 
-    
+-- 유저정보 ---------------------------
+
+INSERT INTO mvc_customer_tbl(userid, password, username, birthday, address, hp, email)
+VALUES('admin', '1234', '관리자', '2000/01/01','서울', '010-1111-2222','admin@gmail.com');
+commit;
     
 ---------콘서트----------------------
 DECLARE 
