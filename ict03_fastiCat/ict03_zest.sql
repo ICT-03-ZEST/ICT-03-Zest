@@ -428,3 +428,18 @@ BEGIN
     END LOOP;
 END;
 /
+
+-- 커넥션풀 ============================================================
+
+<Resource
+		  author="Container"
+	      name="jdbc/ict03_zest"
+	      type="javax.sql.DataSource"
+	      driverClassName="oracle.jdbc.driver.OracleDriver"
+	      url = "jdbc:oracle:thin:@localhost:1521:xe"
+	      username = "ict03_zest"
+	      password = "tiger"
+	      maxActive="7"
+	      maxWait="1000"
+   />
+ 
