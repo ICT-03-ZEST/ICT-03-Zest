@@ -76,12 +76,54 @@ DROP TABLE mvc_ad_concert_tbl CASCADE CONSTRAINTS;
     show         CHAR(1) DEFAULT 'y'     
  );
  
--- 공연  목록 조회
-SELECT * FROM mvc_ad_concert_tbl
-ORDER BY conNo;
+-- 공연 더미데이터===========================
+DECLARE 
+    i NUMBER:=1; 
+BEGIN
+    WHILE i<=20 LOOP
+        INSERT INTO mvc_ad_concert_tbl(conNo, conCategory, conName, conGrade, conTime, conPlace, conImg, conBuy, conPrice, conContent, conStatus, conIndate)
+        VALUES(i, '트로트', '콘서트이름'||i, '만7세이상', '2024/07/07', '체조경기장', '/ict03_fastiCat/resources/upload/미스터트롯2 진선미.gif', '예매처', 115000, '공연설명', '판매중', sysdate); 
+        i:=i+1;
+        INSERT INTO mvc_ad_concert_tbl(conNo, conCategory, conName, conGrade, conTime, conPlace, conImg, conBuy, conPrice, conContent, conStatus, conIndate)
+        VALUES(i, '케이팝', '콘서트이름'||i, '만7세이상', '2024/07/07', '체조경기장', '/ict03_fastiCat/resources/upload/오마이걸.jpg', '예매처', 115000, '공연설명', '판매중', sysdate); 
+        i:=i+1; 
+        INSERT INTO mvc_ad_concert_tbl(conNo, conCategory, conName, conGrade, conTime, conPlace, conImg, conBuy, conPrice, conContent, conStatus, conIndate)
+        VALUES(i, '케이팝', '콘서트이름'||i, '만7세이상', '2024/07/07', '체조경기장', '/ict03_fastiCat/resources/upload/블랙핑크.jpg', '예매처', 115000, '공연설명', '판매중', sysdate); 
+        i:=i+1;
+        INSERT INTO mvc_ad_concert_tbl(conNo, conCategory, conName, conGrade, conTime, conPlace, conImg, conBuy, conPrice, conContent, conStatus, conIndate)
+        VALUES(i, '인디', '콘서트이름'||i, '만7세이상', '2024/07/07', '체조경기장', '/ict03_fastiCat/resources/upload/잔나비.webp', '예매처', 115000, '공연설명', '판매중', sysdate); 
+        i:=i+1;
+        INSERT INTO mvc_ad_concert_tbl(conNo, conCategory, conName, conGrade, conTime, conPlace, conImg, conBuy, conPrice, conContent, conStatus, conIndate)
+        VALUES(i, '케이팝', '콘서트이름'||i, '만7세이상', '2024/07/07', '체조경기장', '/ict03_fastiCat/resources/upload/데이식스.jpg', '예매처', 115000, '공연설명', '판매중', sysdate); 
+        i:=i+1;
+    END LOOP;
+END;
+/
+COMMIT;
 
+-- 공연 DAO ================================
+-- 공연 등록
+INSERT INTO mvc_ad_concert_tbl(conNo, conCategory, conName, conGrade, conTime, conPlace, conImg, conBuy, conPrice, conContent, conStatus, conIndate)
+ VALUES((SELECT NVL(MAX(conNo)+1, 1) FROM mvc_ad_concert_tbl), '트로트', '송가인콘서트', '만7세이상', '2024/07/07', '체조경기장', '/ict03_fastiCat/resources/upload/송가인.jpg', '예매처', 115000, '공연설명', '판매중', sysdate); 
+COMMIT;
 
---------  페스티벌 테이블 ----------------------------------------------------------------------------
+-- 공연 갯수
+SELECT COUNT(*) as cnt FROM mvc_ad_concert_tbl;
+-- 공연 목록 조회 
+SELECT * FROM mvc_ad_concert_tbl 
+ WHERE show = 'y'
+ ORDER BY conNo;
+-- 공연 수정
+UPDATE mvc_ad_concert_tbl
+SET conCategory = '케이팝'
+WHERE conNo = 4;
+-- 공연 삭제
+UPDATE mvc_ad_concert_tbl
+SET show = 'n'
+WHERE conNo = 1;
+COMMIT;
+
+--------- 페스티벌 테이블 -------------------------------------------------------
 DROP TABLE mvc_ad_festival_tbl CASCADE CONSTRAINTS;
  CREATE TABLE mvc_ad_festival_tbl(
     fesNo        NUMBER(7)  PRIMARY KEY,            -- 페스티벌 번호
@@ -97,44 +139,93 @@ DROP TABLE mvc_ad_festival_tbl CASCADE CONSTRAINTS;
     fesIndate    DATE  DEFAULT sysdate,             -- 페스티벌 등록일
     show         CHAR(1) DEFAULT 'y'     
  );
- 
+
+-- 페스티벌 더미데이터 ============================
+DECLARE 
+    i NUMBER:=1; 
+BEGIN
+    WHILE i<=20 LOOP
+        INSERT INTO mvc_ad_festival_tbl(fesNo, fesName, fesGrade, fesTime, fesPlace, fesImg, fesBuy, fesPrice, fesContent, fesStatus, fesIndate)
+        VALUES(i, '페스티벌이름'||i, '만7세이상', '2024/07/10', '체조경기장', '/ict03_fastiCat/resources/upload/워터밤.jpg', '예매처', 100000, '공연설명', '판매중', sysdate); 
+        i:=i+1;
+        
+        INSERT INTO mvc_ad_festival_tbl(fesNo, fesName, fesGrade, fesTime, fesPlace, fesImg, fesBuy, fesPrice, fesContent, fesStatus, fesIndate)
+        VALUES(i, '페스티벌이름'||i, '만7세이상', '2024/07/10', '부산', '/ict03_fastiCat/resources/upload/부산락페스티벌.jpg', '예매처', 100000, '공연설명', '판매중', sysdate); 
+        i:=i+1; 
+        
+        INSERT INTO mvc_ad_festival_tbl(fesNo, fesName, fesGrade, fesTime, fesPlace, fesImg, fesBuy, fesPrice, fesContent, fesStatus, fesIndate)
+        VALUES(i, '페스티벌이름'||i, '만7세이상', '2024/07/10', '경주엑스포', '/ict03_fastiCat/resources/upload/신라힙합페스티벌.png', '예매처', 100000, '공연설명', '판매중', sysdate); 
+        i:=i+1;
+        
+        INSERT INTO mvc_ad_festival_tbl(fesNo, fesName, fesGrade, fesTime, fesPlace, fesImg, fesBuy, fesPrice, fesContent, fesStatus, fesIndate)
+        VALUES(i, '페스티벌이름'||i, '만7세이상', '2024/07/10', '올림픽공원', '/ict03_fastiCat/resources/upload/서재페.jpg', '예매처', 100000, '공연설명', '판매중', sysdate); 
+        i:=i+1;
+        
+        INSERT INTO mvc_ad_festival_tbl(fesNo, fesName, fesGrade, fesTime, fesPlace, fesImg, fesBuy, fesPrice, fesContent, fesStatus, fesIndate)
+        VALUES(i, '페스티벌이름'||i, '만7세이상', '2024/07/10', '세종공원', '/ict03_fastiCat/resources/upload/세종센트럴파크.jpg', '예매처', 100000, '공연설명', '판매중', sysdate); 
+        i:=i+1;
+    END LOOP;
+END;
+/
+-- 페스티벌 DAO ==============================
+-- 페스티벌 등록
+INSERT INTO mvc_ad_festival_tbl(fesNo, fesName, fesGrade, fesTime, fesPlace, fesImg, fesBuy, fesPrice, fesContent, fesStatus, fesIndate)
+ VALUES((SELECT NVL(MAX(fesNo)+1, 1) FROM mvc_ad_festival_tbl), '서울재즈페스티벌', '전체관람가', '2024/07/07', '올림픽공원', '/jsp_pj_ict03/resources/upload/김치냉장고.jpg', '인터파크', 189000, '공연설명', '판매중', sysdate); 
+COMMIT;
+
+-- 페스티벌 갯수
+SELECT COUNT(*) as cnt FROM mvc_ad_festival_tbl;
 -- 페스티벌 목록 조회
 SELECT * FROM mvc_ad_festival_tbl
-ORDER BY fesNo;
-
+ WHERE show = 'y'
+ ORDER BY fesNo;
+-- 페스티벌 수정
+UPDATE mvc_ad_festival_tbl
+SET fesName='페스티벌이름수정', fesGrade='전체관람가', fesTime='2024/07/23', fesPlace='체조경기장', fesImg='/ict03_fastiCat/resources/upload/서재페.jpg', fesBuy='패스티켓', fesPrice='120000', fesContent='설명', fesStatus='판매중', fesIndate=sysdate
+WHERE fesNo=1;
+-- 페스티벌 삭제
+UPDATE mvc_ad_festival_tbl
+SET show = 'n'
+WHERE fesNo = 7;
+COMMIT;
 
 ----------- 배너테이블 ----------------------------------------------------------
 DROP TABLE mvc_ad_banner_tbl CASCADE CONSTRAINTS;
  CREATE TABLE mvc_ad_banner_tbl(
     bannerNo        NUMBER(7)  PRIMARY KEY,            -- 배너번호
-    bannerArea      VARCHAR2(50)  NOT NULL UNIQUE,     -- 배너영역(메인1,2,3)
+    bannerArea      VARCHAR2(50)  NOT NULL UNIQUE,     -- 배너영역(메인1,2,3,4,5)
     bannerImg       VARCHAR2(100) NOT NULL,            -- 배너 이미지
     bannerStatus    VARCHAR2(20) NOT NULL,             -- 배너 상태코드(사용함,안함)
     bannerIndate    DATE  DEFAULT sysdate,             -- 등록일
     show            CHAR(1) DEFAULT 'y'     
  );
- 
--- 배너 목록 조회
+
+-- 배너 DAO ==============================
+-- 배너 등록
+INSERT INTO mvc_ad_banner_tbl(bannerNo, bannerArea, bannerImg, bannerStatus, bannerIndate)
+ VALUES((SELECT NVL(MAX(bannerNo)+1, 1) FROM mvc_ad_banner_tbl), '메인배너1', '/ict03_fastiCat/resources/upload/slide1.PNG', '사용함', sysdate); 
+COMMIT;
+INSERT INTO mvc_ad_banner_tbl(bannerNo, bannerArea, bannerImg, bannerStatus, bannerIndate)
+ VALUES((SELECT NVL(MAX(bannerNo)+1, 1) FROM mvc_ad_banner_tbl), '메인배너2', '/ict03_fastiCat/resources/upload/slide2.PNG', '사용함', sysdate); 
+COMMIT;
+INSERT INTO mvc_ad_banner_tbl(bannerNo, bannerArea, bannerImg, bannerStatus, bannerIndate)
+ VALUES((SELECT NVL(MAX(bannerNo)+1, 1) FROM mvc_ad_banner_tbl), '메인배너3', '/ict03_fastiCat/resources/upload/slide3.PNG', '사용함', sysdate); 
+COMMIT;
+
+-- 배너 갯수
+SELECT COUNT(*) as cnt FROM mvc_ad_banner_tbl;
+-- 배너 조회
 SELECT * FROM mvc_ad_banner_tbl
-ORDER BY bannerNo;
+ORDER BY bannerArea;
+-- 배너 수정
+UPDATE mvc_ad_banner_tbl
+SET bannerArea='메인배너2', bannerImg='/ict03_fastiCat/resources/upload/slide2.PNG', bannerStatus='사용안함', bannerIndate=sysdate
+WHERE bannerNo=2;
+-- 배너 삭제
+DELETE mvc_ad_banner_tbl
+WHERE bannerNo = 3;
+COMMIT;
 
-
------- 공지사항 테이블 --------------------------------------------------------------------
-DROP TABLE mvc_ad_notice_tbl  CASCADE CONSTRAINTS;
-CREATE TABLE mvc_ad_notice_tbl(  
-   noticeNo          NUMBER(7)  PRIMARY KEY,      -- 공지사항 번호
-   noticeTitle       VARCHAR2(50)  NOT NULL,      -- 공지사항 제목
-   noticeContent     CLOB  NOT NULL,              -- 공지사항 내용
-   noticeImg         VARCHAR2(100) NOT NULL,      -- 첨부이미지
-   noticeWriter      VARCHAR2(30)  NOT NULL,      -- 작성자(관리자)
-   noticeReadCnt     NUMBER(6)   DEFAULT 0,       -- 조회수
-   noticeRegDate     DATE  DEFAULT sysdate,       -- 작성일
-   show              CHAR(1) DEFAULT 'y'          
-);
-
--- 공지사항 목록 조회
-SELECT * FROM mvc_ad_notice_tbl
-ORDER BY noticeNo;
 
 
 -- 김성태 -------------------------------------------------------------------------------
