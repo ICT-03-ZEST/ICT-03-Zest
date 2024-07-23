@@ -29,7 +29,7 @@
 	    <table>
 	    	<tr>
 	    		<td>비밀번호</td>
-	    		<td><input id="del_pwd_chk" class="del_pwd_chk" type="text" placeholder="비밀번호확인"></td>
+	    		<td><input id="del_pwd_chk" class="del_pwd_chk" type="password" placeholder="비밀번호확인"></td>
 	    	</tr>
 	    </table>
     </div>

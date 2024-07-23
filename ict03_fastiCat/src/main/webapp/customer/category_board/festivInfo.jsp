@@ -38,7 +38,7 @@ $(function() {
             <!--포스터&예매버튼-->
             <ul>
                 <li><div class="photo"><img src="${dto.fesImg}"></div></li>
-                <li><div class="buy_ticket"><a href="${path}/showTicket_Detail.do">예매하기</a></div></li>
+                <%-- <li><div class="buy_ticket"><a href="${path}/showTicket_Detail.do">예매하기</a></div></li> --%>
             </ul>   
                       
             <!--상세 정보--> 
