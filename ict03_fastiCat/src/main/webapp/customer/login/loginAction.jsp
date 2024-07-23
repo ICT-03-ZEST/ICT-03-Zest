@@ -71,7 +71,7 @@
       					
 						<!-- // 세션이 있는 경우 -->
      					<c:if test="${sessionScope.sessionID != null}">
-						<table>
+						<%-- <table>
 								<tr>
 									<td colspan="2" align="center">
 										<h3>
@@ -91,7 +91,12 @@
 										</div>
 									</td>
 								</tr>
-      						</table>  
+      						</table>   --%>
+      						
+      						<script type="text/javascript">
+      							window.location="/ict03_fastiCat/main.do"
+      						</script>
+      						
       						</c:if>    					
       					</form>
       				</div>

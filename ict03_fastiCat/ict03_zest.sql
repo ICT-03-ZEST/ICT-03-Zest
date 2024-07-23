@@ -352,3 +352,35 @@ CREATE SEQUENCE show_Reservation_seq
     INCREMENT BY 1
     NOCACHE
     NOCYCLE;
+    
+    
+    
+    
+--더미데이터==============================================================================
+
+    
+    
+---------콘서트----------------------
+DECLARE 
+    i NUMBER:=1; 
+BEGIN
+    WHILE i<=20 LOOP
+       INSERT INTO mvc_ad_concert_tbl(conNo, conCategory, conName, conGrade, conTime, conPlace, conImg, conBuy, conPrice, conContent, conStatus, conIndate)
+        VALUES(i, '트로트', '콘서트이름'||i, '만7세이상', '2024/07/07', '체조경기장', '/js_pj_fasticat/resources/images/미스터트롯2 진선미.gif', '예매처', 115000, '공연설명', '판매중', sysdate); 
+        i:=i+1;
+         INSERT INTO mvc_ad_concert_tbl(conNo, conCategory, conName, conGrade, conTime, conPlace, conImg, conBuy, conPrice, conContent, conStatus, conIndate)
+        VALUES(i, 'k-pop', '콘서트이름'||i, '만7세이상', '2024/07/07', '체조경기장', '/js_pj_fasticat/resources/images/더보이즈.jpg', '예매처', 115000, '공연설명', '판매중', sysdate); 
+        i:=i+1; 
+         INSERT INTO mvc_ad_concert_tbl(conNo, conCategory, conName, conGrade, conTime, conPlace, conImg, conBuy, conPrice, conContent, conStatus, conIndate)
+        VALUES(i, 'pop', '콘서트이름'||i, '만7세이상', '2024/07/07', '체조경기장', '/js_pj_fasticat/resources/images/블랙핑크.jpg', '예매처', 115000, '공연설명', '판매중', sysdate); 
+        i:=i+1;
+         INSERT INTO mvc_ad_concert_tbl(conNo, conCategory, conName, conGrade, conTime, conPlace, conImg, conBuy, conPrice, conContent, conStatus, conIndate)
+        VALUES(i, '인디', '콘서트이름'||i, '만7세이상', '2024/07/07', '체조경기장', '/js_pj_fasticat/resources/images/나상현씨밴드.jfif', '예매처', 115000, '공연설명', '판매중', sysdate); 
+        i:=i+1;
+         INSERT INTO mvc_ad_concert_tbl(conNo, conCategory, conName, conGrade, conTime, conPlace, conImg, conBuy, conPrice, conContent, conStatus, conIndate)
+        VALUES(i, 'pop', '콘서트이름'||i, '만7세이상', '2024/07/07', '체조경기장', '/js_pj_fasticat/resources/images/데이식스.jpg', '예매처', 115000, '공연설명', '판매중', sysdate); 
+        i:=i+1;
+    END LOOP;
+END
+
+
