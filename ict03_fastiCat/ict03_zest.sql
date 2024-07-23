@@ -302,7 +302,8 @@ CREATE TABLE mvc_customer_tbl(
    address    VARCHAR2(50)    NOT NULL,          -- 주소
    hp         VARCHAR2(13),                      -- 핸드폰      
    email      VARCHAR2(50)    NOT NULL,          -- 이메일
-   regDate    TIMESTAMP       DEFAULT sysdate    -- 가입일
+   regDate    TIMESTAMP       DEFAULT sysdate,    -- 가입일
+   show            CHAR(1) DEFAULT 'y'
 ); 
 
 INSERT INTO mvc_customer_tbl(userid, password, username, birthday, address, hp, email)

@@ -22,6 +22,7 @@ a {
 	opacity: 0.88;
 	border-style: none;
 	position: relative; /* 위치를 상대 위치로 설정 */
+	z-index: 1000; /* 다른 요소 위로 나타나게 설정 */
 }
 
 .navbar_menu {
